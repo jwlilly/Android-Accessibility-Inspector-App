@@ -1,0 +1,98 @@
+<div (window:resize)="onResize($event)">
+  <div>
+    <div *ngIf="!connected" class="alert alert-warning alert-sticky">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="alert-center" role="alert">
+            Device not connected... <span class="sr-only">Use accesskey R to retry</span>
+          </div>
+        </div>
+        <div class="col-sm-8">
+          <button accesskey="r" class="btn btn-warning" [attr.aria-disabled]="loading" [attr.aria-busy]="loading" (click)="refreshConnection()">
+            <span [class.spinner]="loading" aria-hidden="true"></span>
+            <span>Retry</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <button class="m-1 btn btn-success sticky-top btn-circle btn-xl topcorner" accesskey="c" title="Capture screen" (click)="startSetup()"><i aria-hidden="true" class="bi bi-camera"></i></button>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-auto">
+        <div class="sticky-top" (click)="imageClick($event)" (mousemove)="mouseOver($event)" style="padding-left: 5px; padding-top: 5px;">
+          <img alt="Device screenshot" id="screenshot" src="{{imageBase64}}" class="img-fluid border img-height">
+          <div [ngStyle]="outlineDimensions"></div>
+          <div [ngStyle]="hoverOutlineDimensions"></div>
+          <div [ngStyle]="focusOutlineDimensions"></div>
+        </div>
+      </div>
+      <div class="col-md">
+        <div class="m-1">
+          <ul class="list-group dark-border" *ngIf="jsonData.children">
+            <ng-template #recursiveList let-list>
+                <li class="list-group-item dark-border" *ngFor="let node of list" [class.web-view]="node.role === 'WebView'">
+                  <button id="{{ node.id }}" aria-pressed="false" class="btn btn-focus remove-btn-border" (click)="nodeClicked($event,node)">
+                    <div>
+                      <span>
+                        {{node.role}}
+                        <span class="web-view-btn badge rounded-pill bg-warning text-dark text-outline-light">WebView</span>
+                        <span class="native-view-btn badge rounded-pill bg-success text-outline text-outline-dark">Native</span>
+                      </span>
+                    </div>
+                    <div *ngIf="node.resourceId">id: {{node.resourceId}}</div>
+                    <div *ngIf="node.text">Text: {{node.text}}</div>
+                    <div *ngIf="node.heading">Heading: {{node.heading}}</div>
+                    <div *ngIf="node.title">Title: {{node.title}}</div>
+                    <div *ngIf="node.paneTitle">Pane Title: {{node.paneTitle}}</div>
+                    <div *ngIf="node.content">Content: {{node.content}}</div>
+                    <div *ngIf="node.labeledBy">Labeled by: {{node.labeledBy}}</div>
+                    <div *ngIf="node.hint">Hint: {{node.hint}}</div>
+                    <div *ngIf="node.state">State: {{node.state}}</div>
+                    <div *ngIf="node.checkable">Checked: {{node.checkable}}</div>
+                    <div *ngIf="node.collectionInfo">Collection Info: {{node.collectionInfo}}</div>
+                    <div *ngIf="node.collectionItemInfo">Collection Item Info: {{node.collectionItemInfo}}</div>
+                    <div *ngIf="node.actions"><span>Actions: </span>
+                      <span *ngFor="let item of node.actions; let i = index;">
+                        <span *ngIf="i != (node.actions.length - 1)">{{item}}, </span>
+                        <span *ngIf="i == (node.actions.length - 1)">{{item}}</span>
+                      </span>
+                    </div>
+                    <div *ngIf="node.properties"><span>Properties: </span>
+                      <span *ngFor="let item of node.properties; let i = index;">
+                        <span *ngIf="i != (node.properties.length - 1)">{{item}}, </span>
+                        <span *ngIf="i == (node.properties.length - 1)">{{item}}</span>
+                      </span>
+                  </div>
+                  <div *ngIf="node.links"><span>Links: </span>
+                    <span *ngFor="let item of node.links; let i = index;">
+                      <span *ngIf="i != (node.links.length - 1)">{{item}}, </span>
+                      <span *ngIf="i == (node.links.length - 1)">{{item}}</span>
+                    </span>
+                  </div>
+                  <div *ngIf="node.x1 >= 0 && node.x2 >= 0 && node.y1 >= 0 && node.y2 >= 0">
+                    <span>
+                      <span>Size: {{ node.x2 - node.x1 }} x {{ node.y2 - node.y1 }} px</span>
+                    </span>
+                  </div>
+                  <div *ngIf="node.visibility">
+                    <span>Visibility: {{ node.visibility }}</span>
+                  </div>
+                  <div *ngIf="node.importantForAccessibility !== undefined && !node.importantForAccessibility">
+                    <span>Important for A11y: {{ node.importantForAccessibility }}</span>
+                  </div>
+                  </button>
+                  <button *ngIf="node.labeledById" class="btn btn-dark btn-focus" (click)="labeledByClicked($event,node)">Highlight label view</button>
+                  <ul class="list-group dark-border" *ngIf="node.children && node.children.length > 0">
+                      <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: node.children}"></ng-container>
+                  </ul>
+                </li>
+            </ng-template>
+            <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: jsonData.children}"></ng-container>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="sr-only" role="alert">{{ a11yMessage }}</div>
+<router-outlet></router-outlet>

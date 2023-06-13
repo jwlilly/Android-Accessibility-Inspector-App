@@ -1,0 +1,79 @@
+{
+  "name": "android-accessibility-inspector",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "ng": "ng",
+    "start": "electron ./app",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "electron": "electron",
+    "electron-build": "ng build --prod && electron .",
+    "package-win": "electron-packager ./ --platform=win32 --arch=x64 --overwrite --asar.unpackDir='src/assets'",
+    "package-macArm": "electron-packager ./ --platform=darwin --overwrite --asar.unpackDir='src/assets'",
+    "package-macX64": "electron-packager ./ --platform=darwin --arch=x64 --overwrite --asar.unpackDir='src/assets'",
+    "package-all": "ng build && npm run package-win && npm run package-macArm && npm run package-macX64"
+  },
+  "build": {
+    "appId": "AndroidAccessibilityInspector",
+    "productName": "Android Accessibility Inspector",
+    "files": [
+      "**/*",
+      "dist/**/*"
+    ],
+    "directories": {
+      "output": "release",
+      "buildResources": "dist"
+    },
+    "win": {
+      "icon": "./icons/win/icon.png"
+    }
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "~12.2.0",
+    "@angular/cdk": "^12.2.13",
+    "@angular/common": "~12.2.0",
+    "@angular/compiler": "~12.2.0",
+    "@angular/core": "~12.2.0",
+    "@angular/forms": "~12.2.0",
+    "@angular/localize": "~12.2.0",
+    "@angular/platform-browser": "~12.2.0",
+    "@angular/platform-browser-dynamic": "~12.2.0",
+    "@angular/router": "~12.2.0",
+    "asar": "^3.1.0",
+    "bootstrap": "^5.1.3",
+    "bootstrap-icons": "^1.7.2",
+    "cli-truncate": "^3.1.0",
+    "hazardous": "^0.3.0",
+    "image-size": "^1.0.1",
+    "ngx-electron": "^2.2.0",
+    "ngx-toastr": "^14.2.3",
+    "path": "^0.12.7",
+    "rxjs": "~6.6.0",
+    "stream": "^0.0.2",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.11.4"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~12.2.12",
+    "@angular/cli": "~12.2.12",
+    "@angular/compiler-cli": "~12.2.0",
+    "@types/jasmine": "~3.8.0",
+    "@types/jquery": "^3.5.13",
+    "@types/node": "14.14.33",
+    "electron": "13.6.6",
+    "electron-builder": "^22.14.13",
+    "electron-packager": "^15.4.0",
+    "jasmine-core": "~3.8.0",
+    "karma": "~6.3.0",
+    "karma-chrome-launcher": "~3.1.0",
+    "karma-coverage": "~2.0.3",
+    "karma-jasmine": "~4.0.0",
+    "karma-jasmine-html-reporter": "~1.7.0",
+    "typescript": "~4.3.5"
+  }
+}

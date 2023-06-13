@@ -1,0 +1,135 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  padding: 6px 0px;
+  border-radius: 15px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.42857;
+}
+.btn-circle.btn-xl {
+  width: 70px;
+  height: 70px;
+  padding: 10px 16px;
+  border-radius: 35px;
+  font-size: 24px;
+  line-height: 1.33;
+}
+
+.zindex-fixed {
+  z-index: 5000;
+}
+
+.topcorner{
+  position:fixed;
+  top:0;
+  right:5px;
+  z-index:100;
+ }
+
+.dark-border {
+  border: 1px solid darkslategray;
+}
+
+.remove-btn-border {
+  text-align: left;
+  border: none;
+  background: none;
+  width: 100%;
+}
+
+.btn-active {
+  color: white;
+}
+
+.btn-active:focus {
+  outline: white !important;
+}
+.btn-active:hover {
+  color: white;
+}
+
+span.web-view-btn {
+  display: none;
+}
+
+li.web-view span.web-view-btn {
+  display:inline-block;
+  margin-left: 4px;
+}
+
+.text-outline-dark {
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.text-outline-light {
+  text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
+}
+
+li.web-view span.native-view-btn {
+  display:none;
+  margin-left: 4px;
+}
+
+.btn-focus:focus{
+  outline: black;
+  outline-width: 2px!important;
+  outline-style: solid !important;
+  outline-offset: -2px;
+}
+.alert-center {
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+   transform: translateY(-50%);
+   position: absolute;
+   top: 50%;
+}
+.alert-sticky {
+  position: fixed;
+  width: 100%;
+  z-index: 2000;
+}
+@keyframes spinner {
+  to {transform: rotate(360deg);}
+}
+
+.spinner:before {
+  content: "";
+  box-sizing: border-box;
+  display: inline-flex;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  margin-right: 5px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  border-top-color: #000;
+  animation: spinner .8s linear infinite;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
+
+.img-height {
+  max-height: calc(100vh - 16px);
+}
+
+#toast-container > div {
+  opacity:1;
+  z-index: 5001;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

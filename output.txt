@@ -1,0 +1,276 @@
+01-14 22:28:04.894  1897  1897 V talkback: TreeDebug: ------------Node tree------------
+01-14 22:28:04.894  1897  1897 V talkback: TreeDebug: Window: AccessibilityWindowInfo[title=null, displayId=0, id=6, type=TYPE_SYSTEM, layer=3, region=SkRegion((0,0,136,136)), bounds=Rect(0, 0 - 136, 136), focused=false, active=false, pictureInPicture=false, hasParent=false, isAnchored=false, hasChildren=false]
+01-14 22:28:04.897  1897  1897 V talkback: TreeDebug: (31688)6.FrameLayout:(0, 0 - 1080, 224)(action:A11Y_FOCUS)
+01-14 22:28:04.897  1897  1897 V talkback: TreeDebug: Window: AccessibilityWindowInfo[title=Navigation bar, displayId=0, id=4, type=TYPE_SYSTEM, layer=2, region=SkRegion((0,2208,1080,2340)), bounds=Rect(0, 2208 - 1080, 2340), focused=false, active=false, pictureInPicture=false, hasParent=false, isAnchored=false, hasChildren=false]
+01-14 22:28:04.902  1897  1897 V talkback: TreeDebug: (47062)4.FrameLayout:(0, 2208 - 1080, 2340)(action:A11Y_FOCUS)
+01-14 22:28:04.906  1897  1897 V talkback: TreeDebug:   (48023)4.FrameLayout:(0, 2208 - 1080, 2340)(action:A11Y_FOCUS)
+01-14 22:28:04.909  1897  1897 V talkback: TreeDebug:     (55711)4.ImageView:(149, 2208 - 344, 2340):CONTENT{Back}(action:FOCUS/A11Y_FOCUS/CLICK):focusable:clickable
+01-14 22:28:04.909  1897  1897 V talkback: TreeDebug:     (58594)4.ImageView:(734, 2208 - 930, 2340):CONTENT{Overview}(action:FOCUS/A11Y_FOCUS/CLICK):focusable:clickable
+01-14 22:28:04.909  1897  1897 V talkback: TreeDebug:     (64360)4.ImageView:(930, 2208 - 1028, 2340):CONTENT{Accessibility}(action:FOCUS/A11Y_FOCUS/CLICK):focusable:clickable
+01-14 22:28:04.909  1897  1897 V talkback: TreeDebug:     (66282)4.FrameLayout:(430, 2208 - 650, 2340)(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:04.909  1897  1897 V talkback: TreeDebug:       (74931)4.ImageView:(430, 2208 - 650, 2340):CONTENT{Home}(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:04.910  1897  1897 V talkback: TreeDebug: Window: AccessibilityWindowInfo[title=null, displayId=0, id=3, type=TYPE_SYSTEM, layer=1, region=SkRegion((0,0,1080,136)), bounds=Rect(0, 0 - 1080, 136), focused=false, active=false, pictureInPicture=false, hasParent=false, isAnchored=false, hasChildren=false]
+01-14 22:28:04.913  1897  1897 V talkback: TreeDebug: (214275)3.FrameLayout:(0, 0 - 1080, 136)(action:A11Y_FOCUS)
+01-14 22:28:04.913  1897  1897 V talkback: TreeDebug:   (869677)3.FrameLayout:(0, 0 - 1080, 136):PANE{Status bar}(action:A11Y_FOCUS)
+01-14 22:28:04.913  1897  1897 V talkback: TreeDebug:     (878326)3.TextView:(158, 30 - 259, 136):TEXT{10:28}:CONTENT{10:28 PM}(action:A11Y_FOCUS):supportsTextLocation
+01-14 22:28:04.913  1897  1897 V talkback: TreeDebug:     (1136835)3.ImageView:(259, 30 - 320, 136):CONTENT{System UI notification: Charging temporarily limited}(action:A11Y_FOCUS)
+01-14 22:28:04.913  1897  1897 V talkback: TreeDebug:     (5520917)3.ImageView:(320, 30 - 381, 136):CONTENT{Android System notification: USB debugging connected}(action:A11Y_FOCUS)
+01-14 22:28:04.913  1897  1897 V talkback: TreeDebug:     (3442274)3.ImageView:(381, 30 - 442, 136):CONTENT{YouTube Music notification: New release for you}(action:A11Y_FOCUS)
+01-14 22:28:04.914  1897  1897 V talkback: TreeDebug:     (1303088)3.FrameLayout:(917, 52 - 965, 113):CONTENT{Wifi signal full.}(action:A11Y_FOCUS)
+01-14 22:28:04.914  1897  1897 V talkback: TreeDebug:     (888897)3.LinearLayout:(982, 30 - 1003, 136):CONTENT{Battery charging, 80 percent.}(action:A11Y_FOCUS)
+01-14 22:28:04.914  1897  1897 V talkback: TreeDebug: Window: AccessibilityWindowInfo[title=Play Store, displayId=0, id=601, type=TYPE_APPLICATION, layer=0, region=SkRegion((0,0,1080,2340)), bounds=Rect(0, 0 - 1080, 2340), focused=true, active=true, pictureInPicture=false, hasParent=false, isAnchored=false, hasChildren=false]
+01-14 22:28:04.918  1897  1897 V talkback: TreeDebug: (-2147455209)601.FrameLayout:(0, 0 - 1080, 2340)(action:A11Y_FOCUS)
+01-14 22:28:04.918  1897  1897 V talkback: TreeDebug:   (35166)601.DrawerLayout:(0, 0 - 1080, 2340)(action:A11Y_FOCUS)
+01-14 22:28:04.918  1897  1897 V talkback: TreeDebug:     (36127)601.FrameLayout:(0, 0 - 1080, 2340)(action:A11Y_FOCUS)
+01-14 22:28:04.918  1897  1897 V talkback: TreeDebug:       (98592)601.TextView:invisible:(0, 0 - 1080, 0)(action:A11Y_FOCUS)
+01-14 22:28:04.918  1897  1897 V talkback: TreeDebug:       (94748)601.FrameLayout:(0, 0 - 1080, 422)(action:A11Y_FOCUS)
+01-14 22:28:04.918  1897  1897 V talkback: TreeDebug:         (103397)601.FrameLayout:(0, 290 - 1080, 422)(action:A11Y_FOCUS)
+01-14 22:28:04.918  1897  1897 V talkback: TreeDebug:           (101475)601.HorizontalScrollView:(0, 290 - 1080, 422)(action:FOCUS/A11Y_FOCUS/SCROLL_FORWARD):focusable:scrollable
+01-14 22:28:04.918  1897  1897 V talkback: TreeDebug:             (137032)601.TextView:(66, 290 - 324, 422):TEXT{For you}(action:FOCUS/A11Y_FOCUS/CLICK):focusable:selected:clickable:supportsTextLocation:heading#r0c0
+01-14 22:28:04.919  1897  1897 V talkback: TreeDebug:             (137993)601.TextView:(324, 290 - 642, 422):TEXT{Top charts}(action:FOCUS/A11Y_FOCUS/CLICK):focusable:clickable:supportsTextLocation:heading#r0c0
+01-14 22:28:04.919  1897  1897 V talkback: TreeDebug:             (138954)601.TextView:(642, 290 - 840, 422):TEXT{Kids}(action:FOCUS/A11Y_FOCUS/CLICK):focusable:clickable:supportsTextLocation:heading#r0c0
+01-14 22:28:04.919  1897  1897 V talkback: TreeDebug:             (139915)601.TextView:(840, 290 - 1080, 422):TEXT{Categories}(action:FOCUS/A11Y_FOCUS/CLICK):focusable:clickable:supportsTextLocation:heading#r0c0
+01-14 22:28:04.919  1897  1897 V talkback: TreeDebug:             (140876)601.TextView:invisible:(1080, 290 - 1080, 422):TEXT{Editors' Choice}(action:FOCUS/A11Y_FOCUS/CLICK):focusable:clickable:supportsTextLocation:heading#r0c0
+01-14 22:28:04.919  1897  1897 V talkback: TreeDebug:       (104358)601.ViewPager:(0, 136 - 1080, 1988)(action:FOCUS/A11Y_FOCUS/SCROLL_FORWARD):focusable:scrollable
+01-14 22:28:04.919  1897  1897 V talkback: TreeDebug:         (143759)601.RecyclerView:(0, 136 - 1080, 1988)(action:A11Y_FOCUS/SCROLL_FORWARD):scrollable:collection#R6C1
+01-14 22:28:04.919  1897  1897 V talkback: TreeDebug:           (149525)601.RelativeLayout:(0, 422 - 1080, 1070)(action:A11Y_FOCUS)
+01-14 22:28:04.919  1897  1897 V talkback: TreeDebug:             (150486)601.FrameLayout:(0, 422 - 1080, 583):CONTENT{Recommended for you}(action:FOCUS/A11Y_FOCUS/CLICK):focusable:clickable:heading
+01-14 22:28:04.919  1897  1897 V talkback: TreeDebug:               (152408)601.ImageView:(948, 469 - 1014, 535):CONTENT{More results for Recommended for you}(action:FOCUS/A11Y_FOCUS/CLICK):focusable:clickable
+01-14 22:28:04.919  1897  1897 V talkback: TreeDebug:             (153369)601.RecyclerView:(0, 583 - 1080, 1037)(action:A11Y_FOCUS/SCROLL_FORWARD):scrollable:collection#R-1C14
+01-14 22:28:04.920  1897  1897 V talkback: TreeDebug:               (154330)601.View:(0, 583 - 50, 1037)(action:A11Y_FOCUS)
+01-14 22:28:04.920  1897  1897 V talkback: TreeDebug:               (155291)601.FrameLayout:(50, 583 - 376, 1037):CONTENT{App: DuckDuckGo Privacy Browser
+01-14 22:28:04.920  1897  1897 V talkback: TreeDebug: Star rating: 4.8}(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:04.920  1897  1897 V talkback: TreeDebug:               (157213)601.FrameLayout:(376, 583 - 702, 1037):CONTENT{App: Amazon Prime Video
+01-14 22:28:04.920  1897  1897 V talkback: TreeDebug: Star rating: 4.4}(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:04.920  1897  1897 V talkback: TreeDebug:               (159135)601.FrameLayout:(702, 583 - 1028, 1037):CONTENT{App: TikTok
+01-14 22:28:04.920  1897  1897 V talkback: TreeDebug: Star rating: 4.5}(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:04.920  1897  1897 V talkback: TreeDebug:               (161057)601.FrameLayout:(1028, 583 - 1080, 1037):CONTENT{App: Duolingo: language lessons
+01-14 22:28:04.920  1897  1897 V talkback: TreeDebug: Star rating: 4.5}(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:04.920  1897  1897 V talkback: TreeDebug:           (218717)601.RelativeLayout:(0, 1070 - 1080, 1718)(action:A11Y_FOCUS)
+01-14 22:28:04.920  1897  1897 V talkback: TreeDebug:             (219678)601.FrameLayout:(0, 1070 - 1080, 1231):CONTENT{Ads
+01-14 22:28:04.920  1897  1897 V talkback: TreeDebug: Suggested for you}(action:FOCUS/A11Y_FOCUS):focusable:heading
+01-14 22:28:04.920  1897  1897 V talkback: TreeDebug:             (221600)601.RecyclerView:(0, 1231 - 1080, 1685)(action:A11Y_FOCUS/SCROLL_FORWARD):scrollable:collection#R-1C14
+01-14 22:28:04.920  1897  1897 V talkback: TreeDebug:               (222561)601.View:(0, 1231 - 50, 1685)(action:A11Y_FOCUS)
+01-14 22:28:04.920  1897  1897 V talkback: TreeDebug:               (223522)601.FrameLayout:(50, 1231 - 376, 1685):CONTENT{App: TikTok
+01-14 22:28:04.920  1897  1897 V talkback: TreeDebug: Star rating: 4.5}(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:04.921  1897  1897 V talkback: TreeDebug:               (225444)601.FrameLayout:(376, 1231 - 702, 1685):CONTENT{App: Instagram
+01-14 22:28:04.921  1897  1897 V talkback: TreeDebug: Star rating: 4.1}(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:04.921  1897  1897 V talkback: TreeDebug:               (227366)601.FrameLayout:(702, 1231 - 1028, 1685):CONTENT{App: Facebook
+01-14 22:28:04.921  1897  1897 V talkback: TreeDebug: 
+01-14 22:28:04.921  1897  1897 V talkback: TreeDebug: Update}(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:04.921  1897  1897 V talkback: TreeDebug:               (229288)601.FrameLayout:(1028, 1231 - 1080, 1685):CONTENT{App: Truebill Budget Planner, Bill Tracker and Reminder
+01-14 22:28:04.921  1897  1897 V talkback: TreeDebug: Star rating: 4.4}(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:04.921  1897  1897 V talkback: TreeDebug:           (199497)601.RelativeLayout:(0, 1718 - 1080, 1988)(action:A11Y_FOCUS)
+01-14 22:28:04.921  1897  1897 V talkback: TreeDebug:             (200458)601.FrameLayout:(0, 1718 - 1080, 1879):CONTENT{Watch TV & movies}(action:FOCUS/A11Y_FOCUS/CLICK):focusable:clickable:heading
+01-14 22:28:04.921  1897  1897 V talkback: TreeDebug:               (202380)601.ImageView:(948, 1765 - 1014, 1831):CONTENT{More results for Watch TV & movies}(action:FOCUS/A11Y_FOCUS/CLICK):focusable:clickable
+01-14 22:28:04.921  1897  1897 V talkback: TreeDebug:             (203341)601.RecyclerView:(0, 1879 - 1080, 1988)(action:A11Y_FOCUS/SCROLL_FORWARD):scrollable:collection#R-1C14
+01-14 22:28:04.921  1897  1897 V talkback: TreeDebug:               (204302)601.View:(0, 1879 - 50, 1988)(action:A11Y_FOCUS)
+01-14 22:28:04.921  1897  1897 V talkback: TreeDebug:               (205263)601.FrameLayout:(50, 1879 - 376, 1988):CONTENT{App: ISS Live Now: View Earth Live
+01-14 22:28:04.921  1897  1897 V talkback: TreeDebug: Star rating: 4.7}(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:04.921  1897  1897 V talkback: TreeDebug:               (207185)601.FrameLayout:(376, 1879 - 702, 1988):CONTENT{App: Peacock TV: Stream TV & Movies
+01-14 22:28:04.921  1897  1897 V talkback: TreeDebug: Star rating: 4.4}(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:04.922  1897  1897 V talkback: TreeDebug:               (209107)601.FrameLayout:(702, 1879 - 1028, 1988):CONTENT{App: Tubi - Free Movies & TV Shows
+01-14 22:28:04.922  1897  1897 V talkback: TreeDebug: Star rating: 4.7}(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:04.922  1897  1897 V talkback: TreeDebug:               (211029)601.FrameLayout:(1028, 1879 - 1080, 1988):CONTENT{App: Roku - Official Remote Control
+01-14 22:28:04.922  1897  1897 V talkback: TreeDebug: Star rating: 4.4}(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:04.922  1897  1897 V talkback: TreeDebug:         (213912)601.RecyclerView:invisible:(1124, 136 - 1080, 1988)(action:A11Y_FOCUS/SCROLL_FORWARD):scrollable:collection#R17C1
+01-14 22:28:04.922  1897  1897 V talkback: TreeDebug:           (233132)601.LinearLayout:invisible:(1124, 444 - 1080, 576)(action:A11Y_FOCUS)
+01-14 22:28:04.922  1897  1897 V talkback: TreeDebug:             (237937)601.RecyclerView:invisible:(1124, 444 - 1080, 576)(action:A11Y_FOCUS):collection#R-1C-1
+01-14 22:28:04.922  1897  1897 V talkback: TreeDebug:               (238898)601.FrameLayout:invisible:(1190, 444 - 1080, 576)(action:A11Y_FOCUS)
+01-14 22:28:04.922  1897  1897 V talkback: TreeDebug:                 (240820)601.Button:invisible:(1190, 466 - 1080, 554):TEXT{Top free}:CONTENT{Top free - double tap to change the filter}(action:FOCUS/A11Y_FOCUS/CLICK):focusable:clickable:supportsTextLocation
+01-14 22:28:04.922  1897  1897 V talkback: TreeDebug:               (241781)601.FrameLayout:invisible:(1515, 444 - 1080, 576)(action:A11Y_FOCUS)
+01-14 22:28:04.922  1897  1897 V talkback: TreeDebug:                 (243703)601.Button:invisible:(1515, 466 - 1080, 554):TEXT{Categories}:CONTENT{Categories - double tap to change the filter}(action:FOCUS/A11Y_FOCUS/CLICK):focusable:clickable:supportsTextLocation
+01-14 22:28:04.922  1897  1897 V talkback: TreeDebug:           (246586)601.LinearLayout:invisible:(1124, 598 - 1080, 598)(action:A11Y_FOCUS)
+01-14 22:28:04.922  1897  1897 V talkback: TreeDebug:             (248508)601.TextView:invisible:(1190, 598 - 1080, 532):TEXT{No results}(action:A11Y_FOCUS):supportsTextLocation
+01-14 22:28:04.923  1897  1897 V talkback: TreeDebug:             (249469)601.TextView:invisible:(1190, 598 - 1080, 554):TEXT{Try removing some filters}(action:A11Y_FOCUS):supportsTextLocation
+01-14 22:28:04.923  1897  1897 V talkback: TreeDebug:           (244664)601.FrameLayout:invisible:(1124, 598 - 1080, 598)(action:A11Y_FOCUS)
+01-14 22:28:04.923  1897  1897 V talkback: TreeDebug:             (245625)601.ProgressBar:invisible:(1598, 598 - 1080, 598)(action:A11Y_FOCUS)
+01-14 22:28:04.923  1897  1897 V talkback: TreeDebug:           (250430)601.ViewGroup:invisible:(1124, 598 - 1080, 829)(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:04.923  1897  1897 V talkback: TreeDebug:             (258118)601.TextView:invisible:(1232, 685 - 1080, 742):TEXT{1}(action:A11Y_FOCUS):supportsTextLocation
+01-14 22:28:04.923  1897  1897 V talkback: TreeDebug:             (256196)601.View:invisible:(1487, 631 - 1080, 796):CONTENT{App: TikTok
+01-14 22:28:04.923  1897  1897 V talkback: TreeDebug: Social
+01-14 22:28:04.923  1897  1897 V talkback: TreeDebug: Star rating: 4.5}(action:A11Y_FOCUS)
+01-14 22:28:04.923  1897  1897 V talkback: TreeDebug:           (260040)601.ViewGroup:invisible:(1124, 829 - 1080, 1060)(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:04.923  1897  1897 V talkback: TreeDebug:             (267728)601.TextView:invisible:(1229, 916 - 1080, 973):TEXT{2}(action:A11Y_FOCUS):supportsTextLocation
+01-14 22:28:04.923  1897  1897 V talkback: TreeDebug:             (268689)601.ImageView:invisible:(1218, 973 - 1080, 1017):CONTENT{Trending Up}(action:A11Y_FOCUS)
+01-14 22:28:04.923  1897  1897 V talkback: TreeDebug:             (265806)601.View:invisible:(1487, 862 - 1080, 1027):CONTENT{App: ZOOM Cloud Meetings
+01-14 22:28:04.923  1897  1897 V talkback: TreeDebug: Business
+01-14 22:28:04.923  1897  1897 V talkback: TreeDebug: Star rating: 4.4}(action:A11Y_FOCUS)
+01-14 22:28:04.923  1897  1897 V talkback: TreeDebug:           (269650)601.ViewGroup:invisible:(1124, 1060 - 1080, 1291)(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:04.923  1897  1897 V talkback: TreeDebug:             (277338)601.TextView:invisible:(1229, 1147 - 1080, 1204):TEXT{3}(action:A11Y_FOCUS):supportsTextLocation
+01-14 22:28:04.923  1897  1897 V talkback: TreeDebug:             (275416)601.View:invisible:(1487, 1093 - 1080, 1258):CONTENT{App: iFunny X - cool memes & vids
+01-14 22:28:04.923  1897  1897 V talkback: TreeDebug: Entertainment
+01-14 22:28:04.923  1897  1897 V talkback: TreeDebug: Star rating: 4.1}(action:A11Y_FOCUS)
+01-14 22:28:04.924  1897  1897 V talkback: TreeDebug:           (279260)601.ViewGroup:invisible:(1124, 1291 - 1080, 1522)(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:04.924  1897  1897 V talkback: TreeDebug:             (286948)601.TextView:invisible:(1228, 1378 - 1080, 1435):TEXT{4}(action:A11Y_FOCUS):supportsTextLocation
+01-14 22:28:04.924  1897  1897 V talkback: TreeDebug:             (285026)601.View:invisible:(1487, 1324 - 1080, 1489):CONTENT{App: Cash App
+01-14 22:28:04.924  1897  1897 V talkback: TreeDebug: Finance
+01-14 22:28:04.924  1897  1897 V talkback: TreeDebug: Star rating: 4.6}(action:A11Y_FOCUS)
+01-14 22:28:04.924  1897  1897 V talkback: TreeDebug:           (288870)601.ViewGroup:invisible:(1124, 1522 - 1080, 1753)(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:04.924  1897  1897 V talkback: TreeDebug:             (296558)601.TextView:invisible:(1228, 1609 - 1080, 1666):TEXT{5}(action:A11Y_FOCUS):supportsTextLocation
+01-14 22:28:04.924  1897  1897 V talkback: TreeDebug:             (297519)601.ImageView:invisible:(1218, 1666 - 1080, 1710):CONTENT{Trending Down}(action:A11Y_FOCUS)
+01-14 22:28:04.924  1897  1897 V talkback: TreeDebug:             (294636)601.View:invisible:(1487, 1555 - 1080, 1720):CONTENT{App: Instagram
+01-14 22:28:04.924  1897  1897 V talkback: TreeDebug: Social
+01-14 22:28:04.924  1897  1897 V talkback: TreeDebug: Star rating: 4.1}(action:A11Y_FOCUS)
+01-14 22:28:04.924  1897  1897 V talkback: TreeDebug:           (298480)601.ViewGroup:invisible:(1124, 1753 - 1080, 1984)(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:04.924  1897  1897 V talkback: TreeDebug:             (306168)601.TextView:invisible:(1228, 1840 - 1080, 1897):TEXT{6}(action:A11Y_FOCUS):supportsTextLocation
+01-14 22:28:04.924  1897  1897 V talkback: TreeDebug:             (304246)601.View:invisible:(1487, 1786 - 1080, 1951):CONTENT{App: Disney+
+01-14 22:28:04.924  1897  1897 V talkback: TreeDebug: Entertainment
+01-14 22:28:04.924  1897  1897 V talkback: TreeDebug: Star rating: 4.3
+01-14 22:28:04.924  1897  1897 V talkback: TreeDebug: Editors' Choice}(action:A11Y_FOCUS)
+01-14 22:28:04.924  1897  1897 V talkback: TreeDebug:           (308090)601.ViewGroup:invisible:(1124, 1984 - 1080, 1988)(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:04.924  1897  1897 V talkback: TreeDebug:             (315778)601.TextView:invisible:(1229, 2071 - 1080, 1988):TEXT{7}(action:A11Y_FOCUS):supportsTextLocation
+01-14 22:28:04.924  1897  1897 V talkback: TreeDebug:             (316739)601.ImageView:invisible:(1218, 2128 - 1080, 1988):CONTENT{Trending Down}(action:A11Y_FOCUS)
+01-14 22:28:04.924  1897  1897 V talkback: TreeDebug:             (313856)601.View:invisible:(1487, 2017 - 1080, 1988):CONTENT{App: HBO Max: Stream TV & Movies
+01-14 22:28:04.924  1897  1897 V talkback: TreeDebug: Entertainment
+01-14 22:28:04.924  1897  1897 V talkback: TreeDebug: Star rating: 3.4}(action:A11Y_FOCUS)
+01-14 22:28:04.925  1897  1897 V talkback: TreeDebug:       (117812)601.ViewGroup:(0, 1988 - 270, 2208)(action:FOCUS/CLEAR_A11Y_FOCUS/CLICK):focusable:clickable:accessibilityFocused
+01-14 22:28:04.925  1897  1897 V talkback: TreeDebug:         (121656)601.TextView:(69, 2108 - 201, 2176):TEXT{Games}(action:A11Y_FOCUS):supportsTextLocation
+01-14 22:28:04.925  1897  1897 V talkback: TreeDebug:       (122617)601.ViewGroup:(270, 1988 - 540, 2208)(action:FOCUS/A11Y_FOCUS/CLICK):focusable:selected:clickable
+01-14 22:28:04.929  1897  1897 V talkback: TreeDebug:         (126461)601.TextView:(357, 2108 - 454, 2176):TEXT{Apps}(action:A11Y_FOCUS):selected:supportsTextLocation
+01-14 22:28:04.929  1897  1897 V talkback: TreeDebug:       (127422)601.ViewGroup:(540, 1988 - 810, 2208)(action:FOCUS/A11Y_FOCUS/CLICK):focusable:clickable
+01-14 22:28:04.929  1897  1897 V talkback: TreeDebug:         (131266)601.TextView:(559, 2108 - 792, 2176):TEXT{Movies & TV}(action:A11Y_FOCUS):supportsTextLocation
+01-14 22:28:04.929  1897  1897 V talkback: TreeDebug:       (132227)601.ViewGroup:(810, 1988 - 1080, 2208)(action:FOCUS/A11Y_FOCUS/CLICK):focusable:clickable
+01-14 22:28:04.929  1897  1897 V talkback: TreeDebug:         (136071)601.TextView:(887, 2108 - 1003, 2176):TEXT{Books}(action:A11Y_FOCUS):supportsTextLocation
+01-14 22:28:04.930  1897  1897 V talkback: TreeDebug:       (49581)601.FrameLayout:(66, 147 - 1014, 279)(action:FOCUS/A11Y_FOCUS/CLICK):focusable:clickable
+01-14 22:28:04.934  1897  1897 V talkback: TreeDebug:         (55347)601.TextView:(231, 181 - 727, 245):TEXT{Search for apps & games}(action:FOCUS/A11Y_FOCUS/CLICK):focusable:clickable:supportsTextLocation
+01-14 22:28:04.937  1897  1897 V talkback: TreeDebug:         (56308)601.ImageView:(727, 147 - 859, 279):CONTENT{Voice Search}(action:FOCUS/A11Y_FOCUS/CLICK):focusable:clickable
+01-14 22:28:04.942  1897  1897 V talkback: TreeDebug:         (57269)601.FrameLayout:(859, 147 - 1003, 279):CONTENT{Account and settings.}(action:FOCUS/A11Y_FOCUS/CLICK):focusable:clickable
+01-14 22:28:04.942  1897  1897 V talkback: TreeDebug: ------------Node tree traversal order------------
+01-14 22:28:04.943  1897  1897 V talkback: TreeDebug: Window: AccessibilityWindowInfo[title=null, displayId=0, id=6, type=TYPE_SYSTEM, layer=3, region=SkRegion((0,0,136,136)), bounds=Rect(0, 0 - 136, 136), focused=false, active=false, pictureInPicture=false, hasParent=false, isAnchored=false, hasChildren=false]
+01-14 22:28:04.946  1897  1897 V talkback: TreeDebug:  (31688)6.FrameLayout:(0, 0 - 1080, 224)(action:A11Y_FOCUS)
+01-14 22:28:04.946  1897  1897 V talkback: TreeDebug: Window: AccessibilityWindowInfo[title=Navigation bar, displayId=0, id=4, type=TYPE_SYSTEM, layer=2, region=SkRegion((0,2208,1080,2340)), bounds=Rect(0, 2208 - 1080, 2340), focused=false, active=false, pictureInPicture=false, hasParent=false, isAnchored=false, hasChildren=false]
+01-14 22:28:04.952  1897  1897 V talkback: TreeDebug:  (47062)4.FrameLayout:(0, 2208 - 1080, 2340)(action:A11Y_FOCUS)
+01-14 22:28:04.952  1897  1897 V talkback: TreeDebug:  (48023)4.FrameLayout:(0, 2208 - 1080, 2340)(action:A11Y_FOCUS)
+01-14 22:28:04.952  1897  1897 V talkback: TreeDebug:  (55711)4.ImageView:(149, 2208 - 344, 2340):CONTENT{Back}(action:FOCUS/A11Y_FOCUS/CLICK):focusable:clickable
+01-14 22:28:04.952  1897  1897 V talkback: TreeDebug:  (66282)4.FrameLayout:(430, 2208 - 650, 2340)(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable after:55711
+01-14 22:28:04.952  1897  1897 V talkback: TreeDebug:  (74931)4.ImageView:(430, 2208 - 650, 2340):CONTENT{Home}(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:04.953  1897  1897 V talkback: TreeDebug:  (58594)4.ImageView:(734, 2208 - 930, 2340):CONTENT{Overview}(action:FOCUS/A11Y_FOCUS/CLICK):focusable:clickable after:66282
+01-14 22:28:04.953  1897  1897 V talkback: TreeDebug:  (64360)4.ImageView:(930, 2208 - 1028, 2340):CONTENT{Accessibility}(action:FOCUS/A11Y_FOCUS/CLICK):focusable:clickable
+01-14 22:28:04.953  1897  1897 V talkback: TreeDebug: Window: AccessibilityWindowInfo[title=null, displayId=0, id=3, type=TYPE_SYSTEM, layer=1, region=SkRegion((0,0,1080,136)), bounds=Rect(0, 0 - 1080, 136), focused=false, active=false, pictureInPicture=false, hasParent=false, isAnchored=false, hasChildren=false]
+01-14 22:28:04.959  1897  1897 V talkback: TreeDebug:  (214275)3.FrameLayout:(0, 0 - 1080, 136)(action:A11Y_FOCUS)
+01-14 22:28:04.959  1897  1897 V talkback: TreeDebug:  (869677)3.FrameLayout:(0, 0 - 1080, 136):PANE{Status bar}(action:A11Y_FOCUS)
+01-14 22:28:04.959  1897  1897 V talkback: TreeDebug:  (878326)3.TextView:(158, 30 - 259, 136):TEXT{10:28}:CONTENT{10:28 PM}(action:A11Y_FOCUS):supportsTextLocation
+01-14 22:28:04.959  1897  1897 V talkback: TreeDebug:  (1136835)3.ImageView:(259, 30 - 320, 136):CONTENT{System UI notification: Charging temporarily limited}(action:A11Y_FOCUS)
+01-14 22:28:04.959  1897  1897 V talkback: TreeDebug:  (5520917)3.ImageView:(320, 30 - 381, 136):CONTENT{Android System notification: USB debugging connected}(action:A11Y_FOCUS)
+01-14 22:28:04.959  1897  1897 V talkback: TreeDebug:  (3442274)3.ImageView:(381, 30 - 442, 136):CONTENT{YouTube Music notification: New release for you}(action:A11Y_FOCUS)
+01-14 22:28:04.959  1897  1897 V talkback: TreeDebug:  (1303088)3.FrameLayout:(917, 52 - 965, 113):CONTENT{Wifi signal full.}(action:A11Y_FOCUS)
+01-14 22:28:04.960  1897  1897 V talkback: TreeDebug:  (888897)3.LinearLayout:(982, 30 - 1003, 136):CONTENT{Battery charging, 80 percent.}(action:A11Y_FOCUS)
+01-14 22:28:04.960  1897  1897 V talkback: TreeDebug: Window: AccessibilityWindowInfo[title=Play Store, displayId=0, id=601, type=TYPE_APPLICATION, layer=0, region=SkRegion((0,0,1080,2340)), bounds=Rect(0, 0 - 1080, 2340), focused=true, active=true, pictureInPicture=false, hasParent=false, isAnchored=false, hasChildren=false]
+01-14 22:28:05.098  1897  1897 V talkback: TreeDebug:  (-2147455209)601.FrameLayout:(0, 0 - 1080, 2340)(action:A11Y_FOCUS)
+01-14 22:28:05.098  1897  1897 V talkback: TreeDebug:  (35166)601.DrawerLayout:(0, 0 - 1080, 2340)(action:A11Y_FOCUS)
+01-14 22:28:05.098  1897  1897 V talkback: TreeDebug:  (36127)601.FrameLayout:(0, 0 - 1080, 2340)(action:A11Y_FOCUS)
+01-14 22:28:05.099  1897  1897 V talkback: TreeDebug:  (98592)601.TextView:invisible:(0, 0 - 1080, 0)(action:A11Y_FOCUS)
+01-14 22:28:05.099  1897  1897 V talkback: TreeDebug:  (94748)601.FrameLayout:(0, 0 - 1080, 422)(action:A11Y_FOCUS)
+01-14 22:28:05.099  1897  1897 V talkback: TreeDebug:  (103397)601.FrameLayout:(0, 290 - 1080, 422)(action:A11Y_FOCUS)
+01-14 22:28:05.099  1897  1897 V talkback: TreeDebug:  (101475)601.HorizontalScrollView:(0, 290 - 1080, 422)(action:FOCUS/A11Y_FOCUS/SCROLL_FORWARD):focusable:scrollable
+01-14 22:28:05.099  1897  1897 V talkback: TreeDebug:  (137032)601.TextView:(66, 290 - 324, 422):TEXT{For you}(action:FOCUS/A11Y_FOCUS/CLICK):focusable:selected:clickable:supportsTextLocation:heading#r0c0
+01-14 22:28:05.099  1897  1897 V talkback: TreeDebug:  (137993)601.TextView:(324, 290 - 642, 422):TEXT{Top charts}(action:FOCUS/A11Y_FOCUS/CLICK):focusable:clickable:supportsTextLocation:heading#r0c0
+01-14 22:28:05.099  1897  1897 V talkback: TreeDebug:  (138954)601.TextView:(642, 290 - 840, 422):TEXT{Kids}(action:FOCUS/A11Y_FOCUS/CLICK):focusable:clickable:supportsTextLocation:heading#r0c0
+01-14 22:28:05.099  1897  1897 V talkback: TreeDebug:  (139915)601.TextView:(840, 290 - 1080, 422):TEXT{Categories}(action:FOCUS/A11Y_FOCUS/CLICK):focusable:clickable:supportsTextLocation:heading#r0c0
+01-14 22:28:05.099  1897  1897 V talkback: TreeDebug:  (140876)601.TextView:invisible:(1080, 290 - 1080, 422):TEXT{Editors' Choice}(action:FOCUS/A11Y_FOCUS/CLICK):focusable:clickable:supportsTextLocation:heading#r0c0
+01-14 22:28:05.099  1897  1897 V talkback: TreeDebug:  (104358)601.ViewPager:(0, 136 - 1080, 1988)(action:FOCUS/A11Y_FOCUS/SCROLL_FORWARD):focusable:scrollable
+01-14 22:28:05.099  1897  1897 V talkback: TreeDebug:  (143759)601.RecyclerView:(0, 136 - 1080, 1988)(action:A11Y_FOCUS/SCROLL_FORWARD):scrollable:collection#R6C1
+01-14 22:28:05.100  1897  1897 V talkback: TreeDebug:  (149525)601.RelativeLayout:(0, 422 - 1080, 1070)(action:A11Y_FOCUS)
+01-14 22:28:05.100  1897  1897 V talkback: TreeDebug:  (150486)601.FrameLayout:(0, 422 - 1080, 583):CONTENT{Recommended for you}(action:FOCUS/A11Y_FOCUS/CLICK):focusable:clickable:heading
+01-14 22:28:05.100  1897  1897 V talkback: TreeDebug:  (152408)601.ImageView:(948, 469 - 1014, 535):CONTENT{More results for Recommended for you}(action:FOCUS/A11Y_FOCUS/CLICK):focusable:clickable
+01-14 22:28:05.100  1897  1897 V talkback: TreeDebug:  (153369)601.RecyclerView:(0, 583 - 1080, 1037)(action:A11Y_FOCUS/SCROLL_FORWARD):scrollable:collection#R-1C14
+01-14 22:28:05.100  1897  1897 V talkback: TreeDebug:  (154330)601.View:(0, 583 - 50, 1037)(action:A11Y_FOCUS)
+01-14 22:28:05.100  1897  1897 V talkback: TreeDebug:  (155291)601.FrameLayout:(50, 583 - 376, 1037):CONTENT{App: DuckDuckGo Privacy Browser
+01-14 22:28:05.100  1897  1897 V talkback: TreeDebug: Star rating: 4.8}(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:05.100  1897  1897 V talkback: TreeDebug:  (157213)601.FrameLayout:(376, 583 - 702, 1037):CONTENT{App: Amazon Prime Video
+01-14 22:28:05.100  1897  1897 V talkback: TreeDebug: Star rating: 4.4}(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:05.100  1897  1897 V talkback: TreeDebug:  (159135)601.FrameLayout:(702, 583 - 1028, 1037):CONTENT{App: TikTok
+01-14 22:28:05.100  1897  1897 V talkback: TreeDebug: Star rating: 4.5}(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:05.100  1897  1897 V talkback: TreeDebug:  (161057)601.FrameLayout:(1028, 583 - 1080, 1037):CONTENT{App: Duolingo: language lessons
+01-14 22:28:05.100  1897  1897 V talkback: TreeDebug: Star rating: 4.5}(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:05.100  1897  1897 V talkback: TreeDebug:  (218717)601.RelativeLayout:(0, 1070 - 1080, 1718)(action:A11Y_FOCUS)
+01-14 22:28:05.100  1897  1897 V talkback: TreeDebug:  (219678)601.FrameLayout:(0, 1070 - 1080, 1231):CONTENT{Ads
+01-14 22:28:05.100  1897  1897 V talkback: TreeDebug: Suggested for you}(action:FOCUS/A11Y_FOCUS):focusable:heading
+01-14 22:28:05.100  1897  1897 V talkback: TreeDebug:  (221600)601.RecyclerView:(0, 1231 - 1080, 1685)(action:A11Y_FOCUS/SCROLL_FORWARD):scrollable:collection#R-1C14
+01-14 22:28:05.101  1897  1897 V talkback: TreeDebug:  (222561)601.View:(0, 1231 - 50, 1685)(action:A11Y_FOCUS)
+01-14 22:28:05.101  1897  1897 V talkback: TreeDebug:  (223522)601.FrameLayout:(50, 1231 - 376, 1685):CONTENT{App: TikTok
+01-14 22:28:05.101  1897  1897 V talkback: TreeDebug: Star rating: 4.5}(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:05.101  1897  1897 V talkback: TreeDebug:  (225444)601.FrameLayout:(376, 1231 - 702, 1685):CONTENT{App: Instagram
+01-14 22:28:05.101  1897  1897 V talkback: TreeDebug: Star rating: 4.1}(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:05.101  1897  1897 V talkback: TreeDebug:  (227366)601.FrameLayout:(702, 1231 - 1028, 1685):CONTENT{App: Facebook
+01-14 22:28:05.101  1897  1897 V talkback: TreeDebug: 
+01-14 22:28:05.101  1897  1897 V talkback: TreeDebug: Update}(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:05.101  1897  1897 V talkback: TreeDebug:  (229288)601.FrameLayout:(1028, 1231 - 1080, 1685):CONTENT{App: Truebill Budget Planner, Bill Tracker and Reminder
+01-14 22:28:05.101  1897  1897 V talkback: TreeDebug: Star rating: 4.4}(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:05.101  1897  1897 V talkback: TreeDebug:  (199497)601.RelativeLayout:(0, 1718 - 1080, 1988)(action:A11Y_FOCUS)
+01-14 22:28:05.101  1897  1897 V talkback: TreeDebug:  (200458)601.FrameLayout:(0, 1718 - 1080, 1879):CONTENT{Watch TV & movies}(action:FOCUS/A11Y_FOCUS/CLICK):focusable:clickable:heading
+01-14 22:28:05.101  1897  1897 V talkback: TreeDebug:  (202380)601.ImageView:(948, 1765 - 1014, 1831):CONTENT{More results for Watch TV & movies}(action:FOCUS/A11Y_FOCUS/CLICK):focusable:clickable
+01-14 22:28:05.101  1897  1897 V talkback: TreeDebug:  (203341)601.RecyclerView:(0, 1879 - 1080, 1988)(action:A11Y_FOCUS/SCROLL_FORWARD):scrollable:collection#R-1C14
+01-14 22:28:05.101  1897  1897 V talkback: TreeDebug:  (204302)601.View:(0, 1879 - 50, 1988)(action:A11Y_FOCUS)
+01-14 22:28:05.101  1897  1897 V talkback: TreeDebug:  (205263)601.FrameLayout:(50, 1879 - 376, 1988):CONTENT{App: ISS Live Now: View Earth Live
+01-14 22:28:05.101  1897  1897 V talkback: TreeDebug: Star rating: 4.7}(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:05.102  1897  1897 V talkback: TreeDebug:  (207185)601.FrameLayout:(376, 1879 - 702, 1988):CONTENT{App: Peacock TV: Stream TV & Movies
+01-14 22:28:05.102  1897  1897 V talkback: TreeDebug: Star rating: 4.4}(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:05.102  1897  1897 V talkback: TreeDebug:  (209107)601.FrameLayout:(702, 1879 - 1028, 1988):CONTENT{App: Tubi - Free Movies & TV Shows
+01-14 22:28:05.102  1897  1897 V talkback: TreeDebug: Star rating: 4.7}(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:05.102  1897  1897 V talkback: TreeDebug:  (211029)601.FrameLayout:(1028, 1879 - 1080, 1988):CONTENT{App: Roku - Official Remote Control
+01-14 22:28:05.102  1897  1897 V talkback: TreeDebug: Star rating: 4.4}(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:05.102  1897  1897 V talkback: TreeDebug:  (213912)601.RecyclerView:invisible:(1124, 136 - 1080, 1988)(action:A11Y_FOCUS/SCROLL_FORWARD):scrollable:collection#R17C1
+01-14 22:28:05.102  1897  1897 V talkback: TreeDebug:  (233132)601.LinearLayout:invisible:(1124, 444 - 1080, 576)(action:A11Y_FOCUS)
+01-14 22:28:05.102  1897  1897 V talkback: TreeDebug:  (237937)601.RecyclerView:invisible:(1124, 444 - 1080, 576)(action:A11Y_FOCUS):collection#R-1C-1
+01-14 22:28:05.102  1897  1897 V talkback: TreeDebug:  (238898)601.FrameLayout:invisible:(1190, 444 - 1080, 576)(action:A11Y_FOCUS)
+01-14 22:28:05.102  1897  1897 V talkback: TreeDebug:  (240820)601.Button:invisible:(1190, 466 - 1080, 554):TEXT{Top free}:CONTENT{Top free - double tap to change the filter}(action:FOCUS/A11Y_FOCUS/CLICK):focusable:clickable:supportsTextLocation
+01-14 22:28:05.102  1897  1897 V talkback: TreeDebug:  (241781)601.FrameLayout:invisible:(1515, 444 - 1080, 576)(action:A11Y_FOCUS)
+01-14 22:28:05.102  1897  1897 V talkback: TreeDebug:  (243703)601.Button:invisible:(1515, 466 - 1080, 554):TEXT{Categories}:CONTENT{Categories - double tap to change the filter}(action:FOCUS/A11Y_FOCUS/CLICK):focusable:clickable:supportsTextLocation
+01-14 22:28:05.102  1897  1897 V talkback: TreeDebug:  (246586)601.LinearLayout:invisible:(1124, 598 - 1080, 598)(action:A11Y_FOCUS)
+01-14 22:28:05.102  1897  1897 V talkback: TreeDebug:  (248508)601.TextView:invisible:(1190, 598 - 1080, 532):TEXT{No results}(action:A11Y_FOCUS):supportsTextLocation
+01-14 22:28:05.102  1897  1897 V talkback: TreeDebug:  (249469)601.TextView:invisible:(1190, 598 - 1080, 554):TEXT{Try removing some filters}(action:A11Y_FOCUS):supportsTextLocation
+01-14 22:28:05.103  1897  1897 V talkback: TreeDebug:  (244664)601.FrameLayout:invisible:(1124, 598 - 1080, 598)(action:A11Y_FOCUS)
+01-14 22:28:05.103  1897  1897 V talkback: TreeDebug:  (245625)601.ProgressBar:invisible:(1598, 598 - 1080, 598)(action:A11Y_FOCUS)
+01-14 22:28:05.103  1897  1897 V talkback: TreeDebug:  (250430)601.ViewGroup:invisible:(1124, 598 - 1080, 829)(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:05.103  1897  1897 V talkback: TreeDebug:  (258118)601.TextView:invisible:(1232, 685 - 1080, 742):TEXT{1}(action:A11Y_FOCUS):supportsTextLocation
+01-14 22:28:05.103  1897  1897 V talkback: TreeDebug:  (256196)601.View:invisible:(1487, 631 - 1080, 796):CONTENT{App: TikTok
+01-14 22:28:05.103  1897  1897 V talkback: TreeDebug: Social
+01-14 22:28:05.103  1897  1897 V talkback: TreeDebug: Star rating: 4.5}(action:A11Y_FOCUS)
+01-14 22:28:05.103  1897  1897 V talkback: TreeDebug:  (260040)601.ViewGroup:invisible:(1124, 829 - 1080, 1060)(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:05.103  1897  1897 V talkback: TreeDebug:  (267728)601.TextView:invisible:(1229, 916 - 1080, 973):TEXT{2}(action:A11Y_FOCUS):supportsTextLocation
+01-14 22:28:05.103  1897  1897 V talkback: TreeDebug:  (268689)601.ImageView:invisible:(1218, 973 - 1080, 1017):CONTENT{Trending Up}(action:A11Y_FOCUS)
+01-14 22:28:05.103  1897  1897 V talkback: TreeDebug:  (265806)601.View:invisible:(1487, 862 - 1080, 1027):CONTENT{App: ZOOM Cloud Meetings
+01-14 22:28:05.103  1897  1897 V talkback: TreeDebug: Business
+01-14 22:28:05.103  1897  1897 V talkback: TreeDebug: Star rating: 4.4}(action:A11Y_FOCUS)
+01-14 22:28:05.103  1897  1897 V talkback: TreeDebug:  (269650)601.ViewGroup:invisible:(1124, 1060 - 1080, 1291)(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:05.103  1897  1897 V talkback: TreeDebug:  (277338)601.TextView:invisible:(1229, 1147 - 1080, 1204):TEXT{3}(action:A11Y_FOCUS):supportsTextLocation
+01-14 22:28:05.103  1897  1897 V talkback: TreeDebug:  (275416)601.View:invisible:(1487, 1093 - 1080, 1258):CONTENT{App: iFunny X - cool memes & vids
+01-14 22:28:05.103  1897  1897 V talkback: TreeDebug: Entertainment
+01-14 22:28:05.103  1897  1897 V talkback: TreeDebug: Star rating: 4.1}(action:A11Y_FOCUS)
+01-14 22:28:05.103  1897  1897 V talkback: TreeDebug:  (279260)601.ViewGroup:invisible:(1124, 1291 - 1080, 1522)(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:05.104  1897  1897 V talkback: TreeDebug:  (286948)601.TextView:invisible:(1228, 1378 - 1080, 1435):TEXT{4}(action:A11Y_FOCUS):supportsTextLocation
+01-14 22:28:05.104  1897  1897 V talkback: TreeDebug:  (285026)601.View:invisible:(1487, 1324 - 1080, 1489):CONTENT{App: Cash App
+01-14 22:28:05.104  1897  1897 V talkback: TreeDebug: Finance
+01-14 22:28:05.104  1897  1897 V talkback: TreeDebug: Star rating: 4.6}(action:A11Y_FOCUS)
+01-14 22:28:05.104  1897  1897 V talkback: TreeDebug:  (288870)601.ViewGroup:invisible:(1124, 1522 - 1080, 1753)(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:05.104  1897  1897 V talkback: TreeDebug:  (296558)601.TextView:invisible:(1228, 1609 - 1080, 1666):TEXT{5}(action:A11Y_FOCUS):supportsTextLocation
+01-14 22:28:05.104  1897  1897 V talkback: TreeDebug:  (297519)601.ImageView:invisible:(1218, 1666 - 1080, 1710):CONTENT{Trending Down}(action:A11Y_FOCUS)
+01-14 22:28:05.104  1897  1897 V talkback: TreeDebug:  (294636)601.View:invisible:(1487, 1555 - 1080, 1720):CONTENT{App: Instagram
+01-14 22:28:05.104  1897  1897 V talkback: TreeDebug: Social
+01-14 22:28:05.104  1897  1897 V talkback: TreeDebug: Star rating: 4.1}(action:A11Y_FOCUS)
+01-14 22:28:05.104  1897  1897 V talkback: TreeDebug:  (298480)601.ViewGroup:invisible:(1124, 1753 - 1080, 1984)(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:05.104  1897  1897 V talkback: TreeDebug:  (306168)601.TextView:invisible:(1228, 1840 - 1080, 1897):TEXT{6}(action:A11Y_FOCUS):supportsTextLocation
+01-14 22:28:05.104  1897  1897 V talkback: TreeDebug:  (304246)601.View:invisible:(1487, 1786 - 1080, 1951):CONTENT{App: Disney+
+01-14 22:28:05.104  1897  1897 V talkback: TreeDebug: Entertainment
+01-14 22:28:05.104  1897  1897 V talkback: TreeDebug: Star rating: 4.3
+01-14 22:28:05.104  1897  1897 V talkback: TreeDebug: Editors' Choice}(action:A11Y_FOCUS)
+01-14 22:28:05.104  1897  1897 V talkback: TreeDebug:  (308090)601.ViewGroup:invisible:(1124, 1984 - 1080, 1988)(action:FOCUS/A11Y_FOCUS/CLICK/LONG_CLICK):focusable:clickable:longClickable
+01-14 22:28:05.104  1897  1897 V talkback: TreeDebug:  (315778)601.TextView:invisible:(1229, 2071 - 1080, 1988):TEXT{7}(action:A11Y_FOCUS):supportsTextLocation
+01-14 22:28:05.104  1897  1897 V talkback: TreeDebug:  (316739)601.ImageView:invisible:(1218, 2128 - 1080, 1988):CONTENT{Trending Down}(action:A11Y_FOCUS)
+01-14 22:28:05.104  1897  1897 V talkback: TreeDebug:  (313856)601.View:invisible:(1487, 2017 - 1080, 1988):CONTENT{App: HBO Max: Stream TV & Movies
+01-14 22:28:05.104  1897  1897 V talkback: TreeDebug: Entertainment
+01-14 22:28:05.104  1897  1897 V talkback: TreeDebug: Star rating: 3.4}(action:A11Y_FOCUS)
+01-14 22:28:05.105  1897  1897 V talkback: TreeDebug:  (117812)601.ViewGroup:(0, 1988 - 270, 2208)(action:FOCUS/CLEAR_A11Y_FOCUS/CLICK):focusable:clickable:accessibilityFocused
+01-14 22:28:05.105  1897  1897 V talkback: TreeDebug:  (121656)601.TextView:(69, 2108 - 201, 2176):TEXT{Games}(action:A11Y_FOCUS):supportsTextLocation
+01-14 22:28:05.105  1897  1897 V talkback: TreeDebug:  (122617)601.ViewGroup:(270, 1988 - 540, 2208)(action:FOCUS/A11Y_FOCUS/CLICK):focusable:selected:clickable
+01-14 22:28:05.105  1897  1897 V talkback: TreeDebug:  (126461)601.TextView:(357, 2108 - 454, 2176):TEXT{Apps}(action:A11Y_FOCUS):selected:supportsTextLocation
+01-14 22:28:05.105  1897  1897 V talkback: TreeDebug:  (127422)601.ViewGroup:(540, 1988 - 810, 2208)(action:FOCUS/A11Y_FOCUS/CLICK):focusable:clickable
+01-14 22:28:05.105  1897  1897 V talkback: TreeDebug:  (131266)601.TextView:(559, 2108 - 792, 2176):TEXT{Movies & TV}(action:A11Y_FOCUS):supportsTextLocation
+01-14 22:28:05.105  1897  1897 V talkback: TreeDebug:  (132227)601.ViewGroup:(810, 1988 - 1080, 2208)(action:FOCUS/A11Y_FOCUS/CLICK):focusable:clickable
+01-14 22:28:05.105  1897  1897 V talkback: TreeDebug:  (136071)601.TextView:(887, 2108 - 1003, 2176):TEXT{Books}(action:A11Y_FOCUS):supportsTextLocation
+01-14 22:28:05.105  1897  1897 V talkback: TreeDebug:  (49581)601.FrameLayout:(66, 147 - 1014, 279)(action:FOCUS/A11Y_FOCUS/CLICK):focusable:clickable
+01-14 22:28:05.105  1897  1897 V talkback: TreeDebug:  (55347)601.TextView:(231, 181 - 727, 245):TEXT{Search for apps & games}(action:FOCUS/A11Y_FOCUS/CLICK):focusable:clickable:supportsTextLocation
+01-14 22:28:05.105  1897  1897 V talkback: TreeDebug:  (56308)601.ImageView:(727, 147 - 859, 279):CONTENT{Voice Search}(action:FOCUS/A11Y_FOCUS/CLICK):focusable:clickable
+01-14 22:28:05.105  1897  1897 V talkback: TreeDebug:  (57269)601.FrameLayout:(859, 147 - 1003, 279):CONTENT{Account and settings.}(action:FOCUS/A11Y_FOCUS/CLICK):focusable:clickable
