@@ -1,4 +1,4 @@
-# Accessibility Inspector App
+# Android Accessibility Inspector App
 
 This is a front end for connecting to and displaying the accessibility node tree provided by the [Accessibility Inspector Service](https://github.com/jwlilly/Accessibility-Inspector-Service) installed on the device or VM. 
 
