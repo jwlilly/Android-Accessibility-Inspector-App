@@ -24,7 +24,7 @@ This project contains a signed app for the Accessibility Inspector Service that 
 ![Install companion app screenshot](install-companion-app.png?raw=true)
 
 ## Capturing Accessibility Tree
-Clicking the capture button will trigger a capture of the accessibility node tree. The node tree and screenshot will be displayed. The node tree is in the form of a nested list in order to represent the parent/child relationships. A proper tree view is planned for future iterations. The screenshot can be clicked to highlight the corresponding accessibility node. Since multiple nodes can have overlapping bounds, the app attempts to figure out which node to select based on the node that has the smallest bounds that is currently under the mouse cursor. 
+Clicking the capture button will trigger a capture of the accessibility node tree. The node tree and screenshot will be displayed. The node tree is in the form of a nested list in order to represent the parent/child relationships. A proper tree view is planned for future iterations. The screenshot can be clicked to highlight the corresponding accessibility node. Since multiple nodes can have overlapping bounds, the app attempts to figure out which node to select based on the node that has the smallest bounds that is currently under the mouse cursor. Note that the size listed for a node is not correct as it does not take screen density into account. 
 
 ![Accessibility node tree displayed for the home screen with the YouTube app highlighted](app-screenshot.png?raw=true)
 
