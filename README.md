@@ -19,11 +19,13 @@ This is a front end for connecting to and displaying the accessibility node tree
 `npm run package-all`: packages the electron app for all 3 platforms. Note that this command is only supported on ARM macOS since it is the only platform that can package all 3 executables. 
 
 ## Installing Companion App
-This project contains a signed app for the Accessibility Inspector Service that installs as an accessibility service. The service can be installed by going to Tools > Install companion app (Install companion app will be found under the app name menu on a macOS device). You will see lots of errors on the first run of this app since it doesn't have a service to connect to yet. After the service app is installed on the device, this app will attempt to start the accessibility service using ADB commands, forward the required 38301 port so that the service can be reached at 127.0.0.1:38301, and trigger a capture of the accessibility node tree. 
+This project contains a signed app for the Accessibility Inspector Service that installs as an accessibility service. The service can be installed by going to Tools > Install companion app (Install companion app will be found under the app name menu on a macOS device). You will see lots of errors on the first run of this app since it doesn't have a service to connect to yet. After the service app is installed on the device, this app will attempt to start the accessibility service using ADB commands, forward the required 38301 port so that the service can be reached at 127.0.0.1:38301, and trigger a capture of the accessibility node tree.
+
 ![Install companion app screenshot](install-companion-app.png?raw=true)
 
 ## Capturing Accessibility Tree
 Clicking the capture button will trigger a capture of the accessibility node tree. The node tree and screenshot will be displayed. The node tree is in the form of a nested list in order to represent the parent/child relationships. A proper tree view is planned for future iterations. The screenshot can be clicked to highlight the corresponding accessibility node. Since multiple nodes can have overlapping bounds, the app attempts to figure out which node to select based on the node that has the smallest bounds that is currently under the mouse cursor. 
+
 ![Accessibility node tree displayed for the home screen with the YouTube app highlighted](app-screenshot.png?raw=true)
 
 ## Announce for Accessibility
