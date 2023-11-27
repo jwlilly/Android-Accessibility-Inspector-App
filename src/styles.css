@@ -57,7 +57,16 @@ span.web-view-btn {
   display: none;
 }
 
+span.system-focus-btn {
+  display: none;
+}
+
 li.web-view span.web-view-btn {
+  display:inline-block;
+  margin-left: 4px;
+}
+
+li.system-focus span.system-focus-btn {
   display:inline-block;
   margin-left: 4px;
 }

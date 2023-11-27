@@ -20,7 +20,7 @@ export class AppComponent implements OnInit, OnDestroy{
   imageSizeW = 0;
   imageSizeH = 0;
   a11yMessage:string = "";
-  webSocket: WebSocketSubject<any> = webSocket('ws://localhost:38301');
+  webSocket: WebSocketSubject<any> = webSocket('ws://localhost:38301/');
   connected = true;
   waitingForResponse = false;
   clickView: AndroidView = this.createEmptyView();
@@ -29,8 +29,7 @@ export class AppComponent implements OnInit, OnDestroy{
   loading = false;
   pingJson:JSON = JSON.parse('{"message":"ping"}');
   captureJson:JSON = JSON.parse('{"message":"capture"}');
-  importantJson:JSON = JSON.parse('{"message":"showImportant"}');
-  notImportantJson:JSON = JSON.parse('{"message":"showNotImportant"}');
+  importantJson:JSON = JSON.parse('{"message":"toggleImportant"}');
   outlineDimensions = {
     'width' : '0px',
     'height' : '0px',
@@ -99,7 +98,7 @@ export class AppComponent implements OnInit, OnDestroy{
       this.refreshConnection();
     };
     this.showImportantViews = (event, data) => {
-      this.showNotImportantViews(data.important);
+      this.showNotImportantViews();
     };
   }
 
@@ -132,7 +131,7 @@ export class AppComponent implements OnInit, OnDestroy{
     if(this.connected) {
       this.webSocket.next(this.pingJson);
       this.waitingForResponse = true;
-      //console.log("ping --->");
+      console.log("ping --->");
       setTimeout(() => {
         this.sendPing();
       }, 30000);
@@ -665,13 +664,9 @@ export class AppComponent implements OnInit, OnDestroy{
     }, 1000);
   }
 
-  showNotImportantViews(important:boolean) {
+  showNotImportantViews() {
     if(this.connected) {
-      if(important) {
-        this.webSocket.next(this.importantJson);
-      } else {
-        this.webSocket.next(this.notImportantJson);
-      }
+      this.webSocket.next(this.importantJson);
     }
   }
 }

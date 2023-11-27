@@ -65,16 +65,10 @@ app.on('ready', () => {
             },
             {
               id: "not-important-views",
-              label: 'Show Not Important Views',
-              type: 'checkbox',
+              label: 'Toggle Not Important Views',
               click: (e) => {
-                  if(e.checked) {
-                    mainWindow.webContents.send('infoMessage', {'message':'Showing not important views'});
-                    mainWindow.webContents.send('showImportantViews', {'important': false});
-                  } else {
-                    mainWindow.webContents.send('infoMessage', {'message':'Showing important views only'});
-                    mainWindow.webContents.send('showImportantViews', {'important': true});
-                  }
+                  mainWindow.webContents.send('infoMessage', {'message':'Toggling not important views'});
+                  mainWindow.webContents.send('showImportantViews');
               }
           },
             {
@@ -237,14 +231,15 @@ function restartServer() {
 function startAccessibilityService(runningServices){
   let accesibilityAppName = 'com.jwlilly.accessibilityinspector/com.jwlilly.accessibilityinspector.AccessibilityInspector';
   let restartCommand = ' shell settings put secure enabled_accessibility_services ';
+  let restartApp = ' shell am start-foreground-service com.jwlilly.accessibilityinspector/.SocketService '
   if(runningServices && runningServices.length > 0) {
     accesibilityAppName = ':' + accesibilityAppName;
   }
   if(!isWin) {
-    command = '"' + adbMac + '"' + restartCommand + runningServices + accesibilityAppName + ' ; "' + adbMac + '" forward tcp:38301 tcp:38301';
+    command = '"' + adbMac + '"' + restartApp + '; "' + adbMac + '"' + restartCommand + runningServices + accesibilityAppName + ' ; "' + adbMac + '" forward tcp:38301 tcp:38301';
   }
   if(isWin) {
-    command = '"' + adbWin + '"' + restartCommand + runningServices + accesibilityAppName + ' && "' + adbWin + '" forward tcp:38301 tcp:38301';
+    command = '"' + adbWin + '"' + restartApp + '&& "' + '"' + adbWin + '"' + restartCommand + runningServices + accesibilityAppName + ' && "' + adbWin + '" forward tcp:38301 tcp:38301';
   }
   console.log(command);
   runCommand = exec(command, (error, stdout, stderr) => {
@@ -261,5 +256,5 @@ function startAccessibilityService(runningServices){
   });
   setTimeout(() => {
     mainWindow.webContents.send('reconnect', {'data': ""});
-  }, 1000);
+  }, 5000);
 }
