@@ -30,13 +30,14 @@
         <div class="m-1">
           <ul class="list-group dark-border" *ngIf="jsonData.children">
             <ng-template #recursiveList let-list>
-                <li class="list-group-item dark-border" *ngFor="let node of list" [class.web-view]="node.role === 'WebView'">
+                <li class="list-group-item dark-border" *ngFor="let node of list" [ngClass]="{'web-view' : node.role.includes('WebView'), 'system-focus' : (node.properties && node.properties.includes('focused'))}">
                   <button id="{{ node.id }}" aria-pressed="false" class="btn btn-focus remove-btn-border" (click)="nodeClicked($event,node)">
                     <div>
                       <span>
                         {{node.role}}
                         <span class="web-view-btn badge rounded-pill bg-warning text-dark text-outline-light">WebView</span>
                         <span class="native-view-btn badge rounded-pill bg-success text-outline text-outline-dark">Native</span>
+                        <span class="system-focus-btn badge rounded-pill bg-info text-outline text-outline-dark">System Focus</span>
                       </span>
                     </div>
                     <div *ngIf="node.resourceId">id: {{node.resourceId}}</div>
