@@ -1,4 +1,4 @@
-<div (window:resize)="onResize($event)">
+<div (window:resize)="onResize($event)" (keyup.escape)="stopFindInPage()">
   <div>
     <div *ngIf="!connected" class="alert alert-warning alert-sticky">
       <div class="row">
@@ -27,8 +27,11 @@
         </div>
       </div>
       <div class="col-md">
+        <div class="bg-white sticky-top border-bottom">
+          <find-in-page (parentStopFindInPage)="stopFindInPage()" (parentFindInPage)="findInPage($event)"></find-in-page>
+        </div>
         <div class="m-1">
-          <ul class="list-group dark-border" *ngIf="jsonData.children">
+          <ul class="mt-4 list-group dark-border" *ngIf="jsonData.children">
             <ng-template #recursiveList let-list>
                 <li class="list-group-item dark-border" *ngFor="let node of list" [ngClass]="{'web-view' : node.role.includes('WebView'), 'system-focus' : (node.properties && node.properties.includes('focused'))}">
                   <button id="{{ node.id }}" aria-pressed="false" class="btn btn-focus remove-btn-border" (click)="nodeClicked($event,node)">

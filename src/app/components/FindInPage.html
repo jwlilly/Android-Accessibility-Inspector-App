@@ -1,0 +1,12 @@
+<div class="p-2 row g-3 align-items-center mb-3 search-width" id="searchPannel">
+    <div class="col-auto">
+        <label for="enter">Find Text</label>
+    </div>
+    <div class="col-auto">
+        <input #findInput (keyup.enter)="findInPage($event)" class="form-control" id="enter" type="text">
+    </div>
+    <div class="col-auto">
+        <button class="btn btn-primary me-2" #findButton id="search" (click)="findInPage($event)">Find</button>
+        <button class="btn btn-primary" (click)="stopFindInPage()" id="clearSearch">Clear</button>
+    </div>
+</div>

@@ -5,6 +5,7 @@ import { ElectronService } from 'ngx-electron';
 import { BoundingBox } from './BoundingBox';
 import {webSocket, WebSocketSubject} from 'rxjs/webSocket';
 import { ToastrService } from 'ngx-toastr';
+import { FindInPage } from './components/FindInPage';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -668,5 +669,14 @@ export class AppComponent implements OnInit, OnDestroy{
     if(this.connected) {
       this.webSocket.next(this.importantJson);
     }
+  }
+
+  findInPage(event: any) {
+    let text = event.findText as string;
+    this._electronService.ipcRenderer.send("findInPage", [text]);
+  }
+
+  stopFindInPage() {
+    this._electronService.ipcRenderer.send("stopFindInPage");
   }
 }

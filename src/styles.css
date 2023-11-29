@@ -28,7 +28,7 @@
   position:fixed;
   top:0;
   right:5px;
-  z-index:100;
+  z-index:2000;
  }
 
 .dark-border {
@@ -61,12 +61,16 @@ span.system-focus-btn {
   display: none;
 }
 
+.search-width {
+  max-width: calc(100% - 70px);
+}
+
 li.web-view span.web-view-btn {
   display:inline-block;
   margin-left: 4px;
 }
 
-li.system-focus span.system-focus-btn {
+li.system-focus > button > div > span > span.system-focus-btn {
   display:inline-block;
   margin-left: 4px;
 }
@@ -101,7 +105,7 @@ li.web-view span.native-view-btn {
 .alert-sticky {
   position: fixed;
   width: 100%;
-  z-index: 2000;
+  z-index: 2001;
 }
 @keyframes spinner {
   to {transform: rotate(360deg);}

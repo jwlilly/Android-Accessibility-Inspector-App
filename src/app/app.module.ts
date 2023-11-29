@@ -10,12 +10,14 @@ import { ObjectValuesPipe } from './json.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { VarDirective } from './ng-var.directive';
+import { FindInPage } from './components/FindInPage';
 
 @NgModule({
   declarations: [
     AppComponent,
     ObjectValuesPipe,
-    VarDirective
+    VarDirective,
+    FindInPage
   ],
   imports: [
     BrowserModule,
