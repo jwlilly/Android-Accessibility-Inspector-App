@@ -102,6 +102,12 @@ ipcMain.on('forwardPorts', (event, arg) => {
 ipcMain.on('restartServer', (event, arg) => {
     restartServer();
   });
+ipcMain.on('findInPage', (event, arg) => {
+  findInPage(arg[0]);
+});
+ipcMain.on('stopFindInPage', (event, arg) => {
+  stopFindInPage();
+});
 ipcMain.on('setNotImportant', (event, arg) => {
   myItem = Menu.getApplicationMenu().getMenuItemById('not-important-views');
   myItem.checked = arg;
@@ -257,4 +263,19 @@ function startAccessibilityService(runningServices){
   setTimeout(() => {
     mainWindow.webContents.send('reconnect', {'data': ""});
   }, 5000);
+}
+
+function findInPage(text) {
+  let options = {
+    forward: true,
+    findNext: true,
+    matchCase: false,
+    wordStart: false,
+    medialCapitalAsWordStart: false
+  }
+  mainWindow.webContents.findInPage(text, options)
+}
+
+function stopFindInPage() {
+  mainWindow.webContents.stopFindInPage('clearSelection');
 }
