@@ -89,7 +89,7 @@ export class AppComponent implements OnInit, OnDestroy{
     };
 
     this.updateImage = (event, data) => {
-      this.imageBase64 = "data:image/png;base64," + data;
+      this.imageBase64 = "data:image/png;base64," + data.image;
 
       setTimeout(() => {
         this.doRerender();
@@ -113,6 +113,7 @@ export class AppComponent implements OnInit, OnDestroy{
   ngOnInit() {
     this._electronService.ipcRenderer.send('forwardPorts');
     this._electronService.ipcRenderer.send('finishSetup');
+    this._electronService.ipcRenderer.send('takeScreenshot');
     this._electronService.ipcRenderer.on("commandError", this.commandError);
     this._electronService.ipcRenderer.on("successMessage", this.successMessage);
     this._electronService.ipcRenderer.on("infoMessage", this.infoMessage);
@@ -151,9 +152,11 @@ export class AppComponent implements OnInit, OnDestroy{
   });
     return emptyView();
   }
+
   startSetup() {
     this.focusView = this.createEmptyView();
     this.showFocusBorder(this.focusView);
+    this._electronService.ipcRenderer.send('takeScreenshot');
     if(this._electronService.isElectronApp && this.connected){
       this.webSocket.next(this.captureJson);
       window.scrollTo(0, 0);
@@ -184,8 +187,8 @@ export class AppComponent implements OnInit, OnDestroy{
             if(msg.showNotImportant) {
               this._electronService.ipcRenderer.send('setNotImportant', msg.showNotImportant);
             }
-            this.jsonData = msg.views as AndroidView;
           }
+          this.jsonData = msg.views as AndroidView;
 
           this.collectBoundingBoxes();
           this.clickView = this.createEmptyView();

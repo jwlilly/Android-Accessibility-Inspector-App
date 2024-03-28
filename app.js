@@ -7,8 +7,11 @@ const path = require("path");
 const appPath = app.getAppPath();
 const adbMac = path.join(appPath + '/src/assets/', 'adb');
 const adbWin = path.join(appPath +'/src/assets/', 'adb.exe');
+const screenshotPath = path.join(appPath +'/src/assets/', 'screen.png');
 const companionAppPath = path.join(appPath + '/src/assets/', 'app-release.apk');
 const { exec } = require("child_process");
+var fs = require('fs');
+
 
 let mainWindow
 
@@ -102,6 +105,9 @@ ipcMain.on('forwardPorts', (event, arg) => {
 ipcMain.on('restartServer', (event, arg) => {
     restartServer();
   });
+ipcMain.on('takeScreenshot', (event, arg) => {
+  takeScreenshot();
+});
 ipcMain.on('findInPage', (event, arg) => {
   findInPage(arg[0]);
 });
@@ -112,6 +118,31 @@ ipcMain.on('setNotImportant', (event, arg) => {
   myItem = Menu.getApplicationMenu().getMenuItemById('not-important-views');
   myItem.checked = arg;
 });
+
+function takeScreenshot(){
+  if(!isWin) {
+    command = `${adbMac} exec-out screencap -p > ${screenshotPath}`
+  }
+  if(isWin) {
+    command = `${adbWin} exec-out screencap -p > ${screenshotPath}`
+  }
+  runCommand = exec(command, (error, stdout, stderr) => {
+    if (error) {
+        console.log(`${error.message}`);
+        mainWindow.webContents.send('commandError', {'error': error.message});
+        return;
+    }
+    if (stderr) {
+        console.log(`${stderr}`);
+        mainWindow.webContents.send('commandError', {'error': stderr});
+        return;
+    }
+    result = stdout;
+    var bitmap = fs.readFileSync(screenshotPath);
+    // convert binary data to base64 encoded string
+    mainWindow.webContents.send('updateImage', {'image': Buffer(bitmap).toString('base64')});
+  });
+}
 function installApp() {
   mainWindow.webContents.send('infoMessage', {'message':'Performing install'});
   let command = "";
@@ -235,17 +266,22 @@ function restartServer() {
   });
 }
 function startAccessibilityService(runningServices){
-  let accesibilityAppName = 'com.jwlilly.accessibilityinspector/com.jwlilly.accessibilityinspector.AccessibilityInspector';
+  let accessibilityAppName = 'com.jwlilly.accessibilityinspector/com.jwlilly.accessibilityinspector.AccessibilityInspector';
   let restartCommand = ' shell settings put secure enabled_accessibility_services ';
   let restartApp = ' shell am start-foreground-service com.jwlilly.accessibilityinspector/.SocketService '
-  if(runningServices && runningServices.length > 0) {
-    accesibilityAppName = ':' + accesibilityAppName;
+  if(runningServices !== null && runningServices.trim() !== 'null' && runningServices.length > 0) {
+    accessibilityAppName = ':' + accessibilityAppName;
   }
+  if(runningServices === null || runningServices.trim() === 'null') {
+    runningServices = '';
+  }
+
+  console.log(accessibilityAppName, runningServices)
   if(!isWin) {
-    command = '"' + adbMac + '"' + restartApp + '; "' + adbMac + '"' + restartCommand + runningServices + accesibilityAppName + ' ; "' + adbMac + '" forward tcp:38301 tcp:38301';
+    command = '"' + adbMac + '"' + restartApp + '; "' + adbMac + '"' + restartCommand + runningServices + accessibilityAppName + ' ; "' + adbMac + '" forward tcp:38301 tcp:38301';
   }
   if(isWin) {
-    command = '"' + adbWin + '"' + restartApp + '&& "' + '"' + adbWin + '"' + restartCommand + runningServices + accesibilityAppName + ' && "' + adbWin + '" forward tcp:38301 tcp:38301';
+    command = '"' + adbWin + '"' + restartApp + '&& ' + '"' + adbWin + '"' + restartCommand + runningServices + accessibilityAppName + ' && "' + adbWin + '" forward tcp:38301 tcp:38301';
   }
   console.log(command);
   runCommand = exec(command, (error, stdout, stderr) => {
@@ -262,7 +298,8 @@ function startAccessibilityService(runningServices){
   });
   setTimeout(() => {
     mainWindow.webContents.send('reconnect', {'data': ""});
-  }, 5000);
+    takeScreenshot();
+  }, 10000);
 }
 
 function findInPage(text) {
