@@ -3,6 +3,9 @@
 import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
 
 export type Channels = 'ipc-example';
+const AdbChannels = {
+  devices: 'adb-get-devices',
+};
 
 const electronHandler = {
   ipcRenderer: {
@@ -20,6 +23,16 @@ const electronHandler = {
     },
     once(channel: Channels, func: (...args: unknown[]) => void) {
       ipcRenderer.once(channel, (_event, ...args) => func(...args));
+    },
+    adb: {
+      getDevices() {
+        ipcRenderer.send(AdbChannels.devices, '');
+        const subscription = (_event: IpcRendererEvent, ...args: unknown[]) =>
+          func(...args);
+        return () => {
+          ipcRenderer.removeListener(channel, subscription);
+        };
+      },
     },
   },
 };

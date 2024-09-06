@@ -25,12 +25,19 @@ class AppUpdater {
 }
 
 let mainWindow: BrowserWindow | null = null;
-let adb = null;
+let adb: Client | null = null;
 
 ipcMain.on('ipc-example', async (event, arg) => {
   const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
   console.log(msgTemplate(arg));
   event.reply('ipc-example', msgTemplate('pong'));
+});
+
+ipcMain.on('adb-get-devices', async () => {
+  if (adb) {
+    const devices = await adb.listDevices();
+    console.log(devices[0].device);
+  }
 });
 
 if (process.env.NODE_ENV === 'production') {
@@ -74,9 +81,6 @@ const createWindow = async () => {
   const ADB_PATH = path.join(getAssetPath(), 'adb');
   adb = new Client({ bin: path.join(ADB_PATH, 'adb.exe') });
 
-  let devices = await adb.listDevices();
-
-  console.log('--------------' + devices[0].model);
   mainWindow = new BrowserWindow({
     show: false,
     width: 1024,
