@@ -1,6 +1,9 @@
 import TreeView, { flattenTree } from 'react-accessible-treeview';
-import adb from '../utils/adb';
-import './styles.css';
+import {
+  ArrowLeftEndOnRectangleIcon,
+  ChevronDownIcon,
+  ChevronRightIcon,
+} from '@heroicons/react/16/solid';
 
 const testData = {
   name: '',
@@ -363,6 +366,13 @@ const testData = {
   ],
 };
 
+function ArrowIcon({ isOpen, ...props }: any) {
+  if (isOpen) {
+    return <ChevronDownIcon className={props.className} />;
+  }
+  return <ChevronRightIcon className={props.className} />;
+}
+
 // eslint-disable-next-line react/prop-types
 const BasicTreeView = function ({ tree }: any) {
   const data = flattenTree(tree);
@@ -370,13 +380,29 @@ const BasicTreeView = function ({ tree }: any) {
   return (
     <TreeView
       data={data}
-      className="basic"
+      className="tree-view"
       aria-label="basic example tree"
       // eslint-disable-next-line react/no-unstable-nested-components
-      nodeRenderer={({ element, getNodeProps, level }) => (
+      nodeRenderer={({
+        element,
+        getNodeProps,
+        level,
+        isBranch,
+        isExpanded,
+        isSelected,
+      }) => (
         // eslint-disable-next-line react/jsx-props-no-spreading
-        <div {...getNodeProps()} style={{ paddingLeft: 20 * (level - 1) }}>
+        <div {...getNodeProps()} style={{ paddingLeft: 10 }}>
+          {isBranch && (
+            <ArrowIcon
+              isOpen={isExpanded}
+              className="inline h-[24px] relative left-[-1px] fill-slate-800"
+            />
+          )}
           {element.name}
+          {isSelected && (
+            <ArrowLeftEndOnRectangleIcon className="inline h-[24px] fill-slate-800" />
+          )}
         </div>
       )}
     />

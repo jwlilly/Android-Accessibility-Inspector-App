@@ -11,9 +11,10 @@
 import path from 'path';
 import { app, BrowserWindow, shell, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
-import { Client } from 'adb-ts';
+import { Client, Device } from 'adb-ts';
 import { IDevice } from 'adb-ts/lib/util';
 import log from 'electron-log';
+import { execFile } from 'child_process';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 
@@ -27,14 +28,62 @@ class AppUpdater {
 
 let mainWindow: BrowserWindow | null = null;
 let adb: Client | null = null;
+let ADB_PATH = '';
+
+const deviceNetworkForward = {
+  local: 'tcp:38301',
+  remote: 'tcp:38301',
+};
 
 async function adbListDevices(): Promise<IDevice[] | null> {
   if (adb) {
     const devices = await adb.listDevices();
-    console.log(devices[0].device);
     return devices;
   }
   return null;
+}
+
+async function adbRemoveForward(): Promise<boolean> {
+  if (adb) {
+    execFile(
+      path.join(ADB_PATH, 'adb.exe'),
+      ['forward', '--remove-all'],
+      (err, stdout, stderr) => {
+        if (err) {
+          console.log(err);
+          return false;
+        }
+        if (stderr && !stdout) {
+          console.log(stderr.trim(), ['forward', '--remove-all'].join(' '));
+          return false;
+        }
+        if (/Error/.test(stdout)) {
+          console.log(stdout.trim(), ['forward', '--remove-all'].join(' '));
+          return false;
+        }
+        console.log('clearing forwards', stdout);
+        return true;
+      },
+    );
+  }
+  return false;
+}
+
+async function adbForward(device: IDevice): Promise<boolean> {
+  if (adb) {
+    try {
+      const selectedDevice = new Device(adb, device);
+      await adbRemoveForward();
+      selectedDevice.forward(
+        deviceNetworkForward.local,
+        deviceNetworkForward.remote,
+      );
+      return true;
+    } catch (error: any) {
+      console.log(error);
+    }
+  }
+  return false;
 }
 
 ipcMain.on('ipc-example', async (event, arg) => {
@@ -45,6 +94,10 @@ ipcMain.on('ipc-example', async (event, arg) => {
 
 ipcMain.handle('adb-list-devices', async () => {
   return adbListDevices();
+});
+
+ipcMain.handle('adb-forward', async (_event, args) => {
+  return adbForward(args[0]);
 });
 
 if (process.env.NODE_ENV === 'production') {
@@ -85,7 +138,7 @@ const createWindow = async () => {
     return path.join(RESOURCES_PATH, ...paths);
   };
 
-  const ADB_PATH = path.join(getAssetPath(), 'adb');
+  ADB_PATH = path.join(getAssetPath(), 'adb');
   adb = new Client({ bin: path.join(ADB_PATH, 'adb.exe') });
 
   mainWindow = new BrowserWindow({

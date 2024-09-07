@@ -4,7 +4,9 @@ const adb = {
   listDevices: (): Promise<IDevice[] | null> => {
     return window.electron.ipcRenderer.invoke('adb-list-devices');
   },
-  forwardPort: () => {},
+  forward: (device: IDevice): Promise<boolean> => {
+    return window.electron.ipcRenderer.invoke('adb-forward', [device]);
+  },
   install: () => {},
 };
 

@@ -1,5 +1,5 @@
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
-import './index.css';
+import './index.scss';
 import { Theme } from 'react-daisyui';
 import { BasicTreeView, testData } from './views/basic-tree-view';
 import ConnectDevice from './views/connect-device';

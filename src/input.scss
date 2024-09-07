@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.tree-view [role="treeitem"] {
+  cursor: pointer;
+}
+
+.tree-node-group {
+  margin-left: 20px;
+  box-shadow: inset 1px 0px 0px 0px gray;
+}
+
+
