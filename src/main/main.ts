@@ -12,6 +12,7 @@ import path from 'path';
 import { app, BrowserWindow, shell, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import { Client } from 'adb-ts';
+import { IDevice } from 'adb-ts/lib/util';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
@@ -27,17 +28,23 @@ class AppUpdater {
 let mainWindow: BrowserWindow | null = null;
 let adb: Client | null = null;
 
+async function adbListDevices(): Promise<IDevice[] | null> {
+  if (adb) {
+    const devices = await adb.listDevices();
+    console.log(devices[0].device);
+    return devices;
+  }
+  return null;
+}
+
 ipcMain.on('ipc-example', async (event, arg) => {
   const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
   console.log(msgTemplate(arg));
   event.reply('ipc-example', msgTemplate('pong'));
 });
 
-ipcMain.on('adb-get-devices', async () => {
-  if (adb) {
-    const devices = await adb.listDevices();
-    console.log(devices[0].device);
-  }
+ipcMain.handle('adb-list-devices', async () => {
+  return adbListDevices();
 });
 
 if (process.env.NODE_ENV === 'production') {

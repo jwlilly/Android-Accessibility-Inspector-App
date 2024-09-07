@@ -2,37 +2,36 @@
 /* eslint no-unused-vars: off */
 import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
 
-export type Channels = 'ipc-example';
-const AdbChannels = {
-  devices: 'adb-get-devices',
-};
+const validChannels = ['adb-list-devices', 'ipc-example'];
 
 const electronHandler = {
   ipcRenderer: {
-    sendMessage(channel: Channels, ...args: unknown[]) {
-      ipcRenderer.send(channel, ...args);
+    sendMessage(channel: string, ...args: unknown[]) {
+      if (validChannels.includes(channel)) {
+        ipcRenderer.send(channel, ...args);
+      }
     },
-    on(channel: Channels, func: (...args: unknown[]) => void) {
+    on(channel: string, func: (...args: unknown[]) => void) {
       const subscription = (_event: IpcRendererEvent, ...args: unknown[]) =>
         func(...args);
-      ipcRenderer.on(channel, subscription);
-
-      return () => {
-        ipcRenderer.removeListener(channel, subscription);
-      };
-    },
-    once(channel: Channels, func: (...args: unknown[]) => void) {
-      ipcRenderer.once(channel, (_event, ...args) => func(...args));
-    },
-    adb: {
-      getDevices() {
-        ipcRenderer.send(AdbChannels.devices, '');
-        const subscription = (_event: IpcRendererEvent, ...args: unknown[]) =>
-          func(...args);
+      if (validChannels.includes(channel)) {
+        ipcRenderer.on(channel, subscription);
         return () => {
           ipcRenderer.removeListener(channel, subscription);
         };
-      },
+      }
+      return null;
+    },
+    once(channel: string, func: (...args: unknown[]) => any) {
+      if (validChannels.includes(channel)) {
+        ipcRenderer.once(channel, (_event, ...args) => func(...args));
+      }
+    },
+    invoke(channel: string, args?: any): Promise<any | null> {
+      if (validChannels.includes(channel)) {
+        return ipcRenderer.invoke(channel, args);
+      }
+      return Promise.resolve(null);
     },
   },
 };

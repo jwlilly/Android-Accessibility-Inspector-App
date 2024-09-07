@@ -1,4 +1,5 @@
 import TreeView, { flattenTree } from 'react-accessible-treeview';
+import adb from '../utils/adb';
 import './styles.css';
 
 const testData = {
@@ -365,7 +366,6 @@ const testData = {
 // eslint-disable-next-line react/prop-types
 const BasicTreeView = function ({ tree }: any) {
   const data = flattenTree(tree);
-  window.electron.ipcRenderer.adb.getDevices();
 
   return (
     <TreeView

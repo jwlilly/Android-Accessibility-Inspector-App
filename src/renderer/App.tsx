@@ -1,12 +1,15 @@
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
-import './App.css';
+import './index.css';
+import { Theme } from 'react-daisyui';
 import { BasicTreeView, testData } from './views/basic-tree-view';
+import ConnectDevice from './views/connect-device';
 
 function Main() {
   return (
-    <div>
+    <Theme dataTheme="cupcake">
+      <ConnectDevice />
       <BasicTreeView tree={testData} />
-    </div>
+    </Theme>
   );
 }
 
