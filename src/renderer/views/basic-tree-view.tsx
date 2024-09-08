@@ -386,13 +386,15 @@ const BasicTreeView = function ({ tree }: any) {
       nodeRenderer={({
         element,
         getNodeProps,
-        level,
         isBranch,
         isExpanded,
         isSelected,
       }) => (
-        // eslint-disable-next-line react/jsx-props-no-spreading
-        <div {...getNodeProps()} style={{ paddingLeft: 10 }}>
+        <div
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...getNodeProps()}
+          className={`${!isBranch ? 'ml-1 ' : ''}pl-[10px]`}
+        >
           {isBranch && (
             <ArrowIcon
               isOpen={isExpanded}
@@ -400,9 +402,6 @@ const BasicTreeView = function ({ tree }: any) {
             />
           )}
           {element.name}
-          {isSelected && (
-            <ArrowLeftEndOnRectangleIcon className="inline h-[24px] fill-slate-800" />
-          )}
         </div>
       )}
     />
