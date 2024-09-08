@@ -3,6 +3,7 @@ export interface AndroidView {
   resourceId?: string;
   windowId?: number;
   role?: string;
+  name?: string;
   title?: string;
   hint?: string;
   x1?: number;

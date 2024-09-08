@@ -1,29 +1,22 @@
-import React, { useState } from 'react'
-import { cn } from '../utils/cn'
+/* eslint-disable react/jsx-props-no-spreading */
+import { useState } from 'react';
 
-const SampleSplitter = ({
-  id = 'drag-bar',
-  dir,
-  isDragging,
-  ...props
-}: any) => {
-  const [isFocused, setIsFocused] = useState(false)
+function Splitter({ id, dir, isDragging, label, ...props }: any) {
+  const [isFocused, setIsFocused] = useState(false);
 
   return (
     <div
       id={id}
       data-testid={id}
+      // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
       tabIndex={0}
-      className={cn(
-        'sample-drag-bar',
-        dir === 'horizontal' && 'sample-drag-bar--horizontal',
-        (isDragging || isFocused) && 'sample-drag-bar--dragging'
-      )}
+      aria-label={label}
+      className={`drag-bar ${dir === 'horizontal' && 'drag-bar--horizontal'} ${(isDragging || isFocused) && 'drag-bar--dragging'} `}
       onFocus={() => setIsFocused(true)}
       onBlur={() => setIsFocused(false)}
       {...props}
     />
-  )
+  );
 }
 
-export default SampleSplitter
+export default Splitter;

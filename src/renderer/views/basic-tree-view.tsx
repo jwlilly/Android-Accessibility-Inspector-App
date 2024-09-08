@@ -1,9 +1,8 @@
-import TreeView, { flattenTree } from 'react-accessible-treeview';
-import {
-  ArrowLeftEndOnRectangleIcon,
-  ChevronDownIcon,
-  ChevronRightIcon,
-} from '@heroicons/react/16/solid';
+import TreeView, {
+  flattenTree,
+  ITreeViewOnSelectProps,
+} from 'react-accessible-treeview';
+import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/16/solid';
 
 const testData = {
   name: '',
@@ -42,7 +41,7 @@ const testData = {
                   y2: 279,
                   content: 'Navigate up',
                   actions: ['focus', 'click', 'a11y focus'],
-                  properties: ['focusable', 'clickable'],
+                  properties: ['focusable', 'clickable', 'focused', 'a11y focused'],
                 },
                 {
                   id: 1445331,
@@ -374,14 +373,20 @@ function ArrowIcon({ isOpen, ...props }: any) {
 }
 
 // eslint-disable-next-line react/prop-types
-const BasicTreeView = function ({ tree }: any) {
+const BasicTreeView = function basicTreeView({ tree, onViewSelected }: any) {
   const data = flattenTree(tree);
-
+  const viewSelected = (selectedData: ITreeViewOnSelectProps) => {
+    if (selectedData.isSelected) {
+      onViewSelected(selectedData);
+    }
+  };
   return (
     <TreeView
       data={data}
       className="tree-view"
       aria-label="basic example tree"
+      clickAction="EXCLUSIVE_SELECT"
+      onSelect={viewSelected}
       // eslint-disable-next-line react/no-unstable-nested-components
       nodeRenderer={({
         element,
@@ -393,7 +398,7 @@ const BasicTreeView = function ({ tree }: any) {
         <div
           // eslint-disable-next-line react/jsx-props-no-spreading
           {...getNodeProps()}
-          className={`${!isBranch ? 'ml-1 ' : ''}pl-[10px]`}
+          className={`${!isBranch ? 'ml-1' : ''} pl-[10px]`}
         >
           {isBranch && (
             <ArrowIcon
@@ -401,7 +406,12 @@ const BasicTreeView = function ({ tree }: any) {
               className="inline h-[24px] relative left-[-1px] fill-slate-800"
             />
           )}
-          {element.name}
+          <span
+            className={`${isSelected ? 'border-b border-b-slate-900' : ''}`}
+          >
+            {element.name}
+            <span className="sr-only">{isSelected ? 'selected' : ''}</span>
+          </span>
         </div>
       )}
     />

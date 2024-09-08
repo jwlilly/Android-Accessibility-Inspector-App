@@ -7,7 +7,9 @@ import adb from '../utils/adb';
 const ConnectDevice = function ConnectDevice() {
   const [devices, setDevices] = useState<IDevice[] | null>(null);
   const [deviceValue, setDeviceValue] = useState<number>(0);
-  if (!devices) {
+  let runOnce = true;
+
+  if (!devices && runOnce) {
     adb
       .listDevices()
       .then((response) => {
@@ -15,35 +17,39 @@ const ConnectDevice = function ConnectDevice() {
         return null;
       })
       .catch((error) => console.log(error));
+
+    runOnce = false;
   }
 
   const refreshDevices = () => {
     adb
       .listDevices()
       .then((response) => {
+        console.log(response);
         setDevices(response);
         return null;
       })
       .catch((error) => console.log(error));
   };
 
-  const deviceOptions = devices ? (
-    devices.map((device, index) => {
-      return (
-        <Select.Option
-          disabled={device.state === 'offline'}
-          value={index}
-          key={device.id}
-        >
-          {device.model} - {device.state}
-        </Select.Option>
-      );
-    })
-  ) : (
-    <Select.Option aria-disabled="true" value={-1}>
-      No devices found
-    </Select.Option>
-  );
+  const deviceOptions =
+    devices !== null && devices.length > 0 ? (
+      devices.map((device, index) => {
+        return (
+          <Select.Option
+            disabled={device.state === 'offline'}
+            value={index}
+            key={device.id}
+          >
+            {device.model} - {device.state}
+          </Select.Option>
+        );
+      })
+    ) : (
+      <Select.Option disabled value={0}>
+        No devices found
+      </Select.Option>
+    );
 
   const selectDevice = (index: number) => {
     if (index >= 0) {
@@ -76,7 +82,6 @@ const ConnectDevice = function ConnectDevice() {
       </div>
       <Select
         id="device"
-        defaultValue={0}
         value={deviceValue}
         onChange={(event) => deviceOnChange(event)}
         className="w-full max-w-xs select-primary"
@@ -88,8 +93,8 @@ const ConnectDevice = function ConnectDevice() {
 
   return (
     <div className="flex flex-row items-end justify-center w-full gap-2 p-4 font-sans">
-      {devices && devices.length > 0 ? deviceSelect : null}
-      <div className="h-full col-span-1">
+      {deviceSelect}
+      <div className="col-span-1">
         <Button
           onClick={() => selectDevice(deviceValue)}
           disabled={

@@ -9,9 +9,12 @@
 .tree-node-group {
   margin-left: 20px;
   box-shadow: inset 1px 0px 0px 0px gray;
+  height: 100%;
 }
 
-.sample-drag-bar {
+
+
+.drag-bar {
   flex-shrink: 0;
   width: 5px;
   background-color: #d1d5db;
@@ -19,12 +22,12 @@
   transition: background-color 0.15s 0.15s ease-in-out;
 }
 
-.sample-drag-bar.sample-drag-bar--dragging,
-.sample-drag-bar:hover{
+.drag-bar.drag-bar--dragging,
+.drag-bar:hover{
   background-color: #63B3ED;
 }
 
-.sample-drag-bar.sample-drag-bar--horizontal {
+.drag-bar.drag-bar--horizontal {
   height: 5px;
   width: 100%;
   cursor: row-resize;
