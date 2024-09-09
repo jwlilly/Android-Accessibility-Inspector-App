@@ -125,6 +125,10 @@ const ViewDetails = function viewDetails({ selectedView, viewHierarchy }: any) {
             <td>collection item info</td>
             <td>{transformData(view.collectionItemInfo)}</td>
           </tr>
+          <tr>
+            <td>size</td>
+            <td>{`${((view.x2 - view.x1) / (428 / 160)).toFixed(0)} dp x ${((view.y2 - view.y1) / (428 / 160)).toFixed(0)} dp`}</td>
+          </tr>
         </tbody>
       </table>
     </div>
