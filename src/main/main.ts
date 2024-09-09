@@ -35,6 +35,8 @@ const deviceNetworkForward = {
   remote: 'tcp:38301',
 };
 
+const ADB_BIN = process.platform === 'darwin' ? 'adb' : 'adb.exe';
+
 async function adbListDevices(): Promise<IDevice[] | null> {
   if (adb) {
     const devices = await adb.listDevices();
@@ -46,7 +48,7 @@ async function adbListDevices(): Promise<IDevice[] | null> {
 async function adbRemoveForward(): Promise<boolean> {
   if (adb) {
     execFile(
-      path.join(ADB_PATH, 'adb.exe'),
+      path.join(ADB_PATH, ADB_BIN),
       ['forward', '--remove-all'],
       (err, stdout, stderr) => {
         if (err) {
@@ -139,7 +141,7 @@ const createWindow = async () => {
   };
 
   ADB_PATH = path.join(getAssetPath(), 'adb');
-  adb = new Client({ bin: path.join(ADB_PATH, 'adb.exe') });
+  adb = new Client({ bin: path.join(ADB_PATH, ADB_BIN) });
 
   mainWindow = new BrowserWindow({
     show: false,

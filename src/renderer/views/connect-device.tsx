@@ -102,6 +102,7 @@ const ConnectDevice = function ConnectDevice() {
             devices.length <= 0 ||
             devices[deviceValue].state === 'offline'
           }
+          color="primary"
         >
           Connect
         </Button>
