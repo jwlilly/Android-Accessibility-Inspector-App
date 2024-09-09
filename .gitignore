@@ -30,3 +30,4 @@ npm-debug.log.*
 *.scss.d.ts
 
 assets/adb/*.dll
+assets/adb/AdbWinApi.dll
