@@ -24,7 +24,7 @@ const Logs = function Logs() {
         onClose={handleClose}
         className="w-11/12 max-w-5xl"
       >
-        <Modal.Header tabIndex={-1} className="font-bold">
+        <Modal.Header tabIndex={-1} className="font-bold scroll">
           Logs
         </Modal.Header>
         <Modal.Body>Logs go here</Modal.Body>

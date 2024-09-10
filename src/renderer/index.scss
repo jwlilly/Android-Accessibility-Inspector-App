@@ -9402,6 +9402,10 @@ body {
   overflow: hidden;
 }
 
+:root:has(:is(.modal-open, .modal:target, .modal-toggle:checked + .modal, .modal[open])) {
+  scrollbar-gutter: auto;
+}
+
 .drag-bar {
   flex-shrink: 0;
   width: 5px;
