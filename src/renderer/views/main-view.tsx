@@ -12,6 +12,7 @@ import { BasicTreeView, testData } from './basic-tree-view';
 import ConnectDevice from './connect-device';
 import ViewDetails from './view-details';
 import Logs from './log-view';
+import Screenshot from './screenshot';
 
 function MainView(): React.JSX.Element {
   const [selectedView, setSelectedView] = useState<number>(0);
@@ -95,7 +96,7 @@ function MainView(): React.JSX.Element {
           className={`shrink-0 contents pt-4 ${isTreeDragging ? 'dragging' : ''}`}
           style={{ width: treeW }}
         >
-          Screenshot
+          <Screenshot />
         </div>
         <Splitter
           isDragging={isTreeDragging}
