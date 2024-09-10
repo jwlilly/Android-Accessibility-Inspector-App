@@ -41,7 +41,12 @@ const testData = {
                   y2: 279,
                   content: 'Navigate up',
                   actions: ['focus', 'click', 'a11y focus'],
-                  properties: ['focusable', 'clickable', 'focused', 'a11y focused'],
+                  properties: [
+                    'focusable',
+                    'clickable',
+                    'focused',
+                    'a11y focused',
+                  ],
                 },
                 {
                   id: 1445331,

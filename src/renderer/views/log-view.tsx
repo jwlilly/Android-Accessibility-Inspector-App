@@ -14,7 +14,7 @@ const Logs = function Logs() {
     setModalOpen(false);
   }, []);
   return (
-    <div className="font-sans">
+    <div>
       <Button aria-label="Logs" onClick={handleShow} color="ghost">
         <InformationCircleIcon title="Logs" className="h-[24px]" />
       </Button>

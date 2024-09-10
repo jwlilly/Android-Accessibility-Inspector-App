@@ -14,6 +14,7 @@ import ConnectDevice from './connect-device';
 import ViewDetails from './view-details';
 import Logs from './log-view';
 import Screenshot from './screenshot';
+import MainIcon from '../images/icon';
 
 function MainView(): React.JSX.Element {
   const [selectedView, setSelectedView] = useState<number>(0);
@@ -56,7 +57,10 @@ function MainView(): React.JSX.Element {
           </Button>
         </Navbar.Start>
         <Navbar.Center>
-          <h1 className="text-xl">Accessibility Inspector</h1>
+          <h1 className="text-xl">
+            <MainIcon className="h-10 w-10 inline mr-3" aria-hidden="true" />
+            Accessibility Inspector
+          </h1>
         </Navbar.Center>
         <Navbar.End>
           <details className="dropdown">

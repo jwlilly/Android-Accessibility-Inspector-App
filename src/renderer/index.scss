@@ -8534,18 +8534,14 @@ html:has(.drawer-open.drawer-open) {
   margin: auto;
 }
 
-.m-2 {
-  margin: 0.5rem;
+.mx-2 {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
-}
-
-.mx-2 {
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
 }
 
 .mb-8 {
@@ -8566,6 +8562,14 @@ html:has(.drawer-open.drawer-open) {
 
 .mt-4 {
   margin-top: 1rem;
+}
+
+.mr-2 {
+  margin-right: 0.5rem;
+}
+
+.mr-3 {
+  margin-right: 0.75rem;
 }
 
 .block {
@@ -8704,6 +8708,26 @@ html:has(.drawer-open.drawer-open) {
   height: 100vh;
 }
 
+.h-\[36px\] {
+  height: 36px;
+}
+
+.h-\[32px\] {
+  height: 32px;
+}
+
+.h-2 {
+  height: 0.5rem;
+}
+
+.h-4 {
+  height: 1rem;
+}
+
+.h-6 {
+  height: 1.5rem;
+}
+
 .w-1\/2 {
   width: 50%;
 }
@@ -8756,16 +8780,44 @@ html:has(.drawer-open.drawer-open) {
   width: 100vw;
 }
 
+.w-1 {
+  width: 0.25rem;
+}
+
+.w-\[24px\] {
+  width: 24px;
+}
+
+.w-\[32px\] {
+  width: 32px;
+}
+
+.w-\[36px\] {
+  width: 36px;
+}
+
+.w-\[50px\] {
+  width: 50px;
+}
+
+.w-2 {
+  width: 0.5rem;
+}
+
+.w-4 {
+  width: 1rem;
+}
+
+.w-6 {
+  width: 1.5rem;
+}
+
 .max-w-5xl {
   max-width: 64rem;
 }
 
 .max-w-xs {
   max-width: 20rem;
-}
-
-.max-w-\[90\%\] {
-  max-width: 90%;
 }
 
 .shrink {
@@ -9038,14 +9090,14 @@ html:has(.drawer-open.drawer-open) {
   border-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-border-opacity)));
 }
 
+.border-base-content {
+  --tw-border-opacity: 1;
+  border-color: var(--fallback-bc,oklch(var(--bc)/var(--tw-border-opacity)));
+}
+
 .border-error {
   --tw-border-opacity: 1;
   border-color: var(--fallback-er,oklch(var(--er)/var(--tw-border-opacity)));
-}
-
-.border-gray-800 {
-  --tw-border-opacity: 1;
-  border-color: rgb(31 41 55 / var(--tw-border-opacity));
 }
 
 .border-info {
@@ -9078,11 +9130,6 @@ html:has(.drawer-open.drawer-open) {
   border-color: var(--fallback-wa,oklch(var(--wa)/var(--tw-border-opacity)));
 }
 
-.border-base-content {
-  --tw-border-opacity: 1;
-  border-color: var(--fallback-bc,oklch(var(--bc)/var(--tw-border-opacity)));
-}
-
 .bg-accent {
   --tw-bg-opacity: 1;
   background-color: var(--fallback-a,oklch(var(--a)/var(--tw-bg-opacity)));
@@ -9103,14 +9150,14 @@ html:has(.drawer-open.drawer-open) {
   background-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-bg-opacity)));
 }
 
+.bg-base-content {
+  --tw-bg-opacity: 1;
+  background-color: var(--fallback-bc,oklch(var(--bc)/var(--tw-bg-opacity)));
+}
+
 .bg-error {
   --tw-bg-opacity: 1;
   background-color: var(--fallback-er,oklch(var(--er)/var(--tw-bg-opacity)));
-}
-
-.bg-gray-800 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(31 41 55 / var(--tw-bg-opacity));
 }
 
 .bg-info {
@@ -9148,18 +9195,24 @@ html:has(.drawer-open.drawer-open) {
   background-color: var(--fallback-wa,oklch(var(--wa)/var(--tw-bg-opacity)));
 }
 
-.bg-white {
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
-.bg-base-content {
-  --tw-bg-opacity: 1;
-  background-color: var(--fallback-bc,oklch(var(--bc)/var(--tw-bg-opacity)));
-}
-
 .bg-repeat {
   background-repeat: repeat;
+}
+
+.fill-base-content {
+  fill: var(--fallback-bc,oklch(var(--bc)/1));
+}
+
+.stroke-base-content {
+  stroke: var(--fallback-bc,oklch(var(--bc)/1));
+}
+
+.stroke-white {
+  stroke: #fff;
+}
+
+.stroke-none {
+  stroke: none;
 }
 
 .p-2 {
@@ -9191,6 +9244,10 @@ html:has(.drawer-open.drawer-open) {
 
 .pt-4 {
   padding-top: 1rem;
+}
+
+.text-center {
+  text-align: center;
 }
 
 .font-mono {
@@ -9579,7 +9636,7 @@ html:has(.drawer-open.drawer-open) {
 
 .tree-node-group {
   margin-left: 20px;
-  box-shadow: inset 1px 0px 0px 0px gray;
+  box-shadow: inset 1px 0px 0px 0px oklch(var(--b3));
   height: 100%;
 }
 
@@ -10120,18 +10177,6 @@ body {
 
 .focus\:outline-offset-0:focus {
   outline-offset: 0px;
-}
-
-@media (prefers-color-scheme: dark) {
-  .dark\:border-gray-800 {
-    --tw-border-opacity: 1;
-    border-color: rgb(31 41 55 / var(--tw-border-opacity));
-  }
-
-  .dark\:bg-gray-800 {
-    --tw-bg-opacity: 1;
-    background-color: rgb(31 41 55 / var(--tw-bg-opacity));
-  }
 }
 
 

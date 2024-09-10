@@ -48,7 +48,7 @@ const ViewDetails = function viewDetails({ selectedView, viewHierarchy }: any) {
     <div>
       <div className="flex flex-col items-center justify-center gap-2">
         <h1 className="text-xl">
-          <div className="justify-center">{view.name}</div>
+          <div className="text-center">{view.name}</div>
           <div>
             {view.properties && view.properties.includes('focused') ? (
               <Tooltip position="bottom" message="keyboard focused">
@@ -79,7 +79,7 @@ const ViewDetails = function viewDetails({ selectedView, viewHierarchy }: any) {
       </div>
       <table className="table table-zebra-zebra">
         <caption className="text-base">View Details</caption>
-        <thead className="text-accent-content bg-neutral-content">
+        <thead className="text-primary-content bg-primary">
           <tr>
             <th>Name</th>
             <th>Value</th>

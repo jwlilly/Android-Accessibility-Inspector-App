@@ -92,7 +92,11 @@ const ConnectDevice = function ConnectDevice() {
       <div className="label">
         <div className="label-text-alt" />
         <div className="label-text-alt">
-          <Button aria-label="Connect with QR code" color="ghost" className="px-0">
+          <Button
+            aria-label="Connect with QR code"
+            color="ghost"
+            className="px-0"
+          >
             <QrCodeIcon className="h-full" />
           </Button>
         </div>
@@ -101,7 +105,7 @@ const ConnectDevice = function ConnectDevice() {
   );
 
   return (
-    <div className="flex flex-row items-center justify-center w-full gap-2 p-4 font-sans">
+    <div className="flex flex-row items-center justify-center w-full gap-2 p-4">
       {deviceSelect}
       <div className="col-span-1 mb-[30px]">
         <Button
