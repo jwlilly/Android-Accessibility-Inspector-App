@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-syntax */
-import { Badge, Tooltip, Button } from 'react-daisyui';
+import { Tooltip } from 'react-daisyui';
 import { AndroidView } from '../models/AndroidView';
 
 function findViewWithId(viewHierarchy: any, id: number): AndroidView | null {
@@ -24,7 +24,6 @@ function findViewWithId(viewHierarchy: any, id: number): AndroidView | null {
 }
 
 function transformData(data: any) {
-  console.log(data);
   if (!data) {
     return '-';
   }

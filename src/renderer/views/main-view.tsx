@@ -2,11 +2,16 @@
 import { useResizable } from 'react-resizable-layout';
 import React, { useState } from 'react';
 import { ITreeViewOnSelectProps } from 'react-accessible-treeview';
+import { Navbar } from 'react-daisyui';
+import {
+  DevicePhoneMobileIcon,
+  MagnifyingGlassIcon,
+} from '@heroicons/react/24/outline';
 import Splitter from './splitter-view';
 import { BasicTreeView, testData } from './basic-tree-view';
 import ConnectDevice from './connect-device';
 import ViewDetails from './view-details';
-import { Tabs } from 'react-daisyui';
+import Logs from './log-view';
 
 function MainView(): React.JSX.Element {
   const [selectedView, setSelectedView] = useState<number>(0);
@@ -38,68 +43,82 @@ function MainView(): React.JSX.Element {
 
   return (
     <div className="flex h-screen overflow-hidden font-mono flex-column">
-      <Tabs variant="lifted" size="md">
-        <Tabs.RadioTab
-          name="my_tabs_2"
-          label="Device"
-          contentClassName="bg-base-100 border-base-300 rounded-box p-6 h-full"
-          defaultChecked
-          color="primary"
-        >
-          <ConnectDevice />
-        </Tabs.RadioTab>
-        <Tabs.RadioTab
-          name="my_tabs_2"
-          label="View Hierarchy"
-          contentClassName="bg-base-100 border-base-300 rounded-box p-6"
-          color="primary"
-          defaultChecked
-        >
-          <div
-            className="flex grow"
-            style={{ maxHeight: `calc(100vh - 25px)` }}
-          >
-            <div
-              className={`shrink-0 contents ${isTreeDragging ? 'dragging' : ''}`}
-              style={{ width: treeW }}
+      <Navbar aria-label="main" className="shadow-md bg-base-100 rounded-box">
+        <Navbar.Start>
+          <h1 className="text-xl">Accessibility Inspector</h1>
+        </Navbar.Start>
+        <Navbar.End>
+          <details className="dropdown">
+            <summary
+              className="text-xl font-medium btn btn-ghost"
+              aria-label="Find text"
             >
-              Screenshot
-            </div>
-            <Splitter
-              isDragging={isTreeDragging}
-              {...treeDragBarProps}
-              label="Resize between screenshot and view hierarchy"
-            />
-            <div className="flex grow">
-              <div className="overflow-auto grow">
-                <BasicTreeView tree={testData} onViewSelected={viewSelected} />
+              <div>
+                <MagnifyingGlassIcon className="h-[24px]" title="Find text" />
               </div>
-              <Splitter
-                isDragging={isDetailsDragging}
-                {...detailsDragBarProps}
-                label="Resize between view hierarchy and view details"
-              />
-              <div
-                className={`overflow-auto shrink-0 ${isDetailsDragging ? 'dragging' : ''}`}
-                style={{ width: detailsW }}
-              >
-                <ViewDetails
-                  selectedView={selectedView}
-                  viewHierarchy={testData}
+            </summary>
+            <ul
+              className="p-2 shadow dropdown-content menu bg-base-100 rounded-box right-0 w-[500px] z-10"
+              role="presentation"
+            >
+              <div>Search for text</div>
+            </ul>
+          </details>
+          <details className="dropdown">
+            <summary
+              className="text-xl font-medium btn btn-ghost"
+              aria-label="Select a device"
+            >
+              <div>
+                <DevicePhoneMobileIcon
+                  className="h-[24px]"
+                  title="Select a device"
                 />
               </div>
-            </div>
-          </div>
-        </Tabs.RadioTab>
-        <Tabs.RadioTab
-          name="my_tabs_2"
-          label="Logs"
-          contentClassName="bg-base-100 border-base-300 rounded-box p-6"
-          color="primary"
+            </summary>
+            <ul
+              className="p-2 shadow dropdown-content menu bg-base-100 rounded-box right-0 w-[500px] z-10"
+              role="presentation"
+            >
+              <ConnectDevice />
+            </ul>
+          </details>
+          <Logs />
+        </Navbar.End>
+      </Navbar>
+
+      <div
+        className="flex grow"
+        style={{ maxHeight: `calc(100vh - (50px + 1rem))` }}
+      >
+        <div
+          className={`shrink-0 contents pt-4 ${isTreeDragging ? 'dragging' : ''}`}
+          style={{ width: treeW }}
         >
-          Logs
-        </Tabs.RadioTab>
-      </Tabs>
+          Screenshot
+        </div>
+        <Splitter
+          isDragging={isTreeDragging}
+          {...treeDragBarProps}
+          label="Resize between screenshot and view hierarchy"
+        />
+        <div className="flex grow">
+          <div className="overflow-auto grow">
+            <BasicTreeView tree={testData} onViewSelected={viewSelected} />
+          </div>
+          <Splitter
+            isDragging={isDetailsDragging}
+            {...detailsDragBarProps}
+            label="Resize between view hierarchy and view details"
+          />
+          <div
+            className={`overflow-auto shrink-0 mt-4 ${isDetailsDragging ? 'dragging' : ''}`}
+            style={{ width: detailsW }}
+          >
+            <ViewDetails selectedView={selectedView} viewHierarchy={testData} />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import './index.scss';
 import { Theme } from 'react-daisyui';
 import MainView from './views/main-view';
@@ -6,6 +7,7 @@ import MainView from './views/main-view';
 function Main() {
   return (
     <Theme dataTheme="light">
+      <Helmet htmlAttributes={{ lang: 'en' }} />
       <MainView />
     </Theme>
   );

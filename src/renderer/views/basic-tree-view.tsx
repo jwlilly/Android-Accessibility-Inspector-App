@@ -383,8 +383,8 @@ const BasicTreeView = function basicTreeView({ tree, onViewSelected }: any) {
   return (
     <TreeView
       data={data}
-      className="tree-view"
-      aria-label="basic example tree"
+      className="mt-4 tree-view"
+      aria-label="View hierarchy"
       clickAction="EXCLUSIVE_SELECT"
       onSelect={viewSelected}
       // eslint-disable-next-line react/no-unstable-nested-components
@@ -406,9 +406,7 @@ const BasicTreeView = function basicTreeView({ tree, onViewSelected }: any) {
               className="inline h-[24px] relative left-[-1px] fill-slate-800"
             />
           )}
-          <span
-            className={`${isSelected ? 'border-b border-b-slate-900' : ''}`}
-          >
+          <span className={` btn ${isSelected ? 'btn-outline' : 'btn-ghost'}`}>
             {element.name}
             <span className="sr-only">{isSelected ? 'selected' : ''}</span>
           </span>
