@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Select, Button } from 'react-daisyui';
 import { IDevice } from 'adb-ts/lib/util';
+import { QrCodeIcon } from '@heroicons/react/24/outline';
 import adb from '../utils/adb';
 
 const ConnectDevice = function ConnectDevice() {
@@ -88,13 +89,21 @@ const ConnectDevice = function ConnectDevice() {
       >
         {deviceOptions}
       </Select>
+      <div className="label">
+        <div className="label-text-alt" />
+        <div className="label-text-alt">
+          <Button aria-label="Connect with QR code" color="ghost" className="px-0">
+            <QrCodeIcon className="h-full" />
+          </Button>
+        </div>
+      </div>
     </div>
   );
 
   return (
-    <div className="flex flex-row items-end justify-center w-full gap-2 p-4 font-sans">
+    <div className="flex flex-row items-center justify-center w-full gap-2 p-4 font-sans">
       {deviceSelect}
-      <div className="col-span-1">
+      <div className="col-span-1 mb-[30px]">
         <Button
           onClick={() => selectDevice(deviceValue)}
           disabled={

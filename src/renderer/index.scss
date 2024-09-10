@@ -8460,6 +8460,10 @@ html:has(.drawer-open.drawer-open) {
   margin-top: 1rem;
 }
 
+.mb-\[30px\] {
+  margin-bottom: 30px;
+}
+
 .block {
   display: block;
 }
@@ -8578,6 +8582,10 @@ html:has(.drawer-open.drawer-open) {
 
 .h-screen {
   height: 100vh;
+}
+
+.h-\[36px\] {
+  height: 36px;
 }
 
 .w-1\/2 {
@@ -9004,6 +9012,11 @@ html:has(.drawer-open.drawer-open) {
 .py-2 {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+}
+
+.px-0 {
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
 .pl-\[10px\] {
