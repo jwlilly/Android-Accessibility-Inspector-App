@@ -2,8 +2,9 @@
 import { useResizable } from 'react-resizable-layout';
 import React, { useState } from 'react';
 import { ITreeViewOnSelectProps } from 'react-accessible-treeview';
-import { Navbar } from 'react-daisyui';
+import { Navbar, Button } from 'react-daisyui';
 import {
+  ArrowPathIcon,
   DevicePhoneMobileIcon,
   MagnifyingGlassIcon,
 } from '@heroicons/react/24/outline';
@@ -22,8 +23,8 @@ function MainView(): React.JSX.Element {
     separatorProps: treeDragBarProps,
   } = useResizable({
     axis: 'x',
-    initial: 250,
-    min: 100,
+    initial: 380,
+    min: 310,
     max: 500,
   });
   const {
@@ -32,8 +33,8 @@ function MainView(): React.JSX.Element {
     separatorProps: detailsDragBarProps,
   } = useResizable({
     axis: 'x',
-    initial: 200,
-    min: 50,
+    initial: 300,
+    min: 100,
     reverse: true,
   });
 
@@ -43,11 +44,20 @@ function MainView(): React.JSX.Element {
   };
 
   return (
-    <div className="flex h-screen overflow-hidden font-mono flex-column">
-      <Navbar aria-label="main" className="shadow-md bg-base-100 rounded-box">
+    <div className="flex h-screen w-screen font-mono flex-column bg-base-200">
+      <Navbar
+        aria-label="main"
+        className="shadow-md bg-base-100 rounded-box mt-2 mx-2"
+        style={{ maxWidth: 'calc(100vw - 1rem)' }}
+      >
         <Navbar.Start>
-          <h1 className="text-xl">Accessibility Inspector</h1>
+          <Button color="primary" aria-label="Refresh Tree">
+            <ArrowPathIcon className="h-[24px]" title="Refresh Tree" />
+          </Button>
         </Navbar.Start>
+        <Navbar.Center>
+          <h1 className="text-xl">Accessibility Inspector</h1>
+        </Navbar.Center>
         <Navbar.End>
           <details className="dropdown">
             <summary

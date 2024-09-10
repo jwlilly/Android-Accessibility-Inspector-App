@@ -1,11 +1,11 @@
 const Screenshot = function Screenshot() {
   return (
     <div className="m-auto">
-      <div className="relative mx-auto border-gray-800 dark:border-gray-800 bg-gray-800 border-[14px] rounded-[2.5rem] h-full w-full">
-        <div className="h-[46px] w-[3px] bg-gray-800 absolute -left-[17px] top-[124px] rounded-l-lg" />
-        <div className="h-[46px] w-[3px] bg-gray-800 absolute -left-[17px] top-[178px] rounded-l-lg" />
-        <div className="h-[64px] w-[3px] bg-gray-800 absolute -right-[17px] top-[142px] rounded-r-lg" />
-        <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-white shrink-0 contents">
+      <div className="relative mx-auto border-base-content bg-base-content border-[14px] rounded-xl h-[600px] w-[300px] shadow-xl">
+        <div className="h-[64px] w-[3px] bg-base-content absolute -end-[17px] top-[120px] rounded-s-lg" />
+        <div className="h-[46px] w-[3px] base-content  absolute -end-[17px] top-[214px] rounded-s-lg" />
+        <div className="h-[46px] w-[3px] base-content absolute -end-[17px] top-[266px] rounded-s-lg" />
+        <div className="rounded-xl overflow-hidden w-[272px] h-[572px] contents bg-base-100">
           Screenshot
         </div>
       </div>

@@ -48,31 +48,33 @@ const ViewDetails = function viewDetails({ selectedView, viewHierarchy }: any) {
     <div>
       <div className="flex flex-col items-center justify-center gap-2">
         <h1 className="text-xl">
-          {view.name}
-          {view.properties && view.properties.includes('focused') ? (
-            <Tooltip position="bottom" message="keyboard focused">
-              <div role="button" tabIndex={0} className="ml-1">
-                <div className="badge badge-sm badge-primary">
-                  <span aria-hidden="true">focused</span>
-                  <span className="sr-only">keyboard focused</span>
+          <div className="justify-center">{view.name}</div>
+          <div>
+            {view.properties && view.properties.includes('focused') ? (
+              <Tooltip position="bottom" message="keyboard focused">
+                <div role="button" tabIndex={0} className="ml-1">
+                  <div className="badge badge-sm badge-primary">
+                    <span aria-hidden="true">focused</span>
+                    <span className="sr-only">keyboard focused</span>
+                  </div>
                 </div>
-              </div>
-            </Tooltip>
-          ) : (
-            ''
-          )}
-          {view.properties && view.properties.includes('a11y focused') ? (
-            <Tooltip position="bottom" message="accessibility focused">
-              <div role="button" tabIndex={0} className="ml-1">
-                <div className="badge badge-sm badge-secondary">
-                  <span aria-hidden="true">acc focused</span>
-                  <span className="sr-only">accessibility focused</span>
+              </Tooltip>
+            ) : (
+              ''
+            )}
+            {view.properties && view.properties.includes('a11y focused') ? (
+              <Tooltip position="bottom" message="accessibility focused">
+                <div role="button" tabIndex={0} className="ml-1">
+                  <div className="badge badge-sm badge-secondary">
+                    <span aria-hidden="true">acc focused</span>
+                    <span className="sr-only">accessibility focused</span>
+                  </div>
                 </div>
-              </div>
-            </Tooltip>
-          ) : (
-            ''
-          )}
+              </Tooltip>
+            ) : (
+              ''
+            )}
+          </div>
         </h1>
       </div>
       <table className="table table-zebra-zebra">

@@ -403,10 +403,10 @@ const BasicTreeView = function basicTreeView({ tree, onViewSelected }: any) {
           {isBranch && (
             <ArrowIcon
               isOpen={isExpanded}
-              className="inline h-[24px] relative left-[-1px] fill-slate-800"
+              className="inline h-[24px] relative left-[-1px]"
             />
           )}
-          <span className={` btn ${isSelected ? 'btn-outline' : 'btn-ghost'}`}>
+          <span className={`btn ${isSelected ? 'btn-outline' : 'btn-ghost'} `}>
             {element.name}
             <span className="sr-only">{isSelected ? 'selected' : ''}</span>
           </span>
