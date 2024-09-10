@@ -508,270 +508,41 @@ html {
 }
 
 :root {
-  color-scheme: light;
-  --in: 72.06% 0.191 231.6;
-  --su: 64.8% 0.150 160;
-  --wa: 84.71% 0.199 83.87;
-  --er: 71.76% 0.221 22.18;
-  --pc: 89.824% 0.06192 275.75;
-  --ac: 15.352% 0.0368 183.61;
-  --inc: 0% 0 0;
-  --suc: 0% 0 0;
-  --wac: 0% 0 0;
-  --erc: 0% 0 0;
-  --rounded-box: 1rem;
-  --rounded-btn: 0.5rem;
-  --rounded-badge: 1.9rem;
-  --animation-btn: 0.25s;
-  --animation-input: .2s;
+  --p: 61.6473% 0.206395 269.263959;
+  --inc: 11.351% 0.034259 252.365602;
+  --suc: 11.9649% 0.021374 182.468917;
+  --wac: 11.4332% 0.021951 72.44553;
+  --erc: 11.8092% 0.041953 34.219096;
   --btn-focus-scale: 0.95;
-  --border-btn: 1px;
   --tab-border: 1px;
   --tab-radius: 0.5rem;
-  --p: 49.12% 0.3096 275.75;
-  --s: 69.71% 0.329 342.55;
-  --sc: 98.71% 0.0106 342.55;
-  --a: 76.76% 0.184 183.61;
-  --n: 32.1785% 0.02476 255.701624;
-  --nc: 89.4994% 0.011585 252.096176;
+  primary-focus: #74A4FF;
+  --pc: 100% 0 0;
+  --s: 56.6847% 0.05671 256.704944;
+  secondary-focus: #8BA6CA;
+  --sc: 10.721% 0.040758 266.42147;
+  --a: 55.2658% 0.112601 159.977248;
+  accent-focus: #41be88;
+  --ac: 10.721% 0.040758 266.42147;
+  --n: 21.4679% 0.02969 277.747495;
+  neutral-focus: #4F4D51;
+  --nc: 95.2325% 0.010323 247.934621;
   --b1: 100% 0 0;
-  --b2: 96.1151% 0 0;
-  --b3: 92.4169% 0.00108 197.137559;
-  --bc: 27.8078% 0.029596 256.847952;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    color-scheme: dark;
-    --in: 72.06% 0.191 231.6;
-    --su: 64.8% 0.150 160;
-    --wa: 84.71% 0.199 83.87;
-    --er: 71.76% 0.221 22.18;
-    --pc: 13.138% 0.0392 275.75;
-    --sc: 14.96% 0.052 342.55;
-    --ac: 14.902% 0.0334 183.61;
-    --inc: 0% 0 0;
-    --suc: 0% 0 0;
-    --wac: 0% 0 0;
-    --erc: 0% 0 0;
-    --rounded-box: 1rem;
-    --rounded-btn: 0.5rem;
-    --rounded-badge: 1.9rem;
-    --animation-btn: 0.25s;
-    --animation-input: .2s;
-    --btn-focus-scale: 0.95;
-    --border-btn: 1px;
-    --tab-border: 1px;
-    --tab-radius: 0.5rem;
-    --p: 65.69% 0.196 275.75;
-    --s: 74.8% 0.26 342.55;
-    --a: 74.51% 0.167 183.61;
-    --n: 31.3815% 0.021108 254.139175;
-    --nc: 74.6477% 0.0216 264.435964;
-    --b1: 25.3267% 0.015896 252.417568;
-    --b2: 23.2607% 0.013807 253.100675;
-    --b3: 21.1484% 0.01165 254.087939;
-    --bc: 74.6477% 0.0216 264.435964;
-  }
-}
-
-[data-theme=light] {
-  color-scheme: light;
-  --in: 72.06% 0.191 231.6;
-  --su: 64.8% 0.150 160;
-  --wa: 84.71% 0.199 83.87;
-  --er: 71.76% 0.221 22.18;
-  --pc: 89.824% 0.06192 275.75;
-  --ac: 15.352% 0.0368 183.61;
-  --inc: 0% 0 0;
-  --suc: 0% 0 0;
-  --wac: 0% 0 0;
-  --erc: 0% 0 0;
+  --b2: 98.3683% 0.00512 247.875918;
+  --b3: 95.2325% 0.010323 247.934621;
+  --bc: 21.4679% 0.02969 277.747495;
+  --in: 56.7551% 0.171296 252.365602;
+  --su: 59.8247% 0.10687 182.468917;
+  --wa: 57.1662% 0.109757 72.44553;
+  --er: 59.0459% 0.209764 34.219096;
   --rounded-box: 1rem;
-  --rounded-btn: 0.5rem;
+  --rounded-btn: .5rem;
   --rounded-badge: 1.9rem;
-  --animation-btn: 0.25s;
-  --animation-input: .2s;
-  --btn-focus-scale: 0.95;
-  --border-btn: 1px;
-  --tab-border: 1px;
-  --tab-radius: 0.5rem;
-  --p: 49.12% 0.3096 275.75;
-  --s: 69.71% 0.329 342.55;
-  --sc: 98.71% 0.0106 342.55;
-  --a: 76.76% 0.184 183.61;
-  --n: 32.1785% 0.02476 255.701624;
-  --nc: 89.4994% 0.011585 252.096176;
-  --b1: 100% 0 0;
-  --b2: 96.1151% 0 0;
-  --b3: 92.4169% 0.00108 197.137559;
-  --bc: 27.8078% 0.029596 256.847952;
-}
-
-[data-theme=dark] {
-  color-scheme: dark;
-  --in: 72.06% 0.191 231.6;
-  --su: 64.8% 0.150 160;
-  --wa: 84.71% 0.199 83.87;
-  --er: 71.76% 0.221 22.18;
-  --pc: 13.138% 0.0392 275.75;
-  --sc: 14.96% 0.052 342.55;
-  --ac: 14.902% 0.0334 183.61;
-  --inc: 0% 0 0;
-  --suc: 0% 0 0;
-  --wac: 0% 0 0;
-  --erc: 0% 0 0;
-  --rounded-box: 1rem;
-  --rounded-btn: 0.5rem;
-  --rounded-badge: 1.9rem;
-  --animation-btn: 0.25s;
-  --animation-input: .2s;
-  --btn-focus-scale: 0.95;
-  --border-btn: 1px;
-  --tab-border: 1px;
-  --tab-radius: 0.5rem;
-  --p: 65.69% 0.196 275.75;
-  --s: 74.8% 0.26 342.55;
-  --a: 74.51% 0.167 183.61;
-  --n: 31.3815% 0.021108 254.139175;
-  --nc: 74.6477% 0.0216 264.435964;
-  --b1: 25.3267% 0.015896 252.417568;
-  --b2: 23.2607% 0.013807 253.100675;
-  --b3: 21.1484% 0.01165 254.087939;
-  --bc: 74.6477% 0.0216 264.435964;
-}
-
-[data-theme=cupcake] {
-  color-scheme: light;
-  --in: 72.06% 0.191 231.6;
-  --su: 64.8% 0.150 160;
-  --wa: 84.71% 0.199 83.87;
-  --er: 71.76% 0.221 22.18;
-  --pc: 15.2344% 0.017892 200.026556;
-  --sc: 15.787% 0.020249 356.29965;
-  --ac: 15.8762% 0.029206 78.618794;
-  --nc: 84.7148% 0.013247 313.189598;
-  --inc: 0% 0 0;
-  --suc: 0% 0 0;
-  --wac: 0% 0 0;
-  --erc: 0% 0 0;
-  --rounded-box: 1rem;
-  --rounded-badge: 1.9rem;
-  --animation-btn: 0.25s;
-  --animation-input: .2s;
-  --btn-focus-scale: 0.95;
-  --border-btn: 1px;
-  --p: 76.172% 0.089459 200.026556;
-  --s: 78.9351% 0.101246 356.29965;
-  --a: 79.3811% 0.146032 78.618794;
-  --n: 23.5742% 0.066235 313.189598;
-  --b1: 97.7882% 0.00418 56.375637;
-  --b2: 93.9822% 0.007638 61.449292;
-  --b3: 91.5861% 0.006811 53.440502;
-  --bc: 23.5742% 0.066235 313.189598;
-  --rounded-btn: 1.9rem;
-  --tab-border: 2px;
-  --tab-radius: 0.7rem;
-}
-
-[data-theme=wireframe] {
-  color-scheme: light;
-  --bc: 20% 0 0;
-  --pc: 15.6521% 0 0;
-  --sc: 15.6521% 0 0;
-  --ac: 15.6521% 0 0;
-  --nc: 18.8014% 0 0;
-  --inc: 89.0403% 0.062643 264.052021;
-  --suc: 90.395% 0.035372 142.495339;
-  --wac: 14.1626% 0.019994 108.702381;
-  --erc: 12.5591% 0.051537 29.233885;
-  --animation-btn: 0.25s;
-  --animation-input: .2s;
-  --btn-focus-scale: 0.95;
-  --border-btn: 1px;
-  --tab-border: 1px;
-  font-family: Chalkboard,comic sans ms,'sans-serif';
-  --p: 78.2604% 0 0;
-  --s: 78.2604% 0 0;
-  --a: 78.2604% 0 0;
-  --n: 94.007% 0 0;
-  --b1: 100% 0 0;
-  --b2: 94.9119% 0 0;
-  --b3: 89.7547% 0 0;
-  --in: 45.2014% 0.313214 264.052021;
-  --su: 51.9752% 0.176858 142.495339;
-  --wa: 70.8131% 0.099969 108.702381;
-  --er: 62.7955% 0.257683 29.233885;
-  --rounded-box: 0.2rem;
-  --rounded-btn: 0.2rem;
-  --rounded-badge: 0.2rem;
-  --tab-radius: 0.2rem;
-}
-
-[data-theme=luxury] {
-  color-scheme: dark;
-  --pc: 20% 0 0;
-  --sc: 85.5163% 0.012821 261.069149;
-  --ac: 87.3349% 0.010348 338.82597;
-  --inc: 15.8122% 0.024356 237.133883;
-  --suc: 15.6239% 0.038579 132.154381;
-  --wac: 17.2255% 0.027305 102.89115;
-  --erc: 14.3506% 0.035271 22.568916;
-  --rounded-box: 1rem;
-  --rounded-btn: 0.5rem;
-  --rounded-badge: 1.9rem;
-  --animation-btn: 0.25s;
-  --animation-input: .2s;
-  --btn-focus-scale: 0.95;
-  --border-btn: 1px;
-  --tab-border: 1px;
-  --tab-radius: 0.5rem;
-  --p: 100% 0 0;
-  --s: 27.5815% 0.064106 261.069149;
-  --a: 36.6744% 0.051741 338.82597;
-  --n: 24.27% 0.057015 59.825019;
-  --nc: 93.2033% 0.089631 90.861683;
-  --b1: 14.0765% 0.004386 285.822869;
-  --b2: 20.2191% 0.004211 308.22937;
-  --b3: 29.8961% 0.003818 308.318612;
-  --bc: 75.6879% 0.123666 76.890484;
-  --in: 79.0612% 0.121778 237.133883;
-  --su: 78.1197% 0.192894 132.154381;
-  --wa: 86.1274% 0.136524 102.89115;
-  --er: 71.7531% 0.176357 22.568916;
-}
-
-[data-theme=corporate] {
-  color-scheme: light;
-  --b2: 93% 0 0;
-  --b3: 86% 0 0;
-  --in: 72.06% 0.191 231.6;
-  --su: 64.8% 0.150 160;
-  --wa: 84.71% 0.199 83.87;
-  --er: 71.76% 0.221 22.18;
-  --pc: 12.078% 0.0456 269.1;
-  --sc: 13.0739% 0.010951 256.688055;
-  --ac: 15.3934% 0.022799 163.57888;
-  --inc: 0% 0 0;
-  --suc: 0% 0 0;
-  --wac: 0% 0 0;
-  --erc: 0% 0 0;
-  --border-btn: 1px;
-  --tab-border: 1px;
-  --p: 60.39% 0.228 269.1;
-  --s: 65.3694% 0.054756 256.688055;
-  --a: 76.9669% 0.113994 163.57888;
-  --n: 22.3899% 0.031305 278.07229;
-  --nc: 95.8796% 0.008588 247.915135;
-  --b1: 100% 0 0;
-  --bc: 22.3899% 0.031305 278.07229;
-  --rounded-box: 0.25rem;
-  --rounded-btn: .125rem;
-  --rounded-badge: .125rem;
-  --tab-radius: 0.25rem;
   --animation-btn: 0;
   --animation-input: 0;
-  --btn-focus-scale: 1;
+  --btn-text-case: uppercase;
+  --navbar-padding: .5rem;
+  --border-btn: 1px;
 }
 
 *, ::before, ::after {
@@ -8556,20 +8327,16 @@ html:has(.drawer-open.drawer-open) {
   margin-left: 0.25rem;
 }
 
+.mr-3 {
+  margin-right: 0.75rem;
+}
+
 .mt-2 {
   margin-top: 0.5rem;
 }
 
 .mt-4 {
   margin-top: 1rem;
-}
-
-.mr-2 {
-  margin-right: 0.5rem;
-}
-
-.mr-3 {
-  margin-right: 0.75rem;
 }
 
 .block {
@@ -8708,26 +8475,6 @@ html:has(.drawer-open.drawer-open) {
   height: 100vh;
 }
 
-.h-\[36px\] {
-  height: 36px;
-}
-
-.h-\[32px\] {
-  height: 32px;
-}
-
-.h-2 {
-  height: 0.5rem;
-}
-
-.h-4 {
-  height: 1rem;
-}
-
-.h-6 {
-  height: 1.5rem;
-}
-
 .w-1\/2 {
   width: 50%;
 }
@@ -8778,38 +8525,6 @@ html:has(.drawer-open.drawer-open) {
 
 .w-screen {
   width: 100vw;
-}
-
-.w-1 {
-  width: 0.25rem;
-}
-
-.w-\[24px\] {
-  width: 24px;
-}
-
-.w-\[32px\] {
-  width: 32px;
-}
-
-.w-\[36px\] {
-  width: 36px;
-}
-
-.w-\[50px\] {
-  width: 50px;
-}
-
-.w-2 {
-  width: 0.5rem;
-}
-
-.w-4 {
-  width: 1rem;
-}
-
-.w-6 {
-  width: 1.5rem;
 }
 
 .max-w-5xl {
@@ -9170,11 +8885,6 @@ html:has(.drawer-open.drawer-open) {
   background-color: var(--fallback-n,oklch(var(--n)/var(--tw-bg-opacity)));
 }
 
-.bg-neutral-content {
-  --tw-bg-opacity: 1;
-  background-color: var(--fallback-nc,oklch(var(--nc)/var(--tw-bg-opacity)));
-}
-
 .bg-primary {
   --tw-bg-opacity: 1;
   background-color: var(--fallback-p,oklch(var(--p)/var(--tw-bg-opacity)));
@@ -9201,14 +8911,6 @@ html:has(.drawer-open.drawer-open) {
 
 .fill-base-content {
   fill: var(--fallback-bc,oklch(var(--bc)/1));
-}
-
-.stroke-base-content {
-  stroke: var(--fallback-bc,oklch(var(--bc)/1));
-}
-
-.stroke-white {
-  stroke: #fff;
 }
 
 .stroke-none {
@@ -9252,10 +8954,6 @@ html:has(.drawer-open.drawer-open) {
 
 .font-mono {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-}
-
-.font-sans {
-  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 .text-3xl {

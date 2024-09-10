@@ -6,7 +6,7 @@ import MainView from './views/main-view';
 
 function Main() {
   return (
-    <Theme dataTheme="luxury">
+    <Theme dataTheme="custom-light">
       <Helmet htmlAttributes={{ lang: 'en' }} />
       <MainView />
     </Theme>
