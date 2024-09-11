@@ -38,7 +38,10 @@ const RefreshTree = function RefreshTree({ onMessageReceived }: any) {
         aria-label="Refresh Tree"
         disabled={readyState !== ReadyState.OPEN}
       >
-        <ArrowPathIcon className="h-[24px]" title="Refresh Tree" />
+        <ArrowPathIcon
+          className={`h-[24px] ${readyState === ReadyState.CONNECTING && 'animate-spin'}`}
+          title="Refresh Tree"
+        />
       </Button>
       <div
         className={`inline ${readyState !== ReadyState.OPEN && readyState !== ReadyState.CONNECTING ? 'text-error' : 'text-primary'} ${readyState === ReadyState.OPEN ? ' hidden' : ''}`}
