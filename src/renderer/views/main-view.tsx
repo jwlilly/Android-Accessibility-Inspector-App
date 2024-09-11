@@ -2,7 +2,7 @@
 import { useResizable } from 'react-resizable-layout';
 import React, { useRef, useState } from 'react';
 import { ITreeViewOnSelectProps } from 'react-accessible-treeview';
-import { Navbar } from 'react-daisyui';
+import { Button, Indicator, Navbar } from 'react-daisyui';
 import {
   DevicePhoneMobileIcon,
   MagnifyingGlassIcon,
@@ -84,25 +84,29 @@ function MainView(): React.JSX.Element {
               <div>Search for text</div>
             </ul>
           </details>
-          <details className="dropdown">
-            <summary
-              className="text-xl font-medium btn btn-ghost"
-              aria-label="Select a device"
-            >
-              <div>
-                <DevicePhoneMobileIcon
-                  className="h-[24px]"
-                  title="Select a device"
-                />
-              </div>
-            </summary>
-            <ul
-              className="p-2 shadow dropdown-content menu bg-base-100 rounded-box right-0 w-[500px] z-10"
-              role="presentation"
-            >
-              <ConnectDevice />
-            </ul>
-          </details>
+          <div className="indicator">
+            <span className="indicator-item badge badge-error badge-sm" />
+            <details className="dropdown">
+              <summary
+                className="text-xl font-medium btn btn-ghost "
+                aria-label="Select a device"
+              >
+                <div>
+                  <DevicePhoneMobileIcon
+                    className="h-[24px] animate-bounce"
+                    title="Select a device"
+                  />
+                </div>
+              </summary>
+              <ul
+                className="p-2 shadow dropdown-content menu bg-base-100 rounded-box right-0 w-[500px] z-10"
+                role="presentation"
+              >
+                <ConnectDevice />
+              </ul>
+            </details>
+          </div>
+
           <Logs />
         </Navbar.End>
       </Navbar>
