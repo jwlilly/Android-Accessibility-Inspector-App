@@ -8597,6 +8597,10 @@ html:has(.drawer-open.drawer-open) {
   align-items: center;
 }
 
+.justify-start {
+  justify-content: flex-start;
+}
+
 .justify-center {
   justify-content: center;
 }
@@ -8956,6 +8960,10 @@ html:has(.drawer-open.drawer-open) {
   text-align: center;
 }
 
+.text-start {
+  text-align: start;
+}
+
 .font-mono {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
@@ -8995,6 +9003,10 @@ html:has(.drawer-open.drawer-open) {
 
 .font-medium {
   font-weight: 500;
+}
+
+.font-thin {
+  font-weight: 100;
 }
 
 .uppercase {

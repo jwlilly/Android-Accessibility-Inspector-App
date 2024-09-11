@@ -54,10 +54,18 @@ const BasicTreeView = function BasicTreeView({ tree, onViewSelected }: any) {
               />
             )}
             <span
-              className={`btn ${isSelected ? 'btn-outline btn-secondary' : 'btn-ghost'} `}
+              className={`justify-start text-ellipsis text-start btn ${isSelected ? 'btn-outline btn-secondary' : 'btn-ghost'}`}
             >
-              {element.name}
-              <span className="sr-only">{isSelected ? 'selected' : ''}</span>
+              <div>
+                {element.name}
+                {element.metadata !== undefined &&
+                element.metadata.text !== undefined ? (
+                  <div className="text-xs font-thin">
+                    {element.metadata.text}
+                  </div>
+                ) : null}
+                <span className="sr-only">{isSelected ? 'selected' : ''}</span>
+              </div>
             </span>
           </div>
         )}
