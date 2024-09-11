@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useResizable } from 'react-resizable-layout';
-import React, { useState } from 'react';
-import { flattenTree, ITreeViewOnSelectProps } from 'react-accessible-treeview';
+import React, { useRef, useState } from 'react';
+import { ITreeViewOnSelectProps } from 'react-accessible-treeview';
 import { Navbar } from 'react-daisyui';
 import {
   DevicePhoneMobileIcon,
@@ -19,6 +19,7 @@ import RefreshTree from './refresh-tree';
 function MainView(): React.JSX.Element {
   const [selectedView, setSelectedView] = useState<number>(0);
   const [viewHierarchy, setViewHierarchy] = useState({ name: '' });
+  const treeRef = useRef();
   const {
     isDragging: isTreeDragging,
     position: treeW,
@@ -124,8 +125,9 @@ function MainView(): React.JSX.Element {
         <div className="flex grow">
           <div className="overflow-auto grow">
             <BasicTreeView
-              tree={flattenTree(viewHierarchy)}
+              tree={viewHierarchy}
               onViewSelected={viewSelected}
+              ref={treeRef}
             />
           </div>
           <Splitter

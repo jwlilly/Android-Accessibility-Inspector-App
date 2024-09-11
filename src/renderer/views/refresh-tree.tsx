@@ -36,11 +36,12 @@ const RefreshTree = function RefreshTree({ onMessageReceived }: any) {
         onClick={handleClickSendMessage}
         color="primary"
         aria-label="Refresh Tree"
+        disabled={readyState !== ReadyState.OPEN}
       >
         <ArrowPathIcon className="h-[24px]" title="Refresh Tree" />
       </Button>
       <div
-        className={`inline ${readyState !== ReadyState.OPEN && readyState !== ReadyState.CONNECTING ? 'text-error' : 'text-primary'}`}
+        className={`inline ${readyState !== ReadyState.OPEN && readyState !== ReadyState.CONNECTING ? 'text-error' : 'text-primary'} ${readyState === ReadyState.OPEN ? ' hidden' : ''}`}
       >
         {connectionStatus}
       </div>
