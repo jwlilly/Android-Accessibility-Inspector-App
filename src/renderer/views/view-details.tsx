@@ -5,7 +5,7 @@ import { AndroidView } from '../models/AndroidView';
 function findViewWithId(viewHierarchy: any, id: number): AndroidView | null {
   let foundView = null;
   function recursiveSearch(viewId: number, view: AndroidView) {
-    for (let i = 0; i < view.children.length; i += 1) {
+    for (let i = 0; view.children && i < view.children.length; i += 1) {
       const item = view.children[i];
       if (item.id && item.id === viewId) {
         foundView = item;
@@ -50,7 +50,8 @@ const ViewDetails = function viewDetails({ selectedView, viewHierarchy }: any) {
         <h1 className="text-xl">
           <div className="text-center">{view.name}</div>
           <div>
-            {view.properties && view.properties.includes('focused') ? (
+            {view.metadata.properties &&
+            view.metadata.properties.includes('focused') ? (
               <Tooltip position="bottom" message="keyboard focused">
                 <div role="button" tabIndex={0} className="ml-1">
                   <div className="badge badge-sm badge-primary">
@@ -62,7 +63,8 @@ const ViewDetails = function viewDetails({ selectedView, viewHierarchy }: any) {
             ) : (
               ''
             )}
-            {view.properties && view.properties.includes('a11y focused') ? (
+            {view.metadata.properties &&
+            view.metadata.properties.includes('a11y focused') ? (
               <Tooltip position="bottom" message="accessibility focused">
                 <div role="button" tabIndex={0} className="ml-1">
                   <div className="badge badge-sm badge-secondary">
@@ -77,7 +79,7 @@ const ViewDetails = function viewDetails({ selectedView, viewHierarchy }: any) {
           </div>
         </h1>
       </div>
-      <table className="table table-zebra-zebra">
+      <table className="table mx-2 table-zebra-zebra max-w-[calc(100%-1rem)]">
         <caption className="text-base">View Details</caption>
         <thead className="text-primary-content bg-primary">
           <tr>
@@ -88,47 +90,55 @@ const ViewDetails = function viewDetails({ selectedView, viewHierarchy }: any) {
         <tbody>
           <tr>
             <td>role</td>
-            <td>{transformData(view.name)}</td>
+            <td>{transformData(view.metadata.role)}</td>
+          </tr>
+          <tr>
+            <td>role description</td>
+            <td>{transformData(view.metadata.roleDescription)}</td>
           </tr>
           <tr>
             <td>text</td>
-            <td>{transformData(view.text)}</td>
+            <td>{transformData(view.metadata.text)}</td>
           </tr>
           <tr>
             <td>content description</td>
-            <td>{transformData(view.content)}</td>
+            <td>{transformData(view.metadata.content)}</td>
           </tr>
           <tr>
             <td>heading</td>
-            <td>{view.heading ? 'true' : 'false'}</td>
+            <td>{view.metadata.heading ? 'true' : 'false'}</td>
+          </tr>
+          <tr>
+            <td>state</td>
+            <td>{transformData(view.metadata.state)}</td>
           </tr>
           <tr>
             <td>state description</td>
-            <td>{transformData(view.state)}</td>
+            <td>{transformData(view.metadata.stateDescription)}</td>
           </tr>
           <tr>
             <td>checked</td>
-            <td>{transformData(view.checkable)}</td>
+            <td>{transformData(view.metadata.checkable)}</td>
           </tr>
           <tr>
             <td>properties</td>
-            <td>{transformData(view.properties)}</td>
+            <td>{transformData(view.metadata.properties)}</td>
           </tr>
           <tr>
             <td>actions</td>
-            <td>{transformData(view.actions)}</td>
+            <td>{transformData(view.metadata.actions)}</td>
           </tr>
           <tr>
             <td>collection info</td>
-            <td>{transformData(view.collectionInfo)}</td>
+            <td>{transformData(view.metadata.collectionInfo)}</td>
           </tr>
           <tr>
             <td>collection item info</td>
-            <td>{transformData(view.collectionItemInfo)}</td>
+            <td>{transformData(view.metadata.collectionItemInfo)}</td>
           </tr>
           <tr>
             <td>size</td>
-            <td>{`${((view.x2 - view.x1) / (428 / 160)).toFixed(0)} dp x ${((view.y2 - view.y1) / (428 / 160)).toFixed(0)} dp`}</td>
+            <td>{`${((view.metadata.x2 - view.metadata.x1) / (428 / 160)).toFixed(0)} dp x ${((view.metadata.y2 - view.metadata.y1) / (428 / 160)).toFixed(0)} dp`}</td>
           </tr>
         </tbody>
       </table>

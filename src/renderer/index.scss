@@ -8315,12 +8315,13 @@ html:has(.drawer-open.drawer-open) {
   margin-right: auto;
 }
 
-.mb-8 {
-  margin-bottom: 2rem;
+.my-1 {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
 }
 
-.mb-\[30px\] {
-  margin-bottom: 30px;
+.mb-8 {
+  margin-bottom: 2rem;
 }
 
 .ml-1 {
@@ -8531,6 +8532,10 @@ html:has(.drawer-open.drawer-open) {
   max-width: 64rem;
 }
 
+.max-w-\[calc\(100\%-1rem\)\] {
+  max-width: calc(100% - 1rem);
+}
+
 .max-w-xs {
   max-width: 20rem;
 }
@@ -8582,6 +8587,10 @@ html:has(.drawer-open.drawer-open) {
 
 .flex-wrap {
   flex-wrap: wrap;
+}
+
+.items-end {
+  align-items: flex-end;
 }
 
 .items-center {
@@ -8925,11 +8934,6 @@ html:has(.drawer-open.drawer-open) {
   padding: 1rem;
 }
 
-.px-0 {
-  padding-left: 0px;
-  padding-right: 0px;
-}
-
 .px-2 {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
@@ -8954,6 +8958,10 @@ html:has(.drawer-open.drawer-open) {
 
 .font-mono {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.font-sans {
+  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 .text-3xl {
@@ -9336,6 +9344,22 @@ html:has(.drawer-open.drawer-open) {
   margin-left: 20px;
   box-shadow: inset 1px 0px 0px 0px oklch(var(--b3));
   height: 100%;
+}
+
+.tree-view [role="treeitem"]:focus-visible {
+  outline: none;
+}
+
+.tree-view li[role="treeitem"][tabindex="0"]:focus-visible>div>.btn{
+  outline-style: solid;
+  outline-width: 2px;
+  outline-offset: 2px;
+}
+
+.tree-view div[role="treeitem"][tabindex="0"]:focus-visible> .btn{
+  outline-style: solid;
+  outline-width: 2px;
+  outline-offset: 2px;
 }
 
 body {
@@ -9875,6 +9899,14 @@ body {
 
 .focus\:outline-offset-0:focus {
   outline-offset: 0px;
+}
+
+.focus-visible\:outline-offset-2:focus-visible {
+  outline-offset: 2px;
+}
+
+.focus-visible\:outline-primary:focus-visible {
+  outline-color: var(--fallback-p,oklch(var(--p)/1));
 }
 
 

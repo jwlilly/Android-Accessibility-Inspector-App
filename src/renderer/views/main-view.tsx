@@ -1,23 +1,24 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useResizable } from 'react-resizable-layout';
 import React, { useState } from 'react';
-import { ITreeViewOnSelectProps } from 'react-accessible-treeview';
-import { Navbar, Button } from 'react-daisyui';
+import { flattenTree, ITreeViewOnSelectProps } from 'react-accessible-treeview';
+import { Navbar } from 'react-daisyui';
 import {
-  ArrowPathIcon,
   DevicePhoneMobileIcon,
   MagnifyingGlassIcon,
 } from '@heroicons/react/24/outline';
 import Splitter from './splitter-view';
-import { BasicTreeView, testData } from './basic-tree-view';
+import BasicTreeView from './basic-tree-view';
 import ConnectDevice from './connect-device';
 import ViewDetails from './view-details';
 import Logs from './log-view';
 import Screenshot from './screenshot';
 import MainIcon from '../images/icon';
+import RefreshTree from './refresh-tree';
 
 function MainView(): React.JSX.Element {
   const [selectedView, setSelectedView] = useState<number>(0);
+  const [viewHierarchy, setViewHierarchy] = useState({ name: '' });
   const {
     isDragging: isTreeDragging,
     position: treeW,
@@ -41,24 +42,27 @@ function MainView(): React.JSX.Element {
 
   const viewSelected = (data: ITreeViewOnSelectProps) => {
     setSelectedView(parseInt(data.element.id.toString(), 10));
-    console.log(data.element.id);
+  };
+
+  const messageReceived = (data: any) => {
+    if (!data.announcement) {
+      setViewHierarchy(data);
+    }
   };
 
   return (
-    <div className="flex h-screen w-screen font-mono flex-column bg-base-200">
+    <div className="flex w-screen h-screen font-mono flex-column bg-base-200">
       <Navbar
         aria-label="main"
-        className="shadow-md bg-base-100 rounded-box mt-2 mx-2"
+        className="mx-2 mt-2 shadow-md bg-base-100 rounded-box"
         style={{ maxWidth: 'calc(100vw - 1rem)' }}
       >
         <Navbar.Start>
-          <Button color="primary" aria-label="Refresh Tree">
-            <ArrowPathIcon className="h-[24px]" title="Refresh Tree" />
-          </Button>
+          <RefreshTree onMessageReceived={messageReceived} />
         </Navbar.Start>
         <Navbar.Center>
           <h1 className="text-xl">
-            <MainIcon className="h-10 w-10 inline mr-3" aria-hidden="true" />
+            <MainIcon className="inline w-10 h-10 mr-3" aria-hidden="true" />
             Accessibility Inspector
           </h1>
         </Navbar.Center>
@@ -119,7 +123,10 @@ function MainView(): React.JSX.Element {
         />
         <div className="flex grow">
           <div className="overflow-auto grow">
-            <BasicTreeView tree={testData} onViewSelected={viewSelected} />
+            <BasicTreeView
+              tree={flattenTree(viewHierarchy)}
+              onViewSelected={viewSelected}
+            />
           </div>
           <Splitter
             isDragging={isDetailsDragging}
@@ -130,7 +137,10 @@ function MainView(): React.JSX.Element {
             className={`overflow-auto shrink-0 mt-4 ${isDetailsDragging ? 'dragging' : ''}`}
             style={{ width: detailsW }}
           >
-            <ViewDetails selectedView={selectedView} viewHierarchy={testData} />
+            <ViewDetails
+              selectedView={selectedView}
+              viewHierarchy={viewHierarchy}
+            />
           </div>
         </div>
       </div>

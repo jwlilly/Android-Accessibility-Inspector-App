@@ -1,8 +1,9 @@
-export interface AndroidView {
-  id?: number;
+/* eslint-disable no-use-before-define */
+interface ViewMetadata {
   resourceId?: string;
   windowId?: number;
   role?: string;
+  roleDescription?: string;
   name?: string;
   title?: string;
   hint?: string;
@@ -17,6 +18,7 @@ export interface AndroidView {
   labeledById?: number;
   actions?: string[];
   state?: string;
+  stateDescription?: string;
   properties?: string[];
   children: AndroidView[];
   collectionInfo?: String;
@@ -26,4 +28,10 @@ export interface AndroidView {
   links?: string[];
   visibility?: string;
   importantForAccessibility?: boolean;
+}
+export interface AndroidView {
+  name: string;
+  id?: number;
+  metadata: ViewMetadata;
+  children: AndroidView[];
 }

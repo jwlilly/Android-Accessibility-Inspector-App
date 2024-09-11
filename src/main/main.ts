@@ -75,7 +75,7 @@ async function adbForward(device: IDevice): Promise<boolean> {
   if (adb) {
     try {
       const selectedDevice = new Device(adb, device);
-      await adbRemoveForward();
+      //await adbRemoveForward();
       selectedDevice.forward(
         deviceNetworkForward.local,
         deviceNetworkForward.remote,
