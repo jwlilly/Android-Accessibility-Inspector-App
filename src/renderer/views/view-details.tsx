@@ -90,55 +90,73 @@ const ViewDetails = function viewDetails({ selectedView, viewHierarchy }: any) {
         <tbody>
           <tr>
             <td>role</td>
-            <td>{transformData(view.metadata.role)}</td>
+            <td className="font-mono">{transformData(view.metadata.role)}</td>
           </tr>
           <tr>
             <td>role description</td>
-            <td>{transformData(view.metadata.roleDescription)}</td>
+            <td className="font-mono">
+              {transformData(view.metadata.roleDescription)}
+            </td>
           </tr>
           <tr>
             <td>text</td>
-            <td>{transformData(view.metadata.text)}</td>
+            <td className="font-mono">{transformData(view.metadata.text)}</td>
           </tr>
           <tr>
             <td>content description</td>
-            <td>{transformData(view.metadata.content)}</td>
+            <td className="font-mono">
+              {transformData(view.metadata.content)}
+            </td>
           </tr>
           <tr>
             <td>heading</td>
-            <td>{view.metadata.heading ? 'true' : 'false'}</td>
+            <td className="font-mono">
+              {view.metadata.heading ? 'true' : 'false'}
+            </td>
           </tr>
           <tr>
             <td>state</td>
-            <td>{transformData(view.metadata.state)}</td>
+            <td className="font-mono">{transformData(view.metadata.state)}</td>
           </tr>
           <tr>
             <td>state description</td>
-            <td>{transformData(view.metadata.stateDescription)}</td>
+            <td className="font-mono">
+              {transformData(view.metadata.stateDescription)}
+            </td>
           </tr>
           <tr>
             <td>checked</td>
-            <td>{transformData(view.metadata.checkable)}</td>
+            <td className="font-mono">
+              {transformData(view.metadata.checkable)}
+            </td>
           </tr>
           <tr>
             <td>properties</td>
-            <td>{transformData(view.metadata.properties)}</td>
+            <td className="font-mono">
+              {transformData(view.metadata.properties)}
+            </td>
           </tr>
           <tr>
             <td>actions</td>
-            <td>{transformData(view.metadata.actions)}</td>
+            <td className="font-mono">
+              {transformData(view.metadata.actions)}
+            </td>
           </tr>
           <tr>
             <td>collection info</td>
-            <td>{transformData(view.metadata.collectionInfo)}</td>
+            <td className="font-mono">
+              {transformData(view.metadata.collectionInfo)}
+            </td>
           </tr>
           <tr>
             <td>collection item info</td>
-            <td>{transformData(view.metadata.collectionItemInfo)}</td>
+            <td className="font-mono">
+              {transformData(view.metadata.collectionItemInfo)}
+            </td>
           </tr>
           <tr>
             <td>size</td>
-            <td>{`${((view.metadata.x2 - view.metadata.x1) / (428 / 160)).toFixed(0)} dp x ${((view.metadata.y2 - view.metadata.y1) / (428 / 160)).toFixed(0)} dp`}</td>
+            <td className="font-mono">{`${((view.metadata.x2 - view.metadata.x1) / (428 / 160)).toFixed(0)} dp x ${((view.metadata.y2 - view.metadata.y1) / (428 / 160)).toFixed(0)} dp`}</td>
           </tr>
         </tbody>
       </table>

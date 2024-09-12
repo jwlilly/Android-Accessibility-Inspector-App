@@ -63,11 +63,10 @@ function MainView(): React.JSX.Element {
   };
 
   return (
-    <div className="flex w-screen h-screen font-mono flex-column bg-base-200">
+    <div className="flex w-screen h-screen flex-column bg-base-200">
       <Navbar
         aria-label="main"
-        className="mx-2 mt-2 shadow-md bg-base-100 rounded-box"
-        style={{ maxWidth: 'calc(100vw - 1rem)' }}
+        className="mx-2 mt-2 shadow-md bg-base-100 rounded-box max-w-[calc(100vw-1rem)]"
       >
         <Navbar.Start>
           <RefreshTree
@@ -134,13 +133,10 @@ function MainView(): React.JSX.Element {
         </Navbar.End>
       </Navbar>
 
-      <div
-        className="flex grow"
-        style={{ maxHeight: `calc(100vh - (50px + 1rem))` }}
-      >
+      <div className="overflow-hidden flex grow max-w-[calc(100vw-1rem)]">
         <div
           className={`shrink-0 contents pt-4 ${isTreeDragging ? 'dragging' : ''}`}
-          style={{ width: treeW }}
+          style={{ width: treeW, maxWidth: treeW }}
         >
           <Screenshot screencap={screencap} />
         </div>
@@ -150,7 +146,7 @@ function MainView(): React.JSX.Element {
           label="Resize between screenshot and view hierarchy"
         />
         <div className="flex grow">
-          <div className="overflow-auto grow">
+          <div className="overflow-y-auto overflow-x-auto grow">
             <BasicTreeView tree={viewHierarchy} onViewSelected={viewSelected} />
           </div>
           <Splitter
@@ -159,7 +155,7 @@ function MainView(): React.JSX.Element {
             label="Resize between view hierarchy and view details"
           />
           <div
-            className={`overflow-auto shrink-0 mt-4 ${isDetailsDragging ? 'dragging' : ''}`}
+            className={`overflow-y-auto overflow-x-auto shrink-0 mt-4 ${isDetailsDragging ? 'dragging' : ''}`}
             style={{ width: detailsW }}
           >
             <ViewDetails

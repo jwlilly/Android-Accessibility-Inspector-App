@@ -34,6 +34,7 @@ const BasicTreeView = function BasicTreeView({ tree, onViewSelected }: any) {
         aria-label="View hierarchy"
         clickAction="EXCLUSIVE_SELECT"
         onSelect={viewSelected}
+        defaultExpandedIds={tree && tree.children ? [tree.children[0].id] : []}
         // eslint-disable-next-line react/no-unstable-nested-components
         nodeRenderer={({
           element,

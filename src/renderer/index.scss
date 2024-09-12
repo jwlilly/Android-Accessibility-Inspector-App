@@ -8265,20 +8265,12 @@ html:has(.drawer-open.drawer-open) {
   top: 50%;
 }
 
-.top-\[20\%\] {
-  top: 20%;
-}
-
-.top-\[35\%\] {
-  top: 35%;
-}
-
-.top-\[44\%\] {
-  top: 44%;
-}
-
 .top-\[120px\] {
   top: 120px;
+}
+
+.top-\[20\%\] {
+  top: 20%;
 }
 
 .top-\[214px\] {
@@ -8289,8 +8281,12 @@ html:has(.drawer-open.drawer-open) {
   top: 266px;
 }
 
-.-end-\[2\%\] {
-  inset-inline-end: -2%;
+.top-\[35\%\] {
+  top: 35%;
+}
+
+.top-\[44\%\] {
+  top: 44%;
 }
 
 .isolate {
@@ -8469,6 +8465,10 @@ html:has(.drawer-open.drawer-open) {
   height: 1.25rem;
 }
 
+.h-\[10\%\] {
+  height: 10%;
+}
+
 .h-\[24px\] {
   height: 24px;
 }
@@ -8477,8 +8477,20 @@ html:has(.drawer-open.drawer-open) {
   height: 46px;
 }
 
+.h-\[572px\] {
+  height: 572px;
+}
+
+.h-\[600px\] {
+  height: 600px;
+}
+
 .h-\[64px\] {
   height: 64px;
+}
+
+.h-\[7\%\] {
+  height: 7%;
 }
 
 .h-full {
@@ -8487,26 +8499,6 @@ html:has(.drawer-open.drawer-open) {
 
 .h-screen {
   height: 100vh;
-}
-
-.h-\[calc\(100\%-28px\)\] {
-  height: calc(100% - 28px);
-}
-
-.h-\[10\%\] {
-  height: 10%;
-}
-
-.h-\[7\%\] {
-  height: 7%;
-}
-
-.h-\[572px\] {
-  height: 572px;
-}
-
-.h-\[600px\] {
-  height: 600px;
 }
 
 .max-h-\[calc\(100vh-150px\)\] {
@@ -8545,6 +8537,18 @@ html:has(.drawer-open.drawer-open) {
   width: 1.25rem;
 }
 
+.w-\[1\%\] {
+  width: 1%;
+}
+
+.w-\[272px\] {
+  width: 272px;
+}
+
+.w-\[300px\] {
+  width: 300px;
+}
+
 .w-\[3px\] {
   width: 3px;
 }
@@ -8561,24 +8565,16 @@ html:has(.drawer-open.drawer-open) {
   width: 100vw;
 }
 
-.w-\[1\%\] {
-  width: 1%;
-}
-
-.w-\[272px\] {
-  width: 272px;
-}
-
-.w-\[300px\] {
-  width: 300px;
-}
-
 .max-w-5xl {
   max-width: 64rem;
 }
 
 .max-w-\[calc\(100\%-1rem\)\] {
   max-width: calc(100% - 1rem);
+}
+
+.max-w-\[calc\(100vw-1rem\)\] {
+  max-width: calc(100vw - 1rem);
 }
 
 .max-w-xs {
@@ -8610,16 +8606,6 @@ html:has(.drawer-open.drawer-open) {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.animate-spin {
-  animation: spin 1s linear infinite;
-}
-
 @keyframes bounce {
   0%, 100% {
     transform: translateY(-25%);
@@ -8634,6 +8620,16 @@ html:has(.drawer-open.drawer-open) {
 
 .animate-bounce {
   animation: bounce 1s infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
 }
 
 .cursor-pointer {
@@ -8718,12 +8714,24 @@ html:has(.drawer-open.drawer-open) {
   --tw-divide-x-reverse: 1;
 }
 
-.overflow-auto {
-  overflow: auto;
-}
-
 .overflow-hidden {
   overflow: hidden;
+}
+
+.overflow-x-auto {
+  overflow-x: auto;
+}
+
+.overflow-y-auto {
+  overflow-y: auto;
+}
+
+.overflow-x-scroll {
+  overflow-x: scroll;
+}
+
+.overflow-y-scroll {
+  overflow-y: scroll;
 }
 
 .truncate {
@@ -8927,10 +8935,6 @@ html:has(.drawer-open.drawer-open) {
 .border-warning {
   --tw-border-opacity: 1;
   border-color: var(--fallback-wa,oklch(var(--wa)/var(--tw-border-opacity)));
-}
-
-.border-\[2\%\] {
-  border-color: 2%;
 }
 
 .bg-accent {
@@ -9982,14 +9986,6 @@ body {
     padding-left: 0.688rem;
     padding-right: 0.688rem;
   }
-}
-
-.focus-within\:animate-none:focus-within {
-  animation: none;
-}
-
-.focus-within\:\!animate-none:focus-within {
-  animation: none !important;
 }
 
 .focus\:outline-offset-0:focus {
