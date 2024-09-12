@@ -45,6 +45,14 @@ async function adbListDevices(): Promise<IDevice[] | null> {
   return null;
 }
 
+async function adbScreencap(device: IDevice): Promise<string> {
+  if (adb) {
+    const screencap = await adb.screenshot(device.id);
+    return screencap.toString('base64');
+  }
+  return '';
+}
+
 async function adbRemoveForward(): Promise<boolean> {
   if (adb) {
     execFile(
@@ -96,6 +104,10 @@ ipcMain.on('ipc-example', async (event, arg) => {
 
 ipcMain.handle('adb-list-devices', async () => {
   return adbListDevices();
+});
+
+ipcMain.handle('adb-screencap', async (_event, args) => {
+  return adbScreencap(args[0]);
 });
 
 ipcMain.handle('adb-forward', async (_event, args) => {

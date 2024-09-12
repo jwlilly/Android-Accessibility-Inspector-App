@@ -4,7 +4,7 @@ import { Select, Button } from 'react-daisyui';
 import { IDevice } from 'adb-ts/lib/util';
 import adb from '../utils/adb';
 
-const ConnectDevice = function ConnectDevice() {
+const ConnectDevice = function ConnectDevice({ onDeviceConnected }: any) {
   const [devices, setDevices] = useState<IDevice[] | null>(null);
   const [deviceValue, setDeviceValue] = useState<number>(0);
   let runOnce = true;
@@ -20,6 +20,10 @@ const ConnectDevice = function ConnectDevice() {
 
     runOnce = false;
   }
+
+  const deviceConnected = (device: IDevice) => {
+    onDeviceConnected(device);
+  };
 
   const refreshDevices = () => {
     adb
@@ -57,6 +61,7 @@ const ConnectDevice = function ConnectDevice() {
         .forward(devices![index])
         .then((response) => console.log('device connected ', response))
         .catch((error) => console.log(error));
+      deviceConnected(devices![index]);
     }
   };
 

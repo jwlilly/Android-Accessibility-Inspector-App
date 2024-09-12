@@ -7,6 +7,9 @@ const adb = {
   forward: (device: IDevice): Promise<boolean> => {
     return window.electron.ipcRenderer.invoke('adb-forward', [device]);
   },
+  screencap: (device: IDevice): Promise<string> => {
+    return window.electron.ipcRenderer.invoke('adb-screencap', [device]);
+  },
   install: () => {},
 };
 

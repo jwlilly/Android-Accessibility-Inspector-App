@@ -1,12 +1,13 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useResizable } from 'react-resizable-layout';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ITreeViewOnSelectProps } from 'react-accessible-treeview';
-import { Button, Indicator, Navbar } from 'react-daisyui';
+import { Navbar } from 'react-daisyui';
 import {
   DevicePhoneMobileIcon,
   MagnifyingGlassIcon,
 } from '@heroicons/react/24/outline';
+import { IDevice } from 'adb-ts/lib/util';
 import Splitter from './splitter-view';
 import BasicTreeView from './basic-tree-view';
 import ConnectDevice from './connect-device';
@@ -19,7 +20,9 @@ import RefreshTree from './refresh-tree';
 function MainView(): React.JSX.Element {
   const [selectedView, setSelectedView] = useState<number>(0);
   const [viewHierarchy, setViewHierarchy] = useState({ name: '' });
-  const treeRef = useRef();
+  const [selectedDevice, setSelectedDevice] = useState<IDevice | null>(null);
+  const [screencap, setScreencap] = useState<string | null>(null);
+  const [expanded, setExpanded] = useState(false);
   const {
     isDragging: isTreeDragging,
     position: treeW,
@@ -51,6 +54,14 @@ function MainView(): React.JSX.Element {
     }
   };
 
+  const deviceSelected = (device: IDevice) => {
+    setSelectedDevice(device);
+  };
+
+  const screencapReceived = (received: string) => {
+    setScreencap(received);
+  };
+
   return (
     <div className="flex w-screen h-screen font-mono flex-column bg-base-200">
       <Navbar
@@ -59,7 +70,11 @@ function MainView(): React.JSX.Element {
         style={{ maxWidth: 'calc(100vw - 1rem)' }}
       >
         <Navbar.Start>
-          <RefreshTree onMessageReceived={messageReceived} />
+          <RefreshTree
+            onMessageReceived={messageReceived}
+            device={selectedDevice}
+            onScreencapReceived={screencapReceived}
+          />
         </Navbar.Start>
         <Navbar.Center>
           <h1 className="text-xl">
@@ -85,15 +100,23 @@ function MainView(): React.JSX.Element {
             </ul>
           </details>
           <div className="indicator">
-            <span className="indicator-item badge badge-error badge-sm" />
-            <details className="dropdown">
+            <span
+              className={`indicator-item badge badge-error badge-sm ${selectedDevice ? 'hidden' : ''}`}
+            />
+            <details
+              className="dropdown"
+              open={expanded}
+              onToggle={(e) =>
+                setExpanded((e.currentTarget as HTMLDetailsElement).open)
+              }
+            >
               <summary
-                className="text-xl font-medium btn btn-ghost "
+                className={`text-xl font-medium btn btn-ghost ${selectedDevice || expanded ? '' : 'animate-bounce'}`}
                 aria-label="Select a device"
               >
                 <div>
                   <DevicePhoneMobileIcon
-                    className="h-[24px] animate-bounce"
+                    className="h-[24px]"
                     title="Select a device"
                   />
                 </div>
@@ -102,7 +125,7 @@ function MainView(): React.JSX.Element {
                 className="p-2 shadow dropdown-content menu bg-base-100 rounded-box right-0 w-[500px] z-10"
                 role="presentation"
               >
-                <ConnectDevice />
+                <ConnectDevice onDeviceConnected={deviceSelected} />
               </ul>
             </details>
           </div>
@@ -119,7 +142,7 @@ function MainView(): React.JSX.Element {
           className={`shrink-0 contents pt-4 ${isTreeDragging ? 'dragging' : ''}`}
           style={{ width: treeW }}
         >
-          <Screenshot />
+          <Screenshot screencap={screencap} />
         </div>
         <Splitter
           isDragging={isTreeDragging}
@@ -128,11 +151,7 @@ function MainView(): React.JSX.Element {
         />
         <div className="flex grow">
           <div className="overflow-auto grow">
-            <BasicTreeView
-              tree={viewHierarchy}
-              onViewSelected={viewSelected}
-              ref={treeRef}
-            />
+            <BasicTreeView tree={viewHierarchy} onViewSelected={viewSelected} />
           </div>
           <Splitter
             isDragging={isDetailsDragging}

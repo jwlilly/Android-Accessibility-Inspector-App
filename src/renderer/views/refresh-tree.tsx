@@ -1,16 +1,21 @@
 import { ArrowPathIcon } from '@heroicons/react/24/outline';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Button } from 'react-daisyui';
 import useWebSocket, { ReadyState } from 'react-use-websocket';
+import { IDevice } from 'adb-ts/lib/util';
+import adb from '../utils/adb';
 
-const RefreshTree = function RefreshTree({ onMessageReceived }: any) {
+const RefreshTree = function RefreshTree({
+  onMessageReceived,
+  device,
+  onScreencapReceived,
+}: any) {
   const socketUrl = 'ws://127.0.0.1:38301/';
 
   const { sendMessage, lastMessage, readyState } = useWebSocket(socketUrl, {
     onOpen: () => console.log('connection opened'),
     shouldReconnect: () => true,
   });
-
   useEffect(() => {
     console.log(lastMessage);
     if (lastMessage !== null) {
@@ -26,8 +31,10 @@ const RefreshTree = function RefreshTree({ onMessageReceived }: any) {
     [ReadyState.UNINSTANTIATED]: 'Uninstantiated',
   }[readyState];
 
-  const handleClickSendMessage = () => {
+  const handleClickSendMessage = async () => {
     sendMessage('{"message":"capture"}');
+    const selectedDevice = device as IDevice;
+    onScreencapReceived(await adb.screencap(selectedDevice));
   };
 
   return (
@@ -36,7 +43,7 @@ const RefreshTree = function RefreshTree({ onMessageReceived }: any) {
         onClick={handleClickSendMessage}
         color="primary"
         aria-label="Refresh Tree"
-        disabled={readyState !== ReadyState.OPEN}
+        disabled={readyState !== ReadyState.OPEN || device == null}
       >
         <ArrowPathIcon
           className={`h-[24px] ${readyState === ReadyState.CONNECTING && 'animate-spin'}`}

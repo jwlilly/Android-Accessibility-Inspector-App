@@ -2,7 +2,12 @@
 /* eslint no-unused-vars: off */
 import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
 
-const validChannels = ['adb-list-devices', 'adb-forward', 'ipc-example'];
+const validChannels = [
+  'adb-list-devices',
+  'adb-forward',
+  'ipc-example',
+  'adb-screencap',
+];
 
 const electronHandler = {
   ipcRenderer: {

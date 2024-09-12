@@ -8265,6 +8265,18 @@ html:has(.drawer-open.drawer-open) {
   top: 50%;
 }
 
+.top-\[20\%\] {
+  top: 20%;
+}
+
+.top-\[35\%\] {
+  top: 35%;
+}
+
+.top-\[44\%\] {
+  top: 44%;
+}
+
 .top-\[120px\] {
   top: 120px;
 }
@@ -8275,6 +8287,10 @@ html:has(.drawer-open.drawer-open) {
 
 .top-\[266px\] {
   top: 266px;
+}
+
+.-end-\[2\%\] {
+  inset-inline-end: -2%;
 }
 
 .isolate {
@@ -8308,6 +8324,11 @@ html:has(.drawer-open.drawer-open) {
 .mx-2 {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
+}
+
+.mx-4 {
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
 .mx-auto {
@@ -8456,14 +8477,6 @@ html:has(.drawer-open.drawer-open) {
   height: 46px;
 }
 
-.h-\[572px\] {
-  height: 572px;
-}
-
-.h-\[600px\] {
-  height: 600px;
-}
-
 .h-\[64px\] {
   height: 64px;
 }
@@ -8474,6 +8487,34 @@ html:has(.drawer-open.drawer-open) {
 
 .h-screen {
   height: 100vh;
+}
+
+.h-\[calc\(100\%-28px\)\] {
+  height: calc(100% - 28px);
+}
+
+.h-\[10\%\] {
+  height: 10%;
+}
+
+.h-\[7\%\] {
+  height: 7%;
+}
+
+.h-\[572px\] {
+  height: 572px;
+}
+
+.h-\[600px\] {
+  height: 600px;
+}
+
+.max-h-\[calc\(100vh-150px\)\] {
+  max-height: calc(100vh - 150px);
+}
+
+.max-h-\[calc\(100vh-178px\)\] {
+  max-height: calc(100vh - 178px);
 }
 
 .w-1\/2 {
@@ -8504,14 +8545,6 @@ html:has(.drawer-open.drawer-open) {
   width: 1.25rem;
 }
 
-.w-\[272px\] {
-  width: 272px;
-}
-
-.w-\[300px\] {
-  width: 300px;
-}
-
 .w-\[3px\] {
   width: 3px;
 }
@@ -8526,6 +8559,18 @@ html:has(.drawer-open.drawer-open) {
 
 .w-screen {
   width: 100vw;
+}
+
+.w-\[1\%\] {
+  width: 1%;
+}
+
+.w-\[272px\] {
+  width: 272px;
+}
+
+.w-\[300px\] {
+  width: 300px;
 }
 
 .max-w-5xl {
@@ -8565,6 +8610,16 @@ html:has(.drawer-open.drawer-open) {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
 @keyframes bounce {
   0%, 100% {
     transform: translateY(-25%);
@@ -8579,37 +8634,6 @@ html:has(.drawer-open.drawer-open) {
 
 .animate-bounce {
   animation: bounce 1s infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.animate-spin {
-  animation: spin 1s linear infinite;
-}
-
-@keyframes pulse {
-  50% {
-    opacity: .5;
-  }
-}
-
-.animate-pulse {
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-@keyframes ping {
-  75%, 100% {
-    transform: scale(2);
-    opacity: 0;
-  }
-}
-
-.animate-ping {
-  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
 .cursor-pointer {
@@ -8634,10 +8658,6 @@ html:has(.drawer-open.drawer-open) {
 
 .flex-wrap {
   flex-wrap: wrap;
-}
-
-.place-items-center {
-  place-items: center;
 }
 
 .items-end {
@@ -8907,6 +8927,10 @@ html:has(.drawer-open.drawer-open) {
 .border-warning {
   --tw-border-opacity: 1;
   border-color: var(--fallback-wa,oklch(var(--wa)/var(--tw-border-opacity)));
+}
+
+.border-\[2\%\] {
+  border-color: 2%;
 }
 
 .bg-accent {
@@ -9958,6 +9982,14 @@ body {
     padding-left: 0.688rem;
     padding-right: 0.688rem;
   }
+}
+
+.focus-within\:animate-none:focus-within {
+  animation: none;
+}
+
+.focus-within\:\!animate-none:focus-within {
+  animation: none !important;
 }
 
 .focus\:outline-offset-0:focus {
