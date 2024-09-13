@@ -31,6 +31,20 @@ const BasicTreeView = function BasicTreeView({
     onViewHovered(hoveredData);
   };
 
+  const branchFocusCallback = () => {
+    const nodeId = document.activeElement
+      ?.querySelector('[data-id]')
+      ?.getAttribute('data-id');
+    if (nodeId) {
+      const node = flattenTree(tree).find(
+        (element) => element.id === parseInt(nodeId, 10),
+      );
+      if (node) {
+        onViewHovered(node);
+      }
+    }
+  };
+
   useEffect(() => {
     setKey(Math.random());
   }, [tree]);
@@ -44,6 +58,7 @@ const BasicTreeView = function BasicTreeView({
         clickAction="EXCLUSIVE_SELECT"
         onSelect={viewSelected}
         defaultExpandedIds={tree && tree.children ? [tree.children[0].id] : []}
+        onFocus={branchFocusCallback}
         // eslint-disable-next-line react/no-unstable-nested-components
         nodeRenderer={({
           element,
@@ -51,7 +66,6 @@ const BasicTreeView = function BasicTreeView({
           isBranch,
           isExpanded,
           isSelected,
-          treeState,
         }) => (
           <div
             // eslint-disable-next-line react/jsx-props-no-spreading
@@ -61,10 +75,12 @@ const BasicTreeView = function BasicTreeView({
               viewHovered(element);
             }}
             onFocus={() => {
-              viewHovered(element);
+              if (!isBranch) {
+                viewHovered(element);
+              }
             }}
+            data-id={element.id}
           >
-            {/* {treeState.isFocused ? console.log(treeState.tabbableId) : null} */}
             {isBranch && (
               <ArrowIcon
                 isOpen={isExpanded}
@@ -86,7 +102,6 @@ const BasicTreeView = function BasicTreeView({
               </div>
             </span>
           </div>
-
         )}
       />
     </div>

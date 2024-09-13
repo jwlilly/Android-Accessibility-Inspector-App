@@ -28,6 +28,7 @@ interface ViewMetadata {
   links?: string[];
   visibility?: string;
   importantForAccessibility?: boolean;
+  toolTip?: string;
 }
 export interface AndroidView {
   name: string;

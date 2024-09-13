@@ -49,7 +49,7 @@ const ViewDetails = function viewDetails({ selectedView, viewHierarchy }: any) {
       <div className="flex flex-col items-center justify-center gap-2">
         <h1 className="text-xl">
           <div className="text-center">{view.name}</div>
-          <div>
+          <div className="flex flex-row justify-center">
             {view.metadata.properties &&
             view.metadata.properties.includes('focused') ? (
               <Tooltip position="bottom" message="keyboard focused">
@@ -64,7 +64,7 @@ const ViewDetails = function viewDetails({ selectedView, viewHierarchy }: any) {
               ''
             )}
             {view.metadata.properties &&
-            view.metadata.properties.includes('a11y focused') ? (
+            view.metadata.properties.includes('accessibility focused') ? (
               <Tooltip position="bottom" message="accessibility focused">
                 <div role="button" tabIndex={0} className="ml-1">
                   <div className="badge badge-sm badge-secondary">
@@ -125,6 +125,12 @@ const ViewDetails = function viewDetails({ selectedView, viewHierarchy }: any) {
             </td>
           </tr>
           <tr>
+            <td>tooltip</td>
+            <td className="font-mono">
+              {transformData(view.metadata.toolTip)}
+            </td>
+          </tr>
+          <tr>
             <td>checked</td>
             <td className="font-mono">
               {transformData(view.metadata.checkable)}
@@ -152,6 +158,12 @@ const ViewDetails = function viewDetails({ selectedView, viewHierarchy }: any) {
             <td>collection item info</td>
             <td className="font-mono">
               {transformData(view.metadata.collectionItemInfo)}
+            </td>
+          </tr>
+          <tr>
+            <td>visibility</td>
+            <td className="font-mono">
+              {transformData(view.metadata.visibility)}
             </td>
           </tr>
           <tr>

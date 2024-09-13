@@ -9001,6 +9001,10 @@ html:has(.drawer-open.drawer-open) {
   fill: transparent;
 }
 
+.stroke-black {
+  stroke: #000;
+}
+
 .stroke-error {
   stroke: var(--fallback-er,oklch(var(--er)/1));
 }
@@ -9011,6 +9015,10 @@ html:has(.drawer-open.drawer-open) {
 
 .stroke-success {
   stroke: var(--fallback-su,oklch(var(--su)/1));
+}
+
+.stroke-white {
+  stroke: #fff;
 }
 
 .p-2 {
@@ -9263,6 +9271,18 @@ html:has(.drawer-open.drawer-open) {
 
 .opacity-50 {
   opacity: 0.5;
+}
+
+.opacity-45 {
+  opacity: 0.45;
+}
+
+.opacity-15 {
+  opacity: 0.15;
+}
+
+.opacity-85 {
+  opacity: 0.85;
 }
 
 .shadow {

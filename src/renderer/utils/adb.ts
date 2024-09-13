@@ -10,6 +10,9 @@ const adb = {
   screencap: (device: IDevice): Promise<string> => {
     return window.electron.ipcRenderer.invoke('adb-screencap', [device]);
   },
+  isAppInstalled: (device: IDevice): Promise<string> => {
+    return window.electron.ipcRenderer.invoke('adb-app-installed', [device]);
+  },
   install: () => {},
 };
 

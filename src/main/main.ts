@@ -57,33 +57,57 @@ async function adbRemoveForward(): Promise<boolean> {
   if (adb) {
     execFile(
       path.join(ADB_PATH, ADB_BIN),
-      ['forward', '--remove-all'],
+      ['forward', '--list'],
       (err, stdout, stderr) => {
-        if (err) {
-          console.log(err);
-          return false;
+        if (stdout) {
+          const lines = stdout.trim().split('\n');
+          // eslint-disable-next-line no-restricted-syntax, guard-for-in
+          for (const index in lines) {
+            const device = lines[index].split(' ');
+            execFile(
+              path.join(ADB_PATH, ADB_BIN),
+              ['-s', device[0], 'forward', '--remove-all'],
+              (err1: any, stdout1: string, stderr1: any) => {
+                if (err1) {
+                  console.log(err1);
+                }
+                if (stderr1 && !stdout1) {
+                  console.log(
+                    stderr.trim(),
+                    ['-s', device[0], 'forward', '--remove-all'].join(' '),
+                  );
+                }
+                if (/Error/.test(stdout1)) {
+                  console.log(
+                    stdout1.trim(),
+                    ['-s', device[0], 'forward', '--remove-all'].join(' '),
+                  );
+                }
+                console.log('clearing forwards', stdout1);
+              },
+            );
+          }
         }
-        if (stderr && !stdout) {
-          console.log(stderr.trim(), ['forward', '--remove-all'].join(' '));
-          return false;
-        }
-        if (/Error/.test(stdout)) {
-          console.log(stdout.trim(), ['forward', '--remove-all'].join(' '));
-          return false;
-        }
-        console.log('clearing forwards', stdout);
-        return true;
+        console.log(stdout.trim().split('\n'));
       },
     );
   }
   return false;
 }
 
+async function adbIsAppInstalled(device: IDevice): Promise<boolean> {
+  if (adb) {
+    const packages = await adb.listPackages(device.id);
+    return packages.includes('com.jwlilly.accessibilityinspector');
+  }
+  return true;
+}
+
 async function adbForward(device: IDevice): Promise<boolean> {
   if (adb) {
     try {
       const selectedDevice = new Device(adb, device);
-      //await adbRemoveForward();
+      await adbRemoveForward();
       selectedDevice.forward(
         deviceNetworkForward.local,
         deviceNetworkForward.remote,
@@ -112,6 +136,10 @@ ipcMain.handle('adb-screencap', async (_event, args) => {
 
 ipcMain.handle('adb-forward', async (_event, args) => {
   return adbForward(args[0]);
+});
+
+ipcMain.handle('adb-app-installed', async (_event, args) => {
+  return adbIsAppInstalled(args[0]);
 });
 
 if (process.env.NODE_ENV === 'production') {

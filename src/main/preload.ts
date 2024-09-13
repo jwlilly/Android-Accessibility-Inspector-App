@@ -7,6 +7,7 @@ const validChannels = [
   'adb-forward',
   'ipc-example',
   'adb-screencap',
+  'adb-app-installed',
 ];
 
 const electronHandler = {

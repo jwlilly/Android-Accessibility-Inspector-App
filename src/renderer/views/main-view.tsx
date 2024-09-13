@@ -81,7 +81,7 @@ function MainView(): React.JSX.Element {
       height:
         (element.metadata!.y2! as number) - (element.metadata!.y1! as number),
     });
-  }
+  };
 
   const messageReceived = useCallback((data: any) => {
     if (!data.announcement) {
@@ -95,6 +95,18 @@ function MainView(): React.JSX.Element {
 
   const screencapReceived = (received: string) => {
     setScreencap(received);
+    setSelectedCoord({
+      x: 0,
+      y: 0,
+      width: 0,
+      height: 0,
+    });
+    setHoveredCoord({
+      x: 0,
+      y: 0,
+      width: 0,
+      height: 0,
+    });
   };
 
   return (

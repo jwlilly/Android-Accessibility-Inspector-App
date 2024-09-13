@@ -12,7 +12,7 @@ const Screenshot = function Screenshot({
 
   // useRef allows us to "store" the div in a constant,
   // and to access it via observedDiv.current
-  const observedDiv = useRef(null);
+  const observedDiv = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const img = document.createElement('img');
     img.setAttribute('src', `data:image/png;base64,${screencap}`);
@@ -30,7 +30,7 @@ const Screenshot = function Screenshot({
     // we also instantiate the resizeObserver and we pass
     // the event handler to the constructor
     const resizeObserver = new ResizeObserver(() => {
-      if (observedDiv.current.offsetWidth !== width) {
+      if (observedDiv.current && observedDiv.current.offsetWidth !== width) {
         setWidth(observedDiv.current.offsetWidth);
       }
     });
@@ -40,14 +40,14 @@ const Screenshot = function Screenshot({
     // the div we want to observe
     resizeObserver.observe(observedDiv.current);
 
-
     // if useEffect returns a function, it is called right before the
     // component unmounts, so it is the right place to stop observing
     // the div
+    // eslint-disable-next-line consistent-return
     return function cleanup() {
       resizeObserver.disconnect();
     };
-  }, [screencap, selectCoord, observedDiv.current, width]);
+  }, [screencap, selectCoord, width]);
 
   if (screencap) {
     return (
@@ -62,34 +62,92 @@ const Screenshot = function Screenshot({
           >
             <svg
               aria-hidden="true"
-              viewBox={`0 0 ${screencapWidth} ${screencapHeight}`}
+              viewBox={`0 0 ${screencapWidth - 2} ${screencapHeight - 2}`}
               width="100%"
               height="100%"
               className="max-h-[calc(100vh-178px)]"
             >
               <image href={`data:image/png;base64,${screencap}`} />
-              <rect
-                x={selectCoord.x}
-                y={selectCoord.y}
-                rx={15}
-                className="stroke-error fill-transparent"
-                style={{
-                  strokeWidth: ((screencapWidth / width) * 1).toFixed(0),
-                  width: selectCoord.width,
-                  height: selectCoord.height,
-                }}
-              />
-              <rect
-                x={hoverCoord.x}
-                y={hoverCoord.y}
-                rx={15}
-                className="stroke-success fill-transparent"
-                style={{
-                  strokeWidth: ((screencapWidth / width) * 1).toFixed(0),
-                  width: hoverCoord.width,
-                  height: hoverCoord.height,
-                }}
-              />
+              {hoverCoord.x !== 0 ||
+              hoverCoord.y !== 0 ||
+              hoverCoord.width !== 0 ||
+              hoverCoord.height !== 0 ? (
+                <>
+                  <rect
+                    x={hoverCoord.x + 5}
+                    y={hoverCoord.y + 5}
+                    rx={15}
+                    className="stroke-white fill-transparent"
+                    style={{
+                      strokeWidth: ((screencapWidth / width) * 3).toFixed(0),
+                      width: hoverCoord.width - 10,
+                      height: hoverCoord.height - 10,
+                    }}
+                  />
+                  <rect
+                    x={hoverCoord.x - 5}
+                    y={hoverCoord.y - 5}
+                    rx={15}
+                    className="stroke-black fill-transparent"
+                    style={{
+                      strokeWidth: ((screencapWidth / width) * 3).toFixed(0),
+                      width: hoverCoord.width + 10,
+                      height: hoverCoord.height + 10,
+                    }}
+                  />
+                  <rect
+                    x={hoverCoord.x}
+                    y={hoverCoord.y}
+                    rx={15}
+                    className="stroke-success fill-transparent"
+                    style={{
+                      strokeWidth: ((screencapWidth / width) * 3).toFixed(0),
+                      width: hoverCoord.width,
+                      height: hoverCoord.height,
+                    }}
+                  />
+                </>
+              ) : null}
+              {selectCoord.x !== 0 ||
+              selectCoord.y !== 0 ||
+              selectCoord.width !== 0 ||
+              selectCoord.height !== 0 ? (
+                <>
+                  <rect
+                    x={selectCoord.x + 5}
+                    y={selectCoord.y + 5}
+                    rx={15}
+                    className="stroke-white fill-transparent"
+                    style={{
+                      strokeWidth: ((screencapWidth / width) * 3).toFixed(0),
+                      width: selectCoord.width - 10,
+                      height: selectCoord.height - 10,
+                    }}
+                  />
+                  <rect
+                    x={selectCoord.x - 5}
+                    y={selectCoord.y - 5}
+                    rx={15}
+                    className="stroke-black fill-transparent"
+                    style={{
+                      strokeWidth: ((screencapWidth / width) * 3).toFixed(0),
+                      width: selectCoord.width + 10,
+                      height: selectCoord.height + 10,
+                    }}
+                  />
+                  <rect
+                    x={selectCoord.x}
+                    y={selectCoord.y}
+                    rx={15}
+                    className="stroke-error fill-transparent"
+                    style={{
+                      strokeWidth: ((screencapWidth / width) * 3).toFixed(0),
+                      width: selectCoord.width,
+                      height: selectCoord.height,
+                    }}
+                  />
+                </>
+              ) : null}
             </svg>
           </div>
         </div>
