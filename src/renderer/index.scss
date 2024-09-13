@@ -8726,14 +8726,6 @@ html:has(.drawer-open.drawer-open) {
   overflow-y: auto;
 }
 
-.overflow-x-scroll {
-  overflow-x: scroll;
-}
-
-.overflow-y-scroll {
-  overflow-y: scroll;
-}
-
 .truncate {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -9005,8 +8997,20 @@ html:has(.drawer-open.drawer-open) {
   fill: var(--fallback-bc,oklch(var(--bc)/1));
 }
 
+.fill-transparent {
+  fill: transparent;
+}
+
+.stroke-error {
+  stroke: var(--fallback-er,oklch(var(--er)/1));
+}
+
 .stroke-none {
   stroke: none;
+}
+
+.stroke-success {
+  stroke: var(--fallback-su,oklch(var(--su)/1));
 }
 
 .p-2 {

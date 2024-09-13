@@ -1,5 +1,5 @@
 import { ArrowPathIcon } from '@heroicons/react/24/outline';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from 'react-daisyui';
 import useWebSocket, { ReadyState } from 'react-use-websocket';
 import { IDevice } from 'adb-ts/lib/util';
@@ -11,17 +11,20 @@ const RefreshTree = function RefreshTree({
   onScreencapReceived,
 }: any) {
   const socketUrl = 'ws://127.0.0.1:38301/';
-
-  const { sendMessage, lastMessage, readyState } = useWebSocket(socketUrl, {
+  const [url, setUrl] = useState('');
+  const { sendMessage, lastMessage, readyState } = useWebSocket(url, {
     onOpen: () => console.log('connection opened'),
     shouldReconnect: () => true,
+    reconnectAttempts: 5,
   });
   useEffect(() => {
-    console.log(lastMessage);
     if (lastMessage !== null) {
       onMessageReceived(JSON.parse(lastMessage.data));
     }
-  }, [lastMessage]);
+    if (device !== null) {
+      setUrl(socketUrl);
+    }
+  }, [lastMessage, onMessageReceived, device]);
 
   const connectionStatus = {
     [ReadyState.CONNECTING]: 'Connecting',
@@ -50,11 +53,12 @@ const RefreshTree = function RefreshTree({
           title="Refresh Tree"
         />
       </Button>
-      <div
+      {/* <div
         className={`inline ${readyState !== ReadyState.OPEN && readyState !== ReadyState.CONNECTING ? 'text-error' : 'text-primary'} ${readyState === ReadyState.OPEN ? ' hidden' : ''}`}
       >
         {connectionStatus}
-      </div>
+        {device && device.id}
+      </div> */}
     </div>
   );
 };

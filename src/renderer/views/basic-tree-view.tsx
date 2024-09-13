@@ -1,5 +1,6 @@
 import TreeView, {
   flattenTree,
+  INode,
   ITreeViewOnSelectProps,
 } from 'react-accessible-treeview';
 import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/16/solid';
@@ -13,13 +14,21 @@ function ArrowIcon({ isOpen, ...props }: any) {
 }
 
 // eslint-disable-next-line react/prop-types
-const BasicTreeView = function BasicTreeView({ tree, onViewSelected }: any) {
+const BasicTreeView = function BasicTreeView({
+  tree,
+  onViewSelected,
+  onViewHovered,
+}: any) {
   const [key, setKey] = useState(0);
 
   const viewSelected = (selectedData: ITreeViewOnSelectProps) => {
     if (selectedData.isSelected) {
       onViewSelected(selectedData);
     }
+  };
+
+  const viewHovered = (hoveredData: INode) => {
+    onViewHovered(hoveredData);
   };
 
   useEffect(() => {
@@ -42,12 +51,20 @@ const BasicTreeView = function BasicTreeView({ tree, onViewSelected }: any) {
           isBranch,
           isExpanded,
           isSelected,
+          treeState,
         }) => (
           <div
             // eslint-disable-next-line react/jsx-props-no-spreading
-            {...getNodeProps()}
+            {...getNodeProps({})}
             className={`${!isBranch ? 'ml-1' : ''} pl-[10px] my-1`}
+            onMouseOver={() => {
+              viewHovered(element);
+            }}
+            onFocus={() => {
+              viewHovered(element);
+            }}
           >
+            {/* {treeState.isFocused ? console.log(treeState.tabbableId) : null} */}
             {isBranch && (
               <ArrowIcon
                 isOpen={isExpanded}
@@ -69,6 +86,7 @@ const BasicTreeView = function BasicTreeView({ tree, onViewSelected }: any) {
               </div>
             </span>
           </div>
+
         )}
       />
     </div>

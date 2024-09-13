@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useResizable } from 'react-resizable-layout';
-import React, { useEffect, useRef, useState } from 'react';
-import { ITreeViewOnSelectProps } from 'react-accessible-treeview';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { INode, ITreeViewOnSelectProps } from 'react-accessible-treeview';
 import { Navbar } from 'react-daisyui';
 import {
   DevicePhoneMobileIcon,
@@ -23,6 +23,18 @@ function MainView(): React.JSX.Element {
   const [selectedDevice, setSelectedDevice] = useState<IDevice | null>(null);
   const [screencap, setScreencap] = useState<string | null>(null);
   const [expanded, setExpanded] = useState(false);
+  const [selectedCoord, setSelectedCoord] = useState({
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0,
+  });
+  const [hoveredCoord, setHoveredCoord] = useState({
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0,
+  });
   const {
     isDragging: isTreeDragging,
     position: treeW,
@@ -46,13 +58,36 @@ function MainView(): React.JSX.Element {
 
   const viewSelected = (data: ITreeViewOnSelectProps) => {
     setSelectedView(parseInt(data.element.id.toString(), 10));
+    if (data.element.metadata !== null && data.element.metadata !== undefined) {
+      setSelectedCoord({
+        x: data.element.metadata!.x1! as number,
+        y: data.element.metadata!.y1! as number,
+        width:
+          (data.element.metadata!.x2! as number) -
+          (data.element.metadata!.x1! as number),
+        height:
+          (data.element.metadata!.y2! as number) -
+          (data.element.metadata!.y1! as number),
+      });
+    }
   };
 
-  const messageReceived = (data: any) => {
+  const viewHovered = (element: INode) => {
+    setHoveredCoord({
+      x: element.metadata!.x1! as number,
+      y: element.metadata!.y1! as number,
+      width:
+        (element.metadata!.x2! as number) - (element.metadata!.x1! as number),
+      height:
+        (element.metadata!.y2! as number) - (element.metadata!.y1! as number),
+    });
+  }
+
+  const messageReceived = useCallback((data: any) => {
     if (!data.announcement) {
       setViewHierarchy(data);
     }
-  };
+  }, []);
 
   const deviceSelected = (device: IDevice) => {
     setSelectedDevice(device);
@@ -100,7 +135,7 @@ function MainView(): React.JSX.Element {
           </details>
           <div className="indicator">
             <span
-              className={`indicator-item badge badge-error badge-sm ${selectedDevice ? 'hidden' : ''}`}
+              className={`indicator-item badge badge-error badge-xs ${selectedDevice ? 'hidden' : ''}  ${selectedDevice || expanded ? '' : 'animate-bounce'}`}
             />
             <details
               className="dropdown"
@@ -110,7 +145,7 @@ function MainView(): React.JSX.Element {
               }
             >
               <summary
-                className={`text-xl font-medium btn btn-ghost ${selectedDevice || expanded ? '' : 'animate-bounce'}`}
+                className="text-xl font-medium btn btn-ghost"
                 aria-label="Select a device"
               >
                 <div>
@@ -138,7 +173,11 @@ function MainView(): React.JSX.Element {
           className={`shrink-0 contents pt-4 ${isTreeDragging ? 'dragging' : ''}`}
           style={{ width: treeW, maxWidth: treeW }}
         >
-          <Screenshot screencap={screencap} />
+          <Screenshot
+            screencap={screencap}
+            selectCoord={selectedCoord}
+            hoverCoord={hoveredCoord}
+          />
         </div>
         <Splitter
           isDragging={isTreeDragging}
@@ -146,8 +185,12 @@ function MainView(): React.JSX.Element {
           label="Resize between screenshot and view hierarchy"
         />
         <div className="flex grow">
-          <div className="overflow-y-auto overflow-x-auto grow">
-            <BasicTreeView tree={viewHierarchy} onViewSelected={viewSelected} />
+          <div className="overflow-x-auto overflow-y-auto grow">
+            <BasicTreeView
+              tree={viewHierarchy}
+              onViewSelected={viewSelected}
+              onViewHovered={viewHovered}
+            />
           </div>
           <Splitter
             isDragging={isDetailsDragging}
