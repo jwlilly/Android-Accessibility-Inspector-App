@@ -15,7 +15,7 @@ const RefreshTree = function RefreshTree({
   const { sendMessage, lastMessage, readyState } = useWebSocket(url, {
     onOpen: () => console.log('connection opened'),
     shouldReconnect: () => true,
-    reconnectAttempts: 5,
+    reconnectAttempts: 30,
   });
   useEffect(() => {
     if (lastMessage !== null) {

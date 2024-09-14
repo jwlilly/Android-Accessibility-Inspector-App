@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Select, Button } from 'react-daisyui';
 import { IDevice } from 'adb-ts/lib/util';
 import adb from '../utils/adb';
+import QrCodeView from './qr-code-view';
 
 const ConnectDevice = function ConnectDevice({ onDeviceConnected }: any) {
   const [devices, setDevices] = useState<IDevice[] | null>(null);
@@ -44,6 +45,21 @@ const ConnectDevice = function ConnectDevice({ onDeviceConnected }: any) {
       .catch((error) => console.log(error));
   };
 
+  const deviceDescription = (device: IDevice): string => {
+    if (device && device.state && device.id && device.model) {
+      if (device.id.includes('adb-tls-connect')) {
+        return 'wifi';
+      }
+      if (device.state.includes('emulator')) {
+        return 'virtual';
+      }
+      if (device.state.includes('device')) {
+        return 'physical';
+      }
+    }
+    return '';
+  };
+
   const deviceOptions =
     devices !== null && devices.length > 0 ? (
       devices.map((device, index) => {
@@ -53,7 +69,7 @@ const ConnectDevice = function ConnectDevice({ onDeviceConnected }: any) {
             value={index}
             key={device.id}
           >
-            {device.model} - {device.state}
+            {device.model} - {deviceDescription(device)}
           </Select.Option>
         );
       })
@@ -71,6 +87,20 @@ const ConnectDevice = function ConnectDevice({ onDeviceConnected }: any) {
     deviceConnected(device);
   };
 
+  const startService = (device: IDevice) => {
+    if (appInstalled === AppStatus.INSTALLED) {
+      adb
+        .startService(device)
+        .then(() => {
+          console.log('service started');
+          return true;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
+
   const selectDevice = (index: number) => {
     if (index >= 0) {
       const device = devices![index];
@@ -81,6 +111,10 @@ const ConnectDevice = function ConnectDevice({ onDeviceConnected }: any) {
           setAppInstalled(
             response ? AppStatus.INSTALLED : AppStatus.NOT_INSTALLED,
           );
+          setTimeout(() => {
+            startService(device);
+          }, 1000);
+          startService(device);
           return true;
         })
         .catch((error) => {
@@ -119,14 +153,20 @@ const ConnectDevice = function ConnectDevice({ onDeviceConnected }: any) {
       >
         {deviceOptions}
       </Select>
+      <div className="label">
+        <div className="label-text-alt" />
+        <div className="label-text-alt">
+          <QrCodeView />
+        </div>
+      </div>
     </div>
   );
 
   return (
     <div>
-      <div className="flex flex-row items-end justify-center w-full gap-2 p-4 font-sans">
+      <div className="flex flex-row items-center justify-center w-full gap-2 p-4 font-sans">
         {deviceSelect}
-        <div className="col-span-1">
+        <div className="col-span-1 mb-[30px]">
           <Button
             onClick={() => selectDevice(deviceValue)}
             disabled={

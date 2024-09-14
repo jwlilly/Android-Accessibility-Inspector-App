@@ -8,6 +8,9 @@ const validChannels = [
   'ipc-example',
   'adb-screencap',
   'adb-app-installed',
+  'wifi-connect-start',
+  'wifi-connect-stop',
+  'adb-start-service',
 ];
 
 const electronHandler = {

@@ -13,6 +13,15 @@ const adb = {
   isAppInstalled: (device: IDevice): Promise<string> => {
     return window.electron.ipcRenderer.invoke('adb-app-installed', [device]);
   },
+  wifiConnectStart: (): Promise<string> => {
+    return window.electron.ipcRenderer.invoke('wifi-connect-start', []);
+  },
+  wifiConnectStop: (): void => {
+    window.electron.ipcRenderer.invoke('wifi-connect-stop', []);
+  },
+  startService: (device: IDevice): Promise<string> => {
+    return window.electron.ipcRenderer.invoke('adb-start-service', [device]);
+  },
   install: () => {},
 };
 

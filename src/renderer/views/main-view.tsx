@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useResizable } from 'react-resizable-layout';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { INode, ITreeViewOnSelectProps } from 'react-accessible-treeview';
 import { Navbar } from 'react-daisyui';
 import {
