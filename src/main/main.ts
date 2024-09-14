@@ -143,6 +143,44 @@ async function adbStartService(device: IDevice): Promise<boolean> {
       },
     );
   }
+  return false;
+}
+
+async function adbStartAccService(device: IDevice): Promise<boolean> {
+  const accServiceName =
+    'com.jwlilly.accessibilityinspector/com.jwlilly.accessibilityinspector.AccessibilityInspector';
+  const secure = 'secure';
+  const settingName = 'enabled_accessibility_services';
+  if (adb) {
+    const settings = await adb.getSetting(device.id, secure, settingName);
+    if (settings) {
+      const settingsList = settings.toString().split(':');
+      if (!settingsList.includes(accServiceName)) {
+        settingsList.push(accServiceName);
+        try {
+          await adb.putSetting(
+            device.id,
+            secure,
+            settingName,
+            settingsList.join(':'),
+          );
+          return true;
+        } catch (error: any) {
+          console.log(error);
+          return false;
+        }
+      }
+    } else {
+      try {
+        await adb.putSetting(device.id, secure, settingName, accServiceName);
+        return true;
+      } catch (error: any) {
+        console.log(error);
+        return false;
+      }
+    }
+  }
+  return false;
 }
 
 async function adbIsAppInstalled(device: IDevice): Promise<boolean> {
@@ -253,6 +291,7 @@ ipcMain.handle('adb-app-installed', async (_event, args) => {
 });
 
 ipcMain.handle('adb-start-service', async (_event, args) => {
+  await adbStartAccService(args[0]);
   return adbStartService(args[0]);
 });
 
@@ -314,7 +353,7 @@ const createWindow = async () => {
     show: false,
     width: 1024,
     height: 728,
-    icon: getAssetPath('icon.png'),
+    icon: getAssetPath(path.join('png', '128x128.png')),
     webPreferences: {
       preload: app.isPackaged
         ? path.join(__dirname, 'preload.js')

@@ -88,13 +88,13 @@ const BasicTreeView = function BasicTreeView({
               />
             )}
             <span
-              className={`justify-start text-ellipsis text-start btn ${isSelected ? 'btn-outline btn-secondary' : 'btn-ghost'}`}
+              className={`justify-start max-w-60 text-start btn ${isSelected ? 'btn-outline btn-secondary' : 'btn-ghost'}`}
             >
-              <div>
+              <div className="overflow-hidden whitespace-nowrap">
                 {element.name}
                 {element.metadata !== undefined &&
                 element.metadata.text !== undefined ? (
-                  <div className="text-xs font-thin">
+                  <div className="overflow-hidden text-xs font-thin text-ellipsis whitespace-nowrap">
                     {element.metadata.text}
                   </div>
                 ) : null}

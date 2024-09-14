@@ -3,6 +3,9 @@ import { Helmet } from 'react-helmet';
 import './index.scss';
 import { Theme } from 'react-daisyui';
 import MainView from './views/main-view';
+import '@fontsource/roboto';
+import '@fontsource/roboto-mono';
+import '@fontsource/roboto-serif';
 
 function Main() {
   return (

@@ -80,8 +80,12 @@ const Screenshot = function Screenshot({
                     className="stroke-white fill-transparent"
                     style={{
                       strokeWidth: ((screencapWidth / width) * 3).toFixed(0),
-                      width: hoverCoord.width - 10,
-                      height: hoverCoord.height - 10,
+                      width:
+                        hoverCoord.width - 10 > 0 ? hoverCoord.width - 10 : 10,
+                      height:
+                        hoverCoord.height - 10 > 0
+                          ? hoverCoord.height - 10
+                          : 10,
                     }}
                   />
                   <rect
@@ -102,8 +106,8 @@ const Screenshot = function Screenshot({
                     className="stroke-success fill-transparent"
                     style={{
                       strokeWidth: ((screencapWidth / width) * 3).toFixed(0),
-                      width: hoverCoord.width,
-                      height: hoverCoord.height,
+                      width: hoverCoord.width !== 0 ? hoverCoord.width : 1,
+                      height: hoverCoord.height !== 0 ? hoverCoord.height : 1,
                     }}
                   />
                 </>
@@ -120,8 +124,12 @@ const Screenshot = function Screenshot({
                     className="stroke-white fill-transparent"
                     style={{
                       strokeWidth: ((screencapWidth / width) * 3).toFixed(0),
-                      width: selectCoord.width - 10,
-                      height: selectCoord.height - 10,
+                      width:
+                        selectCoord.width - 10 > 0 ? selectCoord.width - 10 : 0,
+                      height:
+                        selectCoord.height - 10 > 0
+                          ? selectCoord.height - 10
+                          : 10,
                     }}
                   />
                   <rect
@@ -142,8 +150,8 @@ const Screenshot = function Screenshot({
                     className="stroke-error fill-transparent"
                     style={{
                       strokeWidth: ((screencapWidth / width) * 3).toFixed(0),
-                      width: selectCoord.width,
-                      height: selectCoord.height,
+                      width: selectCoord.width !== 0 ? selectCoord.width : 1,
+                      height: selectCoord.height !== 0 ? selectCoord.height : 1,
                     }}
                   />
                 </>

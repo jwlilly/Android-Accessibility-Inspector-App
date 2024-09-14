@@ -49,7 +49,7 @@ const RefreshTree = function RefreshTree({
         disabled={readyState !== ReadyState.OPEN || device == null}
       >
         <ArrowPathIcon
-          className={`h-[24px] ${readyState === ReadyState.CONNECTING && 'animate-spin'}`}
+          className={`h-[24px] ${readyState === ReadyState.CONNECTING && 'motion-safe:animate-spin'}`}
           title="Refresh Tree"
         />
       </Button>

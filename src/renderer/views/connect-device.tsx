@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Select, Button } from 'react-daisyui';
 import { IDevice } from 'adb-ts/lib/util';
+import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 import adb from '../utils/adb';
 import QrCodeView from './qr-code-view';
 
@@ -88,17 +89,15 @@ const ConnectDevice = function ConnectDevice({ onDeviceConnected }: any) {
   };
 
   const startService = (device: IDevice) => {
-    if (appInstalled === AppStatus.INSTALLED) {
-      adb
-        .startService(device)
-        .then(() => {
-          console.log('service started');
-          return true;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
+    adb
+      .startService(device)
+      .then(() => {
+        console.log('service started');
+        return true;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const selectDevice = (index: number) => {
@@ -150,11 +149,29 @@ const ConnectDevice = function ConnectDevice({ onDeviceConnected }: any) {
         value={deviceValue}
         onChange={(event) => deviceOnChange(event)}
         className="w-full max-w-xs select-primary"
+        aria-describedby="developer-mode"
       >
         {deviceOptions}
       </Select>
       <div className="label">
-        <div className="label-text-alt" />
+        <div id="developer-mode" className="label-text-alt">
+          <a
+            className="link"
+            href="https://developer.android.com/studio/debug/dev-options"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <span className="flex flex-row">
+              Enable developer mode and debugging{' '}
+              <ArrowTopRightOnSquareIcon
+                className="h-3"
+                role="img"
+                aria-label="Opens in your browser"
+                aria-hidden="false"
+              />
+            </span>
+          </a>
+        </div>
         <div className="label-text-alt">
           <QrCodeView />
         </div>

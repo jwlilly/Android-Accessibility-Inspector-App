@@ -8,7 +8,13 @@ module.exports = {
     './src/renderer/**/*.{js,jsx,ts,tsx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ['"Roboto"', "sans-serif"],
+        mono: ['"Roboto mono"',"mono" ],
+        serif: ['"Roboto serif"',"serif" ],
+      },
+    },
   },
   plugins: [require('daisyui')],
   daisyui: {

@@ -44,12 +44,12 @@ const QrCodeView = function QrCodeView() {
   return (
     <div>
       <Button
-        aria-label="Logs"
+        aria-label="WiFi Debug"
         onClick={handleShow}
         color="ghost"
         className="px-0"
       >
-        <QrCodeIcon title="Logs" className="h-full" />
+        <QrCodeIcon title="WiFi Debug" className="h-full" />
       </Button>
       <Modal
         ref={ref}
@@ -58,7 +58,7 @@ const QrCodeView = function QrCodeView() {
         className=""
       >
         <Modal.Header tabIndex={-1} className="font-bold scroll">
-          <h2>QR Code</h2>
+          <h2>Debug Over WiFi</h2>
         </Modal.Header>
         <Modal.Body>
           <div className="flex flex-col items-center justify-center w-full h-full m-auto">

@@ -147,7 +147,7 @@ function MainView(): React.JSX.Element {
           </details>
           <div className="indicator">
             <span
-              className={`indicator-item badge badge-error badge-xs ${selectedDevice ? 'hidden' : ''}  ${selectedDevice || expanded ? '' : 'animate-bounce'}`}
+              className={`indicator-item badge badge-error badge-xs ${selectedDevice ? 'hidden' : ''}  ${selectedDevice || expanded ? '' : 'motion-safe:animate-bounce'}`}
             />
             <details
               className="dropdown"
