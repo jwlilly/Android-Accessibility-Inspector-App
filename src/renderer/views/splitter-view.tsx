@@ -11,7 +11,7 @@ function Splitter({ id, dir, isDragging, label, ...props }: any) {
       // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
       tabIndex={0}
       aria-label={label}
-      className={`drag-bar ${dir === 'horizontal' && 'drag-bar--horizontal'} ${(isDragging || isFocused) && 'drag-bar--dragging'} focus-visible:outline-primary focus-visible:outline-offset-2`}
+      className={`mx-[10px] drag-bar  ${dir === 'horizontal' && 'drag-bar--horizontal'} ${(isDragging || isFocused) && 'drag-bar--dragging'} focus-visible:outline-primary focus-visible:outline-offset-2`}
       onFocus={() => setIsFocused(true)}
       onBlur={() => setIsFocused(false)}
       {...props}

@@ -12,7 +12,7 @@
     "hot",
     "reload"
   ],
-  "version": "2.0",
+  "version": "2.0.0",
   "homepage": "https://github.com/jwlilly/Android-Accessibility-Inspector-Ap/#readme",
   "bugs": {
     "url": "https://github.com/jwlilly/Android-Accessibility-Inspector-App/issues"
@@ -186,8 +186,8 @@
     "webpack-merge": "^5.9.0"
   },
   "build": {
-    "productName": "ElectronReact",
-    "appId": "org.erb.ElectronReact",
+    "productName": "Android Accessibility Inspector",
+    "appId": "com.jwlilly.accessibility-inspector-app",
     "asar": true,
     "asarUnpack": "**\\*.{node,dll}",
     "files": [

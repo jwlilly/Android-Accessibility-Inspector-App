@@ -8277,6 +8277,50 @@ html:has(.drawer-open.drawer-open) {
   top: 44%;
 }
 
+.right-1 {
+  right: 0.25rem;
+}
+
+.top-1 {
+  top: 0.25rem;
+}
+
+.right-\[-1rem\] {
+  right: -1rem;
+}
+
+.top-\[-1rem\] {
+  top: -1rem;
+}
+
+.right-\[-5px\] {
+  right: -5px;
+}
+
+.top-\[-5px\] {
+  top: -5px;
+}
+
+.right-\[-6px\] {
+  right: -6px;
+}
+
+.right-\[-4px\] {
+  right: -4px;
+}
+
+.right-\[-8px\] {
+  right: -8px;
+}
+
+.right-\[-7px\] {
+  right: -7px;
+}
+
+.top-\[-6px\] {
+  top: -6px;
+}
+
 .isolate {
   isolation: isolate;
 }
@@ -8328,6 +8372,11 @@ html:has(.drawer-open.drawer-open) {
 .my-4 {
   margin-top: 1rem;
   margin-bottom: 1rem;
+}
+
+.mx-\[10px\] {
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .mb-8 {
@@ -8546,6 +8595,10 @@ html:has(.drawer-open.drawer-open) {
   width: 100vw;
 }
 
+.w-\[24px\] {
+  width: 24px;
+}
+
 .max-w-5xl {
   max-width: 64rem;
 }
@@ -8593,6 +8646,11 @@ html:has(.drawer-open.drawer-open) {
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.select-none {
+  -webkit-user-select: none;
+          user-select: none;
 }
 
 .resize {
@@ -9010,6 +9068,11 @@ html:has(.drawer-open.drawer-open) {
 .py-2 {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+}
+
+.px-\[10px\] {
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .pl-\[10px\] {
@@ -10010,6 +10073,27 @@ body {
 
   .motion-safe\:animate-spin {
     animation: spin 1s linear infinite;
+  }
+
+  @keyframes pulse {
+    50% {
+      opacity: .5;
+    }
+  }
+
+  .motion-safe\:animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes ping {
+    75%, 100% {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+
+  .motion-safe\:animate-ping {
+    animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
   }
 }
 

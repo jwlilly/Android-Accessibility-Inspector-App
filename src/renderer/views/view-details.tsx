@@ -168,7 +168,7 @@ const ViewDetails = function viewDetails({ selectedView, viewHierarchy }: any) {
           </tr>
           <tr>
             <td>size</td>
-            <td className="font-mono">{`${((view.metadata.x2 - view.metadata.x1) / (428 / 160)).toFixed(0)} dp x ${((view.metadata.y2 - view.metadata.y1) / (428 / 160)).toFixed(0)} dp`}</td>
+            <td className="font-mono">{`${((Number(view.metadata.x2) - Number(view.metadata.x1)) / (428 / 160)).toFixed(0)} dp x ${((Number(view.metadata.y2) - Number(view.metadata.y1)) / (428 / 160)).toFixed(0)} dp`}</td>
           </tr>
         </tbody>
       </table>

@@ -12,10 +12,14 @@ const RefreshTree = function RefreshTree({
 }: any) {
   const socketUrl = 'ws://127.0.0.1:38301/';
   const [url, setUrl] = useState('');
+  const reconnectStopped = () => {
+    setUrl('');
+  };
   const { sendMessage, lastMessage, readyState } = useWebSocket(url, {
     onOpen: () => console.log('connection opened'),
     shouldReconnect: () => true,
     reconnectAttempts: 30,
+    onReconnectStop: reconnectStopped,
   });
   useEffect(() => {
     if (lastMessage !== null) {
@@ -25,14 +29,6 @@ const RefreshTree = function RefreshTree({
       setUrl(socketUrl);
     }
   }, [lastMessage, onMessageReceived, device]);
-
-  const connectionStatus = {
-    [ReadyState.CONNECTING]: 'Connecting',
-    [ReadyState.OPEN]: 'Open',
-    [ReadyState.CLOSING]: 'Closing',
-    [ReadyState.CLOSED]: 'Closed',
-    [ReadyState.UNINSTANTIATED]: 'Uninstantiated',
-  }[readyState];
 
   const handleClickSendMessage = async () => {
     sendMessage('{"message":"capture"}');

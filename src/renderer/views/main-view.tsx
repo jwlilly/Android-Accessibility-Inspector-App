@@ -54,6 +54,7 @@ function MainView(): React.JSX.Element {
     initial: 300,
     min: 100,
     reverse: true,
+    max: 700,
   });
 
   const viewSelected = (data: ITreeViewOnSelectProps) => {
@@ -84,7 +85,7 @@ function MainView(): React.JSX.Element {
   };
 
   const onHoveredViewSelected = (view: INode) => {
-    if(view) {
+    if (view) {
       setSelectedView(Number(view.id));
     }
   };
@@ -152,36 +153,39 @@ function MainView(): React.JSX.Element {
               <div>Search for text</div>
             </ul>
           </details>
-          <div className="indicator">
-            <span
-              className={`indicator-item badge badge-error badge-xs ${selectedDevice ? 'hidden' : ''}  ${selectedDevice || expanded ? '' : 'motion-safe:animate-bounce'}`}
-            />
-            <details
-              className="dropdown"
-              open={expanded}
-              onToggle={(e) =>
-                setExpanded((e.currentTarget as HTMLDetailsElement).open)
-              }
+
+          <details
+            className="dropdown"
+            open={expanded}
+            onToggle={(e) =>
+              setExpanded((e.currentTarget as HTMLDetailsElement).open)
+            }
+          >
+            <summary
+              className="text-xl font-medium btn btn-ghost"
+              aria-label="Select a device"
             >
-              <summary
-                className="text-xl font-medium btn btn-ghost"
-                aria-label="Select a device"
-              >
+              <div className="indicator">
                 <div>
                   <DevicePhoneMobileIcon
                     className="h-[24px]"
                     title="Select a device"
                   />
                 </div>
-              </summary>
-              <ul
-                className="p-2 shadow dropdown-content menu bg-base-100 rounded-box right-0 w-[500px] z-10"
-                role="presentation"
-              >
-                <ConnectDevice onDeviceConnected={deviceSelected} />
-              </ul>
-            </details>
-          </div>
+                <span
+                  className={`indicator-item badge badge-error badge-xs ${selectedDevice ? 'hidden' : ''}  ${selectedDevice || expanded ? '' : 'motion-safe:animate-bounce top-[-6px] right-[-6px]'}`}
+                >
+                  <span className="sr-only">No device is connected</span>
+                </span>
+              </div>
+            </summary>
+            <ul
+              className="p-2 shadow dropdown-content menu bg-base-100 rounded-box right-0 w-[500px] z-10"
+              role="presentation"
+            >
+              <ConnectDevice onDeviceConnected={deviceSelected} />
+            </ul>
+          </details>
 
           <Logs />
         </Navbar.End>
@@ -220,7 +224,7 @@ function MainView(): React.JSX.Element {
             label="Resize between view hierarchy and view details"
           />
           <div
-            className={`overflow-y-auto overflow-x-auto shrink-0 mt-4 ${isDetailsDragging ? 'dragging' : ''}`}
+            className={`overflow-y-auto overflow-x-auto shrink-0 mt-4 ${isDetailsDragging ? 'dragging select-none' : ''}`}
             style={{ width: detailsW }}
           >
             <ViewDetails
