@@ -83,8 +83,15 @@ function MainView(): React.JSX.Element {
     });
   };
 
+  const onHoveredViewSelected = (view: INode) => {
+    if(view) {
+      setSelectedView(Number(view.id));
+    }
+  };
+
   const messageReceived = useCallback((data: any) => {
     if (!data.announcement) {
+      setSelectedView(0);
       setViewHierarchy(data);
     }
   }, []);
@@ -189,6 +196,8 @@ function MainView(): React.JSX.Element {
             screencap={screencap}
             selectCoord={selectedCoord}
             hoverCoord={hoveredCoord}
+            dataTree={viewHierarchy}
+            onViewSelected={onHoveredViewSelected}
           />
         </div>
         <Splitter
@@ -202,6 +211,7 @@ function MainView(): React.JSX.Element {
               tree={viewHierarchy}
               onViewSelected={viewSelected}
               onViewHovered={viewHovered}
+              selectedView={selectedView}
             />
           </div>
           <Splitter

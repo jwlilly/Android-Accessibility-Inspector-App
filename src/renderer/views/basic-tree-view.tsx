@@ -2,6 +2,7 @@ import TreeView, {
   flattenTree,
   INode,
   ITreeViewOnSelectProps,
+  NodeId,
 } from 'react-accessible-treeview';
 import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/16/solid';
 import { useEffect, useState } from 'react';
@@ -18,12 +19,35 @@ const BasicTreeView = function BasicTreeView({
   tree,
   onViewSelected,
   onViewHovered,
+  selectedView,
 }: any) {
   const [key, setKey] = useState(0);
+  const [expandedIds, setExpandedIds] = useState(
+    tree && tree.children ? [tree.children[0].id] : [],
+  );
 
   const viewSelected = (selectedData: ITreeViewOnSelectProps) => {
     if (selectedData.isSelected) {
       onViewSelected(selectedData);
+      const expandIds: NodeId[] = [];
+      let nodeParent = selectedData.element.parent;
+      const info = flattenTree(tree);
+      while (nodeParent !== 0) {
+        expandIds.push(nodeParent);
+        // eslint-disable-next-line no-loop-func
+        const view = info.find((element) => element.id === nodeParent);
+        nodeParent = view?.parent;
+      }
+      const currentExpand = selectedData.treeState.expandedIds;
+      setExpandedIds(expandIds.concat(Array.from(currentExpand)));
+      setTimeout(() => {
+        const focusElement = document.querySelector(
+          '[role="tree"] [tabindex="0"]',
+        ) as HTMLElement;
+        if (focusElement) {
+          focusElement.focus();
+        }
+      }, 100);
     }
   };
 
@@ -46,6 +70,8 @@ const BasicTreeView = function BasicTreeView({
   };
 
   useEffect(() => {
+    setExpandedIds(tree && tree.children ? [tree.children[0].id] : []);
+    selectedView = null;
     setKey(Math.random());
   }, [tree]);
 
@@ -57,8 +83,10 @@ const BasicTreeView = function BasicTreeView({
         aria-label="View hierarchy"
         clickAction="EXCLUSIVE_SELECT"
         onSelect={viewSelected}
+        expandedIds={expandedIds}
         defaultExpandedIds={tree && tree.children ? [tree.children[0].id] : []}
         onFocus={branchFocusCallback}
+        selectedIds={selectedView ? [selectedView] : []}
         // eslint-disable-next-line react/no-unstable-nested-components
         nodeRenderer={({
           element,

@@ -1,19 +1,32 @@
-import { useEffect, useRef, useState } from 'react';
+/* eslint-disable import/named */
+/* eslint-disable import/no-duplicates */
+// eslint-disable-next-line import/no-duplicates
+/* eslint-disable import/named */
+import { useCallback, useEffect, useRef, useState, MouseEvent } from 'react';
+import { flattenTree, INode } from 'react-accessible-treeview';
+import { IFlatMetadata } from 'react-accessible-treeview/dist/TreeView/utils';
 import placeholder from '../images/screenshot.png';
+import { AndroidView } from '../models/AndroidView';
 
 const Screenshot = function Screenshot({
   screencap,
   hoverCoord,
   selectCoord,
+  dataTree,
+  onViewSelected,
 }: any) {
   const [screencapHeight, setScreencapHeight] = useState(0);
   const [screencapWidth, setScreencapWidth] = useState(0);
   const [width, setWidth] = useState(0);
+  const [height, setHeight] = useState(0);
+  const [flatTree, setFlatTree] = useState<INode<IFlatMetadata>[] | null>(null);
+  const [hoveredView, setHoveredView] = useState<INode | null>(null);
 
   // useRef allows us to "store" the div in a constant,
   // and to access it via observedDiv.current
   const observedDiv = useRef<HTMLDivElement>(null);
   useEffect(() => {
+    setFlatTree(flattenTree(dataTree));
     const img = document.createElement('img');
     img.setAttribute('src', `data:image/png;base64,${screencap}`);
     setTimeout(() => {
@@ -32,6 +45,7 @@ const Screenshot = function Screenshot({
     const resizeObserver = new ResizeObserver(() => {
       if (observedDiv.current && observedDiv.current.offsetWidth !== width) {
         setWidth(observedDiv.current.offsetWidth);
+        setHeight(observedDiv.current.offsetHeight);
       }
     });
 
@@ -47,7 +61,77 @@ const Screenshot = function Screenshot({
     return function cleanup() {
       resizeObserver.disconnect();
     };
-  }, [screencap, selectCoord, width]);
+  }, [screencap, selectCoord, width, dataTree]);
+
+  const getArea = (view: AndroidView) => {
+    const viewHeight = view.metadata.y2! - view.metadata.y1!;
+    const viewWidth = view.metadata.x2! - view.metadata.x1!;
+    return viewHeight * viewWidth;
+  };
+
+  const hoverCallback = useCallback(
+    (event: MouseEvent) => {
+      if (event) {
+        const offset = event.currentTarget.getBoundingClientRect();
+        const mouseX = event.clientX - offset.left;
+        const mouseY = event.clientY - offset.top;
+        let foundView: any = null;
+        const filteredArray = flatTree?.filter((item) => {
+          const { metadata } = item as unknown as AndroidView;
+          if (metadata) {
+            const scaleX = width / screencapWidth;
+            const scaleY = height / screencapHeight;
+            const scaledX1 = metadata.x1! * scaleX;
+            const scaledX2 = metadata.x2! * scaleX;
+            const scaledY1 = metadata.y1! * scaleY;
+            const scaledY2 = metadata.y2! * scaleY;
+            return (
+              scaledX1 <= mouseX &&
+              mouseX <= scaledX2 &&
+              scaledY1 <= mouseY &&
+              mouseY <= scaledY2
+            );
+          }
+          return false;
+        });
+        if (filteredArray?.length === 1) {
+          hoverCoord.x = filteredArray[0].metadata?.x1;
+          hoverCoord.y = filteredArray[0].metadata?.y1;
+          hoverCoord.width =
+            Number(filteredArray[0].metadata?.x2) -
+            Number(filteredArray[0].metadata?.x1);
+          hoverCoord.height =
+            Number(filteredArray[0].metadata?.y2) -
+            Number(filteredArray[0].metadata?.y1);
+          setHoveredView(filteredArray[0]);
+        } else if (filteredArray && filteredArray?.length > 0) {
+          // eslint-disable-next-line prefer-destructuring
+          foundView = filteredArray[0];
+          filteredArray.forEach((item) => {
+            if (
+              foundView !== item &&
+              getArea(item as unknown as AndroidView) <=
+                getArea(foundView as unknown as AndroidView)
+            ) {
+              foundView = item;
+            }
+          });
+          hoverCoord.x = foundView.metadata?.x1;
+          hoverCoord.y = foundView.metadata?.y1;
+          hoverCoord.width =
+            Number(foundView.metadata?.x2) - Number(foundView.metadata?.x1);
+          hoverCoord.height =
+            Number(foundView.metadata?.y2) - Number(foundView.metadata?.y1);
+          setHoveredView(foundView);
+        }
+      }
+    },
+    [flatTree, hoverCoord, screencapWidth, screencapHeight, width, height],
+  );
+
+  const svgClick = useCallback(() => {
+    onViewSelected(hoveredView);
+  }, [hoveredView, onViewSelected]);
 
   if (screencap) {
     return (
@@ -66,6 +150,8 @@ const Screenshot = function Screenshot({
               width="100%"
               height="100%"
               className="max-h-[calc(100vh-178px)]"
+              onMouseMove={hoverCallback}
+              onClick={svgClick}
             >
               <image href={`data:image/png;base64,${screencap}`} />
               {hoverCoord.x !== 0 ||
@@ -164,11 +250,11 @@ const Screenshot = function Screenshot({
   }
   return (
     <div className="m-auto">
-      <div className="relative mx-auto border-base-content bg-base-content border-[14px] rounded-xl h-[600px] w-[300px] shadow-xl">
-        <div className="h-[64px] w-[3px] bg-base-content absolute -end-[17px] top-[120px] rounded-s-lg" />
-        <div className="h-[46px] w-[3px] bg-base-content  absolute -end-[17px] top-[214px] rounded-s-lg" />
-        <div className="h-[46px] w-[3px] bg-base-content absolute -end-[17px] top-[266px] rounded-s-lg" />
-        <div className="rounded-xl overflow-hidden w-[272px] h-[572px] contents bg-base-100">
+      <div className="relative mx-auto border-base-content bg-base-content border-[14px] rounded-xl h-[400px] w-[200px] shadow-xl">
+        <div className="h-[10%] w-[1%] bg-base-content absolute -end-[17px] top-[20%] rounded-s-lg" />
+        <div className="h-[7%] w-[1%] bg-base-content  absolute -end-[17px] top-[35%] rounded-s-lg" />
+        <div className="h-[7%] w-[1%] bg-base-content absolute -end-[17px] top-[44%] rounded-s-lg" />
+        <div className="w-full h-full overflow-hidden rounded-xl contents bg-base-100">
           <img className="max-h-[calc(100vh-178px)]" src={placeholder} alt="" />
         </div>
       </div>
