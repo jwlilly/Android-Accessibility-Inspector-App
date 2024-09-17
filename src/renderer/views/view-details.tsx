@@ -1,5 +1,6 @@
 /* eslint-disable no-restricted-syntax */
 import { Tooltip } from 'react-daisyui';
+import { useEffect, useState } from 'react';
 import { AndroidView } from '../models/AndroidView';
 
 function findViewWithId(viewHierarchy: any, id: number): AndroidView | null {
@@ -39,8 +40,18 @@ function transformData(data: any) {
   return data;
 }
 
-const ViewDetails = function viewDetails({ selectedView, viewHierarchy }: any) {
+const ViewDetails = function ViewDetails({ selectedView, viewHierarchy }: any) {
   const view = findViewWithId(viewHierarchy, selectedView) as AndroidView;
+  const [isWebView, setIsWebView] = useState(false);
+
+  useEffect(() => {
+    const webViewEl = document.querySelector(`[id="${selectedView}-webview"]`);
+    if (webViewEl && webViewEl.checkVisibility()) {
+      setIsWebView(true);
+    } else {
+      setIsWebView(false);
+    }
+  }, [selectedView, isWebView]);
   if (!view) {
     return <div>Select a view</div>;
   }
@@ -54,7 +65,7 @@ const ViewDetails = function viewDetails({ selectedView, viewHierarchy }: any) {
             view.metadata.properties.includes('focused') ? (
               <Tooltip position="bottom" message="keyboard focused">
                 <div role="button" tabIndex={0} className="ml-1">
-                  <div className="badge badge-sm badge-primary">
+                  <div className="block badge badge-sm badge-primary">
                     <span aria-hidden="true">focused</span>
                     <span className="sr-only">keyboard focused</span>
                   </div>
@@ -67,7 +78,7 @@ const ViewDetails = function viewDetails({ selectedView, viewHierarchy }: any) {
             view.metadata.properties.includes('accessibility focused') ? (
               <Tooltip position="bottom" message="accessibility focused">
                 <div role="button" tabIndex={0} className="ml-1">
-                  <div className="badge badge-sm badge-secondary">
+                  <div className="block badge badge-sm badge-secondary">
                     <span aria-hidden="true">acc focused</span>
                     <span className="sr-only">accessibility focused</span>
                   </div>
@@ -75,6 +86,11 @@ const ViewDetails = function viewDetails({ selectedView, viewHierarchy }: any) {
               </Tooltip>
             ) : (
               ''
+            )}
+            {isWebView && (
+              <div className="block badge badge-sm badge-success ml-1">
+                <span>WebView</span>
+              </div>
             )}
           </div>
         </h1>

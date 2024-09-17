@@ -120,28 +120,32 @@ const BasicTreeView = function BasicTreeView({
               <span
                 className={`justify-start max-w-60 text-start btn ${isSelected ? 'btn-outline btn-secondary' : 'btn-ghost'}`}
               >
-                <div className="overflow-hidden whitespace-nowrap">
-                  {element.name}
-                  {element.metadata !== undefined &&
-                  element.metadata.text !== undefined ? (
-                    <div className="overflow-hidden text-xs font-thin text-ellipsis whitespace-nowrap">
-                      {element.metadata.text}
-                    </div>
-                  ) : null}
-                  <span className="sr-only">
-                    {isSelected ? 'selected' : ''}
-                  </span>
+                <div className="flex flex-row overflow-hidden whitespace-nowrap">
+                  <div className="flex-col">
+                    {element.name}
+                    {element.metadata !== undefined &&
+                    element.metadata.text !== undefined ? (
+                      <div className="overflow-hidden text-xs font-thin text-ellipsis whitespace-nowrap">
+                        {element.metadata.text}
+                      </div>
+                    ) : null}
+                    <span className="sr-only">
+                      {isSelected ? 'selected' : ''}
+                    </span>
+                  </div>
+                  <div
+                    className="hidden w-full ml-2 content-center webview-icon"
+                    id={`${element.id}-webview`}
+                  >
+                    <GlobeAltIcon
+                      aria-hidden="false"
+                      role="img"
+                      aria-label="WebView"
+                      title="WebView"
+                      className="h-4"
+                    />
+                  </div>
                 </div>
-                <span className="hidden indicator-item indicator-middle badge badge-success badge-xs">
-                  <GlobeAltIcon
-                    aria-hidden="false"
-                    role="img"
-                    aria-label="WebView"
-                    title="WebView"
-                    className="h-3 stroke-success-content"
-                  />
-                  {/* <span className="text-xs">WebView</span> */}
-                </span>
               </span>
             </div>
           </div>

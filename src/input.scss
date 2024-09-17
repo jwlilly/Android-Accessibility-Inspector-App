@@ -36,11 +36,11 @@ body {
   scrollbar-gutter: auto;
 }
 
-.webview + * .badge {
+.webview + * .webview-icon {
   display: unset !important;
 }
 
-.webview .badge {
+.webview .webview-icon {
   display: unset !important;
 }
 
