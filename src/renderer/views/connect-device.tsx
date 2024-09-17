@@ -48,6 +48,9 @@ const ConnectDevice = function ConnectDevice({ onDeviceConnected }: any) {
 
   const deviceDescription = (device: IDevice): string => {
     if (device && device.state && device.id && device.model) {
+      if (device.state.includes('offline')) {
+        return 'offline';
+      }
       if (device.id.includes('adb-tls-connect')) {
         return 'wifi';
       }
@@ -113,7 +116,6 @@ const ConnectDevice = function ConnectDevice({ onDeviceConnected }: any) {
           setTimeout(() => {
             startService(device);
           }, 1000);
-          startService(device);
           return true;
         })
         .catch((error) => {

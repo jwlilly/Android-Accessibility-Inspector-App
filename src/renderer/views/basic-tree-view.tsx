@@ -6,6 +6,7 @@ import TreeView, {
 } from 'react-accessible-treeview';
 import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/16/solid';
 import { useEffect, useState } from 'react';
+import { GlobeAltIcon } from '@heroicons/react/24/outline';
 
 function ArrowIcon({ isOpen, ...props }: any) {
   if (isOpen) {
@@ -98,7 +99,7 @@ const BasicTreeView = function BasicTreeView({
           <div
             // eslint-disable-next-line react/jsx-props-no-spreading
             {...getNodeProps({})}
-            className={`${!isBranch ? 'ml-1' : ''} pl-[10px] my-1`}
+            className={`${!isBranch ? 'ml-1' : ''} pl-[10px] my-1 ${element.name.includes('WebView') && 'webview'}`}
             onMouseOver={() => {
               viewHovered(element);
             }}
@@ -115,20 +116,34 @@ const BasicTreeView = function BasicTreeView({
                 className="inline h-[24px] relative left-[-1px]"
               />
             )}
-            <span
-              className={`justify-start max-w-60 text-start btn ${isSelected ? 'btn-outline btn-secondary' : 'btn-ghost'}`}
-            >
-              <div className="overflow-hidden whitespace-nowrap">
-                {element.name}
-                {element.metadata !== undefined &&
-                element.metadata.text !== undefined ? (
-                  <div className="overflow-hidden text-xs font-thin text-ellipsis whitespace-nowrap">
-                    {element.metadata.text}
-                  </div>
-                ) : null}
-                <span className="sr-only">{isSelected ? 'selected' : ''}</span>
-              </div>
-            </span>
+            <div className="indicator">
+              <span
+                className={`justify-start max-w-60 text-start btn ${isSelected ? 'btn-outline btn-secondary' : 'btn-ghost'}`}
+              >
+                <div className="overflow-hidden whitespace-nowrap">
+                  {element.name}
+                  {element.metadata !== undefined &&
+                  element.metadata.text !== undefined ? (
+                    <div className="overflow-hidden text-xs font-thin text-ellipsis whitespace-nowrap">
+                      {element.metadata.text}
+                    </div>
+                  ) : null}
+                  <span className="sr-only">
+                    {isSelected ? 'selected' : ''}
+                  </span>
+                </div>
+                <span className="hidden indicator-item indicator-middle badge badge-success badge-xs">
+                  <GlobeAltIcon
+                    aria-hidden="false"
+                    role="img"
+                    aria-label="WebView"
+                    title="WebView"
+                    className="h-3 stroke-success-content"
+                  />
+                  {/* <span className="text-xs">WebView</span> */}
+                </span>
+              </span>
+            </div>
           </div>
         )}
       />

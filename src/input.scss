@@ -36,6 +36,14 @@ body {
   scrollbar-gutter: auto;
 }
 
+.webview + * .badge {
+  display: unset !important;
+}
+
+.webview .badge {
+  display: unset !important;
+}
+
 .drag-bar {
   @extend .bg-primary;
   flex-shrink: 0;
