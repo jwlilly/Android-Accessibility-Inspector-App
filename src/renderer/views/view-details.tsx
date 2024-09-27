@@ -143,13 +143,25 @@ const ViewDetails = function ViewDetails({ selectedView, viewHierarchy }: any) {
           <tr>
             <td>tooltip</td>
             <td className="font-mono">
-              {transformData(view.metadata.toolTip)}
+              {transformData(view.metadata.tooltip)}
             </td>
           </tr>
           <tr>
             <td>checked</td>
             <td className="font-mono">
               {transformData(view.metadata.checkable)}
+            </td>
+          </tr>
+          <tr>
+            <td>content invalid</td>
+            <td className="font-mono">
+              {transformData(view.metadata.contentInvalid)}
+            </td>
+          </tr>
+          <tr>
+            <td>error message</td>
+            <td className="font-mono">
+              {transformData(view.metadata.errorMessage)}
             </td>
           </tr>
           <tr>
@@ -162,6 +174,16 @@ const ViewDetails = function ViewDetails({ selectedView, viewHierarchy }: any) {
             <td>actions</td>
             <td className="font-mono">
               {transformData(view.metadata.actions)}
+            </td>
+          </tr>
+          <tr>
+            <td>links</td>
+            <td className="font-mono">{transformData(view.metadata.links)}</td>
+          </tr>
+          <tr>
+            <td>locales</td>
+            <td className="font-mono">
+              {transformData(view.metadata.locales)}
             </td>
           </tr>
           <tr>
@@ -183,8 +205,20 @@ const ViewDetails = function ViewDetails({ selectedView, viewHierarchy }: any) {
             </td>
           </tr>
           <tr>
-            <td>size</td>
-            <td className="font-mono">{`${((Number(view.metadata.x2) - Number(view.metadata.x1)) / (428 / 160)).toFixed(0)} dp x ${((Number(view.metadata.y2) - Number(view.metadata.y1)) / (428 / 160)).toFixed(0)} dp`}</td>
+            <td>important for accessibility</td>
+            <td className="font-mono">
+              {!view.metadata.importantForAccessibility ? 'false' : 'true'}
+            </td>
+          </tr>
+          <tr>
+            <td>actual size</td>
+            <td className="font-mono">{`${Number(view.metadata.x2) - Number(view.metadata.x1)} px x ${Number(view.metadata.y2) - Number(view.metadata.y1)} px`}</td>
+          </tr>
+          <tr>
+            <td>scaled size</td>
+            <td className="font-mono">
+              {`${view.metadata.scaledWidth} dp x ${view.metadata.scaledHeight} dp`}
+            </td>
           </tr>
         </tbody>
       </table>

@@ -8313,6 +8313,10 @@ html:has(.drawer-open.drawer-open) {
   margin: auto;
 }
 
+.m-2 {
+  margin: 0.5rem;
+}
+
 .mx-2 {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
@@ -8575,6 +8579,10 @@ html:has(.drawer-open.drawer-open) {
   width: 100vw;
 }
 
+.max-w-44 {
+  max-width: 11rem;
+}
+
 .max-w-5xl {
   max-width: 64rem;
 }
@@ -8593,14 +8601,6 @@ html:has(.drawer-open.drawer-open) {
 
 .max-w-xs {
   max-width: 20rem;
-}
-
-.max-w-11 {
-  max-width: 2.75rem;
-}
-
-.max-w-44 {
-  max-width: 11rem;
 }
 
 .shrink {
@@ -8767,6 +8767,10 @@ html:has(.drawer-open.drawer-open) {
 
 .rounded-xl {
   border-radius: 0.75rem;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
 }
 
 .rounded-b {

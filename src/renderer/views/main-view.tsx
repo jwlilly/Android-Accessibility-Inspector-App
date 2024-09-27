@@ -2,12 +2,13 @@
 import { useResizable } from 'react-resizable-layout';
 import React, { useCallback, useState } from 'react';
 import { INode, ITreeViewOnSelectProps } from 'react-accessible-treeview';
-import { Navbar } from 'react-daisyui';
+import { Form, Navbar, Toggle } from 'react-daisyui';
 import {
   DevicePhoneMobileIcon,
   MagnifyingGlassIcon,
 } from '@heroicons/react/24/outline';
 import { IDevice } from 'adb-ts/lib/util';
+import { ToastContainer, toast } from 'react-toastify';
 import Splitter from './splitter-view';
 import BasicTreeView from './basic-tree-view';
 import ConnectDevice from './connect-device';
@@ -16,7 +17,6 @@ import Logs from './log-view';
 import Screenshot from './screenshot';
 import MainIcon from '../images/icon';
 import RefreshTree from './refresh-tree';
-import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function MainView(): React.JSX.Element {
@@ -25,7 +25,9 @@ function MainView(): React.JSX.Element {
   const [selectedDevice, setSelectedDevice] = useState<IDevice | null>(null);
   const [screencap, setScreencap] = useState<string | null>(null);
   const [expanded, setExpanded] = useState(false);
-  const [logMessages, setLogMessages] = useState<{time: string; type: string; message: string;}[]>([])
+  const [logMessages, setLogMessages] = useState<
+    { time: string; type: string; message: string }[]
+  >([]);
   const [selectedCoord, setSelectedCoord] = useState({
     x: 0,
     y: 0,
@@ -97,29 +99,36 @@ function MainView(): React.JSX.Element {
     setSelectedDevice(null);
   };
 
-  const messageReceived = useCallback((data: any) => {
-    if (!data.announcement) {
-      setSelectedView(0);
-      setViewHierarchy(data);
-    } else if (data.announcement) {
-      console.log(data.announcement)
-      toast.info(<div className="flex flex-col" ><h2 className="text-md">accessibility announcement </h2><div className="text-sm">{data.announcement}</div></div>);
-      const currentDate = new Date();
-      const day = currentDate.getDay();
-      const month = currentDate.getMonth();
-      const year = currentDate.getFullYear();
-      const hour = currentDate.getHours();
-      const minutes = currentDate.getMinutes();
-      const seconds = currentDate.getSeconds();
-      const message = {
-        time: `${month}/${day}/${year}-${hour}:${minutes}:${seconds}`,
-        message: data.announcement,
-        type: 'accessibility announcement'
-      };
-      logMessages.push(message);
-      setLogMessages(logMessages);
-    }
-  }, []);
+  const messageReceived = useCallback(
+    (data: any) => {
+      if (!data.announcement) {
+        setSelectedView(0);
+        setViewHierarchy(data);
+      } else if (data.announcement) {
+        toast.info(
+          <div className="flex flex-col">
+            <h2 className="text-md">accessibility announcement </h2>
+            <div className="text-sm">{data.announcement}</div>
+          </div>,
+        );
+        const currentDate = new Date();
+        const day = currentDate.getDay();
+        const month = currentDate.getMonth();
+        const year = currentDate.getFullYear();
+        const hour = currentDate.getHours();
+        const minutes = currentDate.getMinutes();
+        const seconds = currentDate.getSeconds();
+        const message = {
+          time: `${month}/${day}/${year}-${hour}:${minutes}:${seconds}`,
+          message: data.announcement,
+          type: 'accessibility announcement',
+        };
+        logMessages.push(message);
+        setLogMessages(logMessages);
+      }
+    },
+    [logMessages],
+  );
 
   const deviceSelected = (device: IDevice) => {
     setSelectedDevice(device);
@@ -263,7 +272,7 @@ function MainView(): React.JSX.Element {
         position="bottom-right"
         autoClose={5000}
         hideProgressBar
-        newestOnTop={true}
+        newestOnTop
         closeOnClick={false}
         rtl={false}
         pauseOnFocusLoss

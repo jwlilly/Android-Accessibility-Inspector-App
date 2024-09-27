@@ -11,6 +11,8 @@ interface ViewMetadata {
   y1?: number;
   x2?: number;
   y2?: number;
+  scaledWidth: Number;
+  scaledHeight: Number;
   text?: string;
   heading?: boolean;
   content?: string;
@@ -26,9 +28,12 @@ interface ViewMetadata {
   paneTitle?: String;
   checkable?: String;
   links?: string[];
+  locales?: string[];
   visibility?: string;
   importantForAccessibility?: boolean;
-  toolTip?: string;
+  tooltip?: string;
+  contentInvalid?: boolean;
+  errorMessage?: string;
 }
 export interface AndroidView {
   name: string;

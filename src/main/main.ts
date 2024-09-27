@@ -210,7 +210,7 @@ async function adbForward(device: IDevice): Promise<boolean> {
   return false;
 }
 
-let name = '';
+let wifiName = '';
 let password = '';
 
 function getDevice(service: any) {
@@ -296,11 +296,11 @@ ipcMain.handle('adb-start-service', async (_event, args) => {
 });
 
 ipcMain.handle('wifi-connect-start', async () => {
-  name = `ADB_WIFI_${nanoid()}`;
+  wifiName = `ADB_WIFI_${nanoid()}`;
   password = nanoid();
   continueDiscover = true;
   startDiscover();
-  return `WIFI:T:ADB;S:${name};P:${password};;`;
+  return `WIFI:T:ADB;S:${wifiName};P:${password};;`;
 });
 
 ipcMain.handle('wifi-connect-stop', async () => {

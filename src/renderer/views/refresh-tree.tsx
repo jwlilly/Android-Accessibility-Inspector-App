@@ -1,4 +1,4 @@
-import { ArrowPathIcon } from '@heroicons/react/24/outline';
+import { ArrowPathIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { useEffect, useState } from 'react';
 import { Button } from 'react-daisyui';
 import useWebSocket, { ReadyState } from 'react-use-websocket';
@@ -13,6 +13,7 @@ const RefreshTree = function RefreshTree({
 }: any) {
   const socketUrl = 'ws://127.0.0.1:38301/';
   const [url, setUrl] = useState('');
+  const [captureNotImportant, setCaptureNotImportant] = useState(false);
   const reconnectStopped = () => {
     setUrl('');
     console.log('reconnection stopped', url);
@@ -30,21 +31,25 @@ const RefreshTree = function RefreshTree({
     }
     if (device !== null) {
       setUrl(socketUrl);
-      console.log("device not null", url);
-    }
-    if (device === null) {
-      console.log("device null", url);
     }
   }, [lastMessage, onMessageReceived, device, url]);
 
   const handleClickSendMessage = async () => {
-    sendMessage('{"message":"capture"}');
+    if (captureNotImportant) {
+      sendMessage('{"message":"captureNotImportant"}');
+    } else {
+      sendMessage('{"message":"capture"}');
+    }
     const selectedDevice = device as IDevice;
     onScreencapReceived(await adb.screencap(selectedDevice));
   };
 
+  const toggleNotImportant = () => {
+    setCaptureNotImportant(!captureNotImportant);
+  };
+
   return (
-    <div>
+    <div className="flex flex-row">
       <Button
         onClick={handleClickSendMessage}
         color="primary"
@@ -56,12 +61,18 @@ const RefreshTree = function RefreshTree({
           title="Refresh Tree"
         />
       </Button>
-      {/* <div
-        className={`inline ${readyState !== ReadyState.OPEN && readyState !== ReadyState.CONNECTING ? 'text-error' : 'text-primary'} ${readyState === ReadyState.OPEN ? ' hidden' : ''}`}
+      <Button
+        className={`ml-2 ${captureNotImportant ? 'btn-primary' : 'btn-secondary'} btn-outline `}
+        onClick={toggleNotImportant}
+        aria-pressed={captureNotImportant}
+        active={captureNotImportant}
+        aria-label="show not important for accessibility views"
       >
-        {connectionStatus}
-        {device && device.id}
-      </div> */}
+        <EyeSlashIcon
+          className="h-[24px]"
+          title="show not important for accessibility views"
+        />
+      </Button>
     </div>
   );
 };
