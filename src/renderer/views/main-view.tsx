@@ -2,7 +2,7 @@
 import { useResizable } from 'react-resizable-layout';
 import React, { useCallback, useState } from 'react';
 import { INode, ITreeViewOnSelectProps } from 'react-accessible-treeview';
-import { Form, Navbar, Toggle } from 'react-daisyui';
+import { Navbar } from 'react-daisyui';
 import {
   DevicePhoneMobileIcon,
   MagnifyingGlassIcon,
@@ -18,15 +18,18 @@ import Screenshot from './screenshot';
 import MainIcon from '../images/icon';
 import RefreshTree from './refresh-tree';
 import 'react-toastify/dist/ReactToastify.css';
+import SearchView from './search-view';
 
 function MainView(): React.JSX.Element {
   const [selectedView, setSelectedView] = useState<number>(0);
   const [viewHierarchy, setViewHierarchy] = useState({ name: '' });
   const [selectedDevice, setSelectedDevice] = useState<IDevice | null>(null);
+  const [searchTerm, setSearchTerm] = useState<string>('');
   const [screencap, setScreencap] = useState<string | null>(null);
-  const [expanded, setExpanded] = useState(false);
+  const [deviceExpanded, setDeviceExpanded] = useState(false);
+  const [searchExpanded, setSearchExpanded] = useState(false);
   const [logMessages, setLogMessages] = useState<
-    { time: string; type: string; message: string }[]
+    { time: string; type: string; message: string, id:number }[]
   >([]);
   const [selectedCoord, setSelectedCoord] = useState({
     x: 0,
@@ -104,6 +107,7 @@ function MainView(): React.JSX.Element {
       if (!data.announcement) {
         setSelectedView(0);
         setViewHierarchy(data);
+        setSearchTerm('');
       } else if (data.announcement) {
         toast.info(
           <div className="flex flex-col">
@@ -122,16 +126,26 @@ function MainView(): React.JSX.Element {
           time: `${month}/${day}/${year}-${hour}:${minutes}:${seconds}`,
           message: data.announcement,
           type: 'accessibility announcement',
+          id: Math.random() * (5000 - 0) + 0,
         };
-        logMessages.push(message);
-        setLogMessages(logMessages);
+
+        setLogMessages(logMessages => [
+          ...logMessages,
+          message,
+        ]);
       }
     },
-    [logMessages],
+    [],
   );
 
   const deviceSelected = (device: IDevice) => {
     setSelectedDevice(device);
+  };
+
+  const performSearch = (term: string) => {
+    if (term !== null) {
+      setSearchTerm(term);
+    }
   };
 
   const screencapReceived = (received: string) => {
@@ -171,9 +185,15 @@ function MainView(): React.JSX.Element {
           </h1>
         </Navbar.Center>
         <Navbar.End>
-          <details className="dropdown">
+          <details
+            className="dropdown"
+            open={searchExpanded}
+            onToggle={(e) =>
+              setSearchExpanded((e.currentTarget as HTMLDetailsElement).open)
+            }
+          >
             <summary
-              className="text-xl font-medium btn btn-ghost"
+              className={`text-xl font-medium btn ${searchExpanded && 'btn-active'} btn-ghost`}
               aria-label="Find text"
             >
               <div>
@@ -184,19 +204,20 @@ function MainView(): React.JSX.Element {
               className="p-2 shadow dropdown-content menu bg-base-100 rounded-box right-0 w-[500px] z-10"
               role="presentation"
             >
-              <div>Search for text</div>
+              <SearchView performSearch={performSearch} />
             </ul>
+
           </details>
 
           <details
             className="dropdown"
-            open={expanded}
+            open={deviceExpanded}
             onToggle={(e) =>
-              setExpanded((e.currentTarget as HTMLDetailsElement).open)
+              setDeviceExpanded((e.currentTarget as HTMLDetailsElement).open)
             }
           >
             <summary
-              className="text-xl font-medium btn btn-ghost"
+              className={`text-xl font-medium btn ${deviceExpanded && 'btn-active'} btn-ghost`}
               aria-label="Select a device"
             >
               <div className="indicator">
@@ -207,7 +228,7 @@ function MainView(): React.JSX.Element {
                   />
                 </div>
                 <span
-                  className={`indicator-item badge badge-error badge-xs ${selectedDevice ? 'hidden' : ''}  ${selectedDevice || expanded ? '' : 'motion-safe:animate-bounce top-[-6px] right-[-6px]'}`}
+                  className={`indicator-item badge badge-error badge-xs ${selectedDevice ? 'hidden' : ''}  ${selectedDevice || deviceExpanded ? '' : 'motion-safe:animate-bounce top-[-6px] right-[-6px]'}`}
                 >
                   <span className="sr-only">No device is connected</span>
                 </span>
@@ -250,6 +271,7 @@ function MainView(): React.JSX.Element {
               onViewSelected={viewSelected}
               onViewHovered={viewHovered}
               selectedView={selectedView}
+              searchTerm={searchTerm}
             />
           </div>
           <Splitter

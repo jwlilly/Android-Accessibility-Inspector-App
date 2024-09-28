@@ -4,6 +4,11 @@ import { Button, Modal } from 'react-daisyui';
 
 const Logs = function Logs({ messages }: any) {
   const [modalOpen, setModalOpen] = useState(false);
+  const [logMessages, setLogMessages] = useState(messages);
+  // This will launch only if propName value has chaged.
+  useEffect(() => {
+    setLogMessages(messages);
+  }, [messages]);
   const ref = useRef<HTMLDialogElement>(null);
   const handleShow = useCallback(() => {
     ref.current?.showModal();
@@ -43,18 +48,19 @@ const Logs = function Logs({ messages }: any) {
               </tr>
             </thead>
             <tbody>
-              {messages !== null && messages.length > 0
-                ? messages.map(
-                    (message: {
+              {logMessages !== null && logMessages.length > 0
+                ? logMessages.map(
+                    (logMessage: {
                       time: string;
                       message: string;
                       type: string;
+                      id: number;
                     }) => {
                       return (
-                        <tr key={message.time}>
-                          <td>{message.time}</td>
-                          <td>{message.type}</td>
-                          <td>{message.message}</td>
+                        <tr key={logMessage.id}>
+                          <td>{logMessage.time}</td>
+                          <td>{logMessage.type}</td>
+                          <td>{logMessage.message}</td>
                         </tr>
                       );
                     },

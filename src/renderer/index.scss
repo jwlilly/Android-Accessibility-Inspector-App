@@ -8285,6 +8285,10 @@ html:has(.drawer-open.drawer-open) {
   top: 44%;
 }
 
+.top-\[5px\] {
+  top: 5px;
+}
+
 .isolate {
   isolation: isolate;
 }
@@ -8311,10 +8315,6 @@ html:has(.drawer-open.drawer-open) {
 
 .m-auto {
   margin: auto;
-}
-
-.m-2 {
-  margin: 0.5rem;
 }
 
 .mx-2 {
@@ -8547,6 +8547,10 @@ html:has(.drawer-open.drawer-open) {
   width: 8rem;
 }
 
+.w-4 {
+  width: 1rem;
+}
+
 .w-5 {
   width: 1.25rem;
 }
@@ -8767,10 +8771,6 @@ html:has(.drawer-open.drawer-open) {
 
 .rounded-xl {
   border-radius: 0.75rem;
-}
-
-.rounded-lg {
-  border-radius: 0.5rem;
 }
 
 .rounded-b {
@@ -9296,6 +9296,10 @@ html:has(.drawer-open.drawer-open) {
   opacity: 0.5;
 }
 
+.opacity-70 {
+  opacity: 0.7;
+}
+
 .shadow {
   --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
@@ -9494,6 +9498,14 @@ div[role="treeitem"] {
 
 body {
   overflow: hidden;
+}
+
+.tree-view .indicator:not(.search-term) .badge {
+  display: none;
+}
+
+.tree-view .indicator:not(.search-term) .search-term-label {
+  display: none;
 }
 
 :root:has(:is(.modal-open, .modal:target, .modal-toggle:checked + .modal, .modal[open])) {

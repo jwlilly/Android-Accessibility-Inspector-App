@@ -1,5 +1,5 @@
 import { ArrowPathIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Button } from 'react-daisyui';
 import useWebSocket, { ReadyState } from 'react-use-websocket';
 import { IDevice } from 'adb-ts/lib/util';
@@ -22,17 +22,25 @@ const RefreshTree = function RefreshTree({
   const { sendMessage, lastMessage, readyState } = useWebSocket(url, {
     onOpen: () => console.log('connection opened'),
     shouldReconnect: () => true,
-    reconnectAttempts: 3,
+    reconnectAttempts: 30,
     onReconnectStop: () => reconnectStopped(),
   });
+
+  const messageReceived = useCallback(
+    (data: any) => {
+      onMessageReceived(data);
+    },
+    [onMessageReceived],
+  );
+
   useEffect(() => {
     if (lastMessage !== null) {
-      onMessageReceived(JSON.parse(lastMessage.data));
+      messageReceived(JSON.parse(lastMessage.data));
     }
     if (device !== null) {
       setUrl(socketUrl);
     }
-  }, [lastMessage, onMessageReceived, device, url]);
+  }, [lastMessage, device, url, messageReceived]);
 
   const handleClickSendMessage = async () => {
     if (captureNotImportant) {

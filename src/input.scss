@@ -38,6 +38,14 @@ body {
   overflow: hidden;
 }
 
+.tree-view .indicator:not(.search-term) .badge {
+  display: none;
+}
+
+.tree-view .indicator:not(.search-term) .search-term-label {
+  display: none;
+}
+
 :root:has(:is(.modal-open, .modal:target, .modal-toggle:checked + .modal, .modal[open])) {
   scrollbar-gutter: auto;
 }
