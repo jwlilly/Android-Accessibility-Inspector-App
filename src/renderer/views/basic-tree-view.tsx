@@ -168,7 +168,9 @@ const BasicTreeView = function BasicTreeView({
             className={`indicator ${
               searchResults.find((item) => {
                 return item.id === element.id;
-              }) && 'search-term'
+              })
+                ? 'search-term'
+                : ''
             }`}
           >
             <span className="indicator-item badge badge-warning badge-sm top-[5px]" />

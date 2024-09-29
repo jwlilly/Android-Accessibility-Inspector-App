@@ -300,7 +300,6 @@ function MainView(): React.JSX.Element {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="light"
         role="status"
       />
     </div>

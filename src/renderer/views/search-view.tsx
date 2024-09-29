@@ -1,17 +1,17 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import { useCallback, useRef } from 'react';
+import { FormEvent, useCallback, useRef } from 'react';
 import { Button } from 'react-daisyui';
 
 const SearchView = function SearchView({ performSearch }: any) {
   const inputRef = useRef<HTMLInputElement>(null);
   const searchCallback = useCallback(
-    (e) => {
+    (event: FormEvent<HTMLFormElement>) => {
       let searchValue = '';
       if (inputRef.current && inputRef.current.value) {
         searchValue = inputRef.current.value;
       }
       performSearch(searchValue);
-      e.preventDefault();
+      event.preventDefault();
     },
     [performSearch],
   );

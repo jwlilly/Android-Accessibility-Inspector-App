@@ -4,6 +4,7 @@ import {
   shell,
   BrowserWindow,
   MenuItemConstructorOptions,
+  nativeTheme
 } from 'electron';
 
 interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {
@@ -229,6 +230,32 @@ export default class MenuBuilder {
             click: () => {
               this.mainWindow.webContents.toggleDevTools();
             },
+          },
+          {
+            label: 'Theme',
+            submenu: [
+              {
+                label: 'System',
+                type: 'radio',
+                click: () => {
+                  nativeTheme.themeSource = 'system';
+                },
+              },
+              {
+                label: 'Dark',
+                type: 'radio',
+                click: () => {
+                  nativeTheme.themeSource = 'dark';
+                },
+              },
+              {
+                label: 'Light',
+                type: 'radio',
+                click: () => {
+                  nativeTheme.themeSource = 'light';
+                },
+              },
+            ],
           },
         ],
       },

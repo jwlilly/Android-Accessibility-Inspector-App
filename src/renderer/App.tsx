@@ -9,7 +9,7 @@ import '@fontsource/roboto-serif';
 
 function Main() {
   return (
-    <Theme dataTheme="custom-light">
+    <Theme>
       <Helmet htmlAttributes={{ lang: 'en' }} />
       <MainView />
     </Theme>
