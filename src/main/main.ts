@@ -14,7 +14,6 @@ import { autoUpdater } from 'electron-updater';
 import { Client, Device } from 'adb-ts';
 import { IDevice } from 'adb-ts/lib/util';
 import log from 'electron-log';
-import { execFile } from 'child_process';
 // @ts-ignore
 import * as mDnsSd from 'node-dns-sd';
 import { nanoid } from 'nanoid';
@@ -58,90 +57,36 @@ async function adbScreencap(device: IDevice): Promise<string> {
 
 async function adbRemoveForward(): Promise<boolean> {
   if (adb) {
-    execFile(
-      path.join(ADB_PATH, ADB_BIN),
-      ['forward', '--list'],
-      (err, stdout) => {
-        if (stdout) {
-          const lines = stdout.trim().split('\n');
-          // eslint-disable-next-line no-restricted-syntax, guard-for-in
-          for (const index in lines) {
-            const device = lines[index].split(' ');
-            execFile(
-              path.join(ADB_PATH, ADB_BIN),
-              ['-s', device[0], 'forward', '--remove-all'],
-              (err1: any, stdout1: string, stderr1: any) => {
-                if (err1) {
-                  console.log(err1);
-                }
-                if (stderr1 && !stdout1) {
-                  console.log(
-                    stderr1.trim(),
-                    ['-s', device[0], 'forward', '--remove-all'].join(' '),
-                  );
-                }
-                if (/Error/.test(stdout1)) {
-                  console.log(
-                    stdout1.trim(),
-                    ['-s', device[0], 'forward', '--remove-all'].join(' '),
-                  );
-                }
-                console.log('clearing forwards', stdout1);
-              },
-            );
-          }
-        }
-        console.log(stdout.trim().split('\n'));
-      },
-    );
+    const forwards = await adb.exec(['forward', '--list']);
+    const devices = forwards.trim().split('\n');
+    devices.forEach(async (line) => {
+      const device = line.split(' ')[0];
+      if (device.trim() !== '') {
+        const removed = await adb?.exec([
+          '-s',
+          device,
+          'forward',
+          '--remove-all',
+        ]);
+        console.log(removed);
+      }
+    });
+    return true;
   }
   return false;
 }
 
 async function adbStartService(device: IDevice): Promise<boolean> {
   if (adb) {
-    execFile(
-      path.join(ADB_PATH, ADB_BIN),
-      [
-        '-s',
-        `${device.id}`,
-        'shell',
-        'am',
-        'start-foreground-service',
-        'com.jwlilly.accessibilityinspector/.SocketService',
-      ],
-      (err1: any, stdout1: string, stderr1: any) => {
-        if (err1) {
-          console.log(err1);
-        }
-        if (stderr1 && !stdout1) {
-          console.log(
-            stderr1.trim(),
-            [
-              'shell',
-              'am',
-              'start-foreground-service',
-              'com.jwlilly.accessibilityinspector/.SocketService',
-            ].join(' '),
-          );
-          return true;
-        }
-        if (/Error/.test(stdout1)) {
-          console.log(
-            stdout1.trim(),
-            [
-              'shell',
-              'am',
-              'start-foreground-service',
-              'com.jwlilly.accessibilityinspector/.SocketService',
-            ].join(' '),
-          );
-          return false;
-        }
-        console.log('starting service', stdout1);
-        return false;
-      },
-    );
+    const startService = await adb.execDevice(device.id, [
+      'shell',
+      'am',
+      'start-foreground-service',
+      'com.jwlilly.accessibilityinspector/.SocketService',
+    ]);
+    if (!startService.toLowerCase().includes('error')) {
+      return true;
+    }
   }
   return false;
 }
@@ -220,30 +165,12 @@ function getDevice(service: any) {
   };
 }
 
-function connect({ address, port }: any) {
+async function connect({ address, port }: any) {
   if (adb) {
-    execFile(
-      path.join(ADB_PATH, ADB_BIN),
-      ['pair', `${address}:${port}`, password],
-      (err1: any, stdout1: string, stderr1: any) => {
-        if (err1) {
-          console.log(err1);
-        }
-        if (stderr1 && !stdout1) {
-          console.log(
-            stderr1.trim(),
-            ['pair', `${address}:${port}`, password].join(' '),
-          );
-        }
-        if (/Error/.test(stdout1)) {
-          console.log(
-            stdout1.trim(),
-            ['pair', `${address}:${port}`, password].join(' '),
-          );
-        }
-        console.log('connected over network', stdout1);
-      },
-    );
+    const pair = await adb.exec(['pair', `${address}:${port}`, password]);
+    if (!pair.toLowerCase().includes('error')) {
+      console.log('connected over network', pair);
+    }
   }
 }
 
@@ -256,16 +183,29 @@ function stopDiscover() {
 
 async function startDiscover() {
   if (continueDiscover) {
-    const deviceList = await mDnsSd.discover({
-      name: '_adb-tls-pairing._tcp.local',
-    });
+    const deviceList = await mDnsSd
+      .discover({
+        name: '_adb-tls-pairing._tcp.local',
+      })
+      .catch((e) => {
+        console.log(e);
+      });
     if (deviceList.length === 0) {
       return startDiscover();
     }
     const item = getDevice(deviceList[0]);
-    connect(item);
+    connect(item).catch((error) => {
+      console.log(error);
+    });
   }
   return stopDiscover();
+}
+
+async function adbInstallApp(device: IDevice) {
+  if (adb) {
+    const apk = path.join(ADB_PATH, 'app-debug.apk');
+    await adb.install(device.id, apk);
+  }
 }
 
 ipcMain.on('ipc-example', async (event, arg) => {
@@ -276,6 +216,10 @@ ipcMain.on('ipc-example', async (event, arg) => {
 
 ipcMain.handle('adb-list-devices', async () => {
   return adbListDevices();
+});
+
+ipcMain.handle('adb-install-app', async (_event, args) => {
+  return adbInstallApp(args[0]);
 });
 
 ipcMain.handle('adb-screencap', async (_event, args) => {
@@ -299,7 +243,9 @@ ipcMain.handle('wifi-connect-start', async () => {
   wifiName = `ADB_WIFI_${nanoid()}`;
   password = nanoid();
   continueDiscover = true;
-  startDiscover();
+  startDiscover().catch((error) => {
+    // console.log(error);
+  });
   return `WIFI:T:ADB;S:${wifiName};P:${password};;`;
 });
 

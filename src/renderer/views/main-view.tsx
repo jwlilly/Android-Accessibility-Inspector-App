@@ -290,18 +290,19 @@ function MainView(): React.JSX.Element {
           </div>
         </div>
       </div>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={5000}
-        hideProgressBar
-        newestOnTop
-        closeOnClick={false}
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        role="status"
-      />
+      <div role="status">
+        <ToastContainer
+          position="bottom-right"
+          autoClose={5000}
+          hideProgressBar
+          newestOnTop
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+      </div>
     </div>
   );
 }

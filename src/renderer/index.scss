@@ -9231,6 +9231,10 @@ html:has(.drawer-open.drawer-open) {
   font-weight: 700;
 }
 
+.font-extrabold {
+  font-weight: 800;
+}
+
 .font-medium {
   font-weight: 500;
 }
@@ -10190,6 +10194,16 @@ body {
 
   .motion-safe\:animate-bounce {
     animation: bounce 1s infinite;
+  }
+
+  @keyframes pulse {
+    50% {
+      opacity: .5;
+    }
+  }
+
+  .motion-safe\:animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 
   @keyframes spin {

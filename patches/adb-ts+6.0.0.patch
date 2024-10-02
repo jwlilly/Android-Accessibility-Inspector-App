@@ -1,0 +1,40 @@
+diff --git a/node_modules/adb-ts/lib/client.d.ts b/node_modules/adb-ts/lib/client.d.ts
+index 0c4b893..7652c1a 100644
+--- a/node_modules/adb-ts/lib/client.d.ts
++++ b/node_modules/adb-ts/lib/client.d.ts
+@@ -420,12 +420,12 @@ export declare class Client {
+     /**
+      * Executes a given command via adb console interface.
+      */
+-    exec(cmd: string): Promise<string>;
++    exec(cmd: string[]): Promise<string>;
+     /**
+      * Executes a given command on specific device via adb console interface.
+      *  Analogous to `adb -s <serial> <command>`.
+      */
+-    execDevice(serial: string, cmd: string): Promise<string>;
++    execDevice(serial: string, cmd: string[]): Promise<string>;
+     /**
+      * Executes a given command on specific device shell via adb console interface.
+      * Analogous to `adb -s <serial> shell <command>` .
+diff --git a/node_modules/adb-ts/lib/client.js b/node_modules/adb-ts/lib/client.js
+index 0112d61..ad95d42 100644
+--- a/node_modules/adb-ts/lib/client.js
++++ b/node_modules/adb-ts/lib/client.js
+@@ -679,14 +679,14 @@ class Client {
+      * Executes a given command via adb console interface.
+      */
+     exec(cmd) {
+-        return this.execInternal(cmd);
++        return this.execInternal(...cmd);
+     }
+     /**
+      * Executes a given command on specific device via adb console interface.
+      *  Analogous to `adb -s <serial> <command>`.
+      */
+     execDevice(serial, cmd) {
+-        return this.execInternal(...['-s', serial, cmd]);
++        return this.execInternal(...['-s', serial, ...cmd]);
+     }
+     /**
+      * Executes a given command on specific device shell via adb console interface.

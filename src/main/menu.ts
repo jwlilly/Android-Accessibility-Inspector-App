@@ -164,6 +164,33 @@ export default class MenuBuilder {
             this.mainWindow.setFullScreen(!this.mainWindow.isFullScreen());
           },
         },
+        {
+          label: 'Theme',
+          submenu: [
+            {
+              label: 'System',
+              type: 'radio',
+              click: () => {
+                nativeTheme.themeSource = 'system';
+              },
+              checked: true,
+            },
+            {
+              label: 'Dark',
+              type: 'radio',
+              click: () => {
+                nativeTheme.themeSource = 'dark';
+              },
+            },
+            {
+              label: 'Light',
+              type: 'radio',
+              click: () => {
+                nativeTheme.themeSource = 'light';
+              },
+            },
+          ],
+        },
       ],
     };
     const subMenuWindow: DarwinMenuItemConstructorOptions = {

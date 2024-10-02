@@ -10,6 +10,7 @@ const ConnectDevice = function ConnectDevice({ onDeviceConnected }: any) {
   const [devices, setDevices] = useState<IDevice[] | null>(null);
   const [deviceValue, setDeviceValue] = useState<number>(0);
   const [appInstalled, setAppInstalled] = useState<number>(0);
+  const [selectedDevice, setSelectedDevice] = useState<IDevice | null>(null);
   let runOnce = true;
   const AppStatus = {
     UNKNOWN: 0,
@@ -106,6 +107,7 @@ const ConnectDevice = function ConnectDevice({ onDeviceConnected }: any) {
   const selectDevice = (index: number) => {
     if (index >= 0) {
       const device = devices![index];
+      setSelectedDevice(device);
       adb
         .isAppInstalled(device)
         // do something if the app is not installed
@@ -123,6 +125,18 @@ const ConnectDevice = function ConnectDevice({ onDeviceConnected }: any) {
           setAppInstalled(AppStatus.UNKNOWN);
         });
       forwardPort(device);
+    }
+  };
+
+  const installApp = () => {
+    if (selectedDevice) {
+      adb
+        .installApp(selectedDevice)
+        .then(() => {
+          selectDevice(deviceValue);
+          return null;
+        })
+        .catch(null);
     }
   };
 
@@ -199,13 +213,24 @@ const ConnectDevice = function ConnectDevice({ onDeviceConnected }: any) {
           </Button>
         </div>
       </div>
-      <div>
-        {appInstalled === AppStatus.INSTALLED
-          ? 'Companion App: Installed'
-          : null}
-        {appInstalled === AppStatus.NOT_INSTALLED
-          ? 'Companion App: Not Installed'
-          : null}
+      <div role="status" className="flex flex-row justify-center">
+        {appInstalled === AppStatus.NOT_INSTALLED ? (
+          <>
+            <h2 className="sr-only">Companion app not installed</h2>
+            <Button
+              color="error"
+              className="font-extrabold motion-safe:animate-pulse"
+              onClick={installApp}
+            >
+              Install companion app
+            </Button>
+          </>
+        ) : null}
+        {appInstalled === AppStatus.INSTALLED ? (
+          <div className="sr-only">
+            Device selected and companion app is installed
+          </div>
+        ) : null}
       </div>
     </div>
   );

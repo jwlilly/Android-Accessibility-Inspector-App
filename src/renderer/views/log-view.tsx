@@ -34,7 +34,7 @@ const Logs = function Logs({ messages }: any) {
           Message Log
         </Modal.Header>
         <Modal.Body>
-          <table className="table mx-2 table-zebra-zebra">
+          <table className="table mx-2 table-zebra-zebra" role="status">
             <colgroup>
               <col className="w-[20%]" />
               <col className="w-[30%}" />

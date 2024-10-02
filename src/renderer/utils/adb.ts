@@ -22,7 +22,9 @@ const adb = {
   startService: (device: IDevice): Promise<string> => {
     return window.electron.ipcRenderer.invoke('adb-start-service', [device]);
   },
-  install: () => {},
+  installApp: (device: IDevice): Promise<void> => {
+    return window.electron.ipcRenderer.invoke('adb-install-app', [device]);
+  },
 };
 
 export default adb;

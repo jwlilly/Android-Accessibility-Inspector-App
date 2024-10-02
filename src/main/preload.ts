@@ -11,6 +11,7 @@ const validChannels = [
   'wifi-connect-start',
   'wifi-connect-stop',
   'adb-start-service',
+  'adb-install-app',
 ];
 
 const electronHandler = {
