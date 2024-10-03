@@ -294,6 +294,11 @@ const createWindow = async () => {
 
   ADB_PATH = path.join(getAssetPath(), 'adb');
   adb = new Client({ bin: path.join(ADB_PATH, ADB_BIN) });
+  adb
+    .startServer()
+    .then(() => log.info('adb server started'))
+    .catch((error) => log.error(error));
+  log.info(adb);
 
   mainWindow = new BrowserWindow({
     show: false,
