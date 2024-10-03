@@ -228,7 +228,7 @@ function MainView(): React.JSX.Element {
                   />
                 </div>
                 <span
-                  className={`indicator-item badge badge-error badge-xs ${selectedDevice ? 'hidden' : ''}  ${selectedDevice || deviceExpanded ? '' : 'motion-safe:animate-bounce top-[-6px] right-[-6px]'}`}
+                  className={`indicator-item badge badge-error badge-xs ${selectedDevice ? 'hidden' : ''}  ${selectedDevice || deviceExpanded ? '' : 'top-[-6px] right-[-6px] motion-safe:animate-bounce '}`}
                 >
                   <span className="sr-only">No device is connected</span>
                 </span>
@@ -246,7 +246,7 @@ function MainView(): React.JSX.Element {
         </Navbar.End>
       </Navbar>
 
-      <div className="overflow-hidden flex grow max-w-[calc(100vw-1rem)]">
+      <div className="overflow-hidden flex grow max-w-[calc(100vw-1rem)]" role="region" aria-label="Screenshot">
         <div
           className={`shrink-0 contents pt-4 ${isTreeDragging ? 'dragging' : ''}`}
           style={{ width: treeW, maxWidth: treeW }}
@@ -265,7 +265,7 @@ function MainView(): React.JSX.Element {
           label="Resize between screenshot and view hierarchy"
         />
         <div className="flex grow">
-          <div className="overflow-x-auto overflow-y-auto grow">
+          <div className="overflow-x-auto overflow-y-auto grow" role="region" aria-label="View Heirarchy">
             <BasicTreeView
               tree={viewHierarchy}
               onViewSelected={viewSelected}
@@ -282,6 +282,8 @@ function MainView(): React.JSX.Element {
           <div
             className={`overflow-y-auto overflow-x-auto shrink-0 mt-4 ${isDetailsDragging ? 'dragging select-none' : ''}`}
             style={{ width: detailsW }}
+            role="region"
+            aria-label="View Details"
           >
             <ViewDetails
               selectedView={selectedView}

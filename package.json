@@ -188,7 +188,7 @@
   },
   "build": {
     "productName": "Android Accessibility Inspector",
-    "appId": "com.jwlilly.accessibility-inspector-app",
+    "appId": "com.jwlilly.android-accessibility-inspector-app",
     "asar": true,
     "asarUnpack": "**\\*.{node,dll}",
     "files": [
@@ -196,6 +196,10 @@
       "node_modules",
       "package.json"
     ],
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
     "mac": {
       "sign": ".erb/scripts/notarize.js",
       "notarize": false,
@@ -248,15 +252,12 @@
     "publish": {
       "provider": "github",
       "owner": "jwlilly",
-      "repo": "android-accessibility-insepctor"
+      "repo": "Android-Accessibility-Inspector-App"
     }
   },
-  "collective": {
-    "url": "https://opencollective.com/electron-react-boilerplate-594"
-  },
   "devEngines": {
-    "node": ">=14.x",
-    "npm": ">=7.x"
+    "node": ">=20.x",
+    "npm": ">=10.x"
   },
   "electronmon": {
     "patterns": [
