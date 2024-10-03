@@ -31,3 +31,4 @@ npm-debug.log.*
 
 assets/adb/*.dll
 assets/adb/AdbWinApi.dll
+assets/adb/app-debug.apk
