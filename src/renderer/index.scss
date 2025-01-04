@@ -8463,6 +8463,11 @@ html:has(.drawer-open.drawer-open) {
   margin-bottom: 1rem;
 }
 
+.my-auto {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
 .mb-8 {
   margin-bottom: 2rem;
 }
@@ -9584,6 +9589,15 @@ html:has(.drawer-open.drawer-open) {
 
 .\[--tab-border-color\:\$\{borderColor\}\] {
   --tab-border-color: ${borderColor};
+}
+
+.Toastify__toast {
+  background-color: oklch(var(--b2)) !important;
+  color: oklch(var(--bc)) !important;
+}
+
+.Toastify__toast-icon {
+  fill: oklch(var(--in)) !important;
 }
 
 .tree-view [role="treeitem"] {

@@ -133,17 +133,18 @@ const Screenshot = function Screenshot({
     onViewSelected(hoveredView);
   }, [hoveredView, onViewSelected]);
 
-  if (screencap) {
-    return (
-      <div className="m-auto mx-4">
-        <div className="relative mx-auto border-base-content bg-base-content border-[14px] rounded-xl max-h-[calc(100vh-150px)] h-full w-full shadow-xl">
-          <div className="h-[10%] w-[1%] bg-base-content absolute -end-[17px] top-[20%] rounded-s-lg" />
-          <div className="h-[7%] w-[1%] bg-base-content  absolute -end-[17px] top-[35%] rounded-s-lg" />
-          <div className="h-[7%] w-[1%] bg-base-content absolute -end-[17px] top-[44%] rounded-s-lg" />
-          <div
-            className="overflow-hidden rounded-xl contents bg-base-100"
-            ref={observedDiv}
-          >
+  // if (screencap) {
+  return (
+    <div className="m-auto mx-4">
+      <div className="relative mx-auto border-base-content bg-base-content border-[14px] rounded-xl max-h-[calc(100vh-150px)] h-full w-full shadow-xl">
+        <div className="h-[10%] w-[1%] bg-base-content absolute -end-[17px] top-[20%] rounded-s-lg" />
+        <div className="h-[7%] w-[1%] bg-base-content  absolute -end-[17px] top-[35%] rounded-s-lg" />
+        <div className="h-[7%] w-[1%] bg-base-content absolute -end-[17px] top-[44%] rounded-s-lg" />
+        <div
+          className="overflow-hidden rounded-xl contents bg-base-100"
+          ref={observedDiv}
+        >
+          {screencap ? (
             <svg
               aria-hidden="true"
               viewBox={`0 0 ${screencapWidth - 2} ${screencapHeight - 2}`}
@@ -243,19 +244,17 @@ const Screenshot = function Screenshot({
                 </>
               ) : null}
             </svg>
-          </div>
-        </div>
-      </div>
-    );
-  }
-  return (
-    <div className="m-auto">
-      <div className="relative mx-auto border-base-content bg-base-content border-[14px] rounded-xl h-[400px] w-[200px] shadow-xl">
-        <div className="h-[10%] w-[1%] bg-base-content absolute -end-[17px] top-[20%] rounded-s-lg" />
-        <div className="h-[7%] w-[1%] bg-base-content  absolute -end-[17px] top-[35%] rounded-s-lg" />
-        <div className="h-[7%] w-[1%] bg-base-content absolute -end-[17px] top-[44%] rounded-s-lg" />
-        <div className="w-full h-full overflow-hidden rounded-xl contents bg-base-100">
-          <img className="max-h-[calc(100vh-178px)]" src={placeholder} alt="" />
+          ) : (
+            <div className="m-auto">
+              <div className="relative m-auto bg-white h-[400px] w-[200px]">
+                <img
+                  className="max-h-[calc(100vh-178px)]"
+                  src={placeholder}
+                  alt=""
+                />
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
