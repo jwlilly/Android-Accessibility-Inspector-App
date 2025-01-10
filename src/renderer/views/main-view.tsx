@@ -26,6 +26,7 @@ import SearchView from './search-view';
 
 function MainView(): React.JSX.Element {
   const [selectedView, setSelectedView] = useState<number>(0);
+  const [overlappingViews, setOverlappingViews] = useState<any[]>([]);
   const [viewHierarchy, setViewHierarchy] = useState({ name: '' });
   const [selectedDevice, setSelectedDevice] = useState<IDevice | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -114,7 +115,8 @@ function MainView(): React.JSX.Element {
       const clickable =
         item.metadata &&
         item.metadata.properties &&
-        item.metadata.properties.includes('clickable');
+        item.metadata.properties.includes('clickable') &&
+        (item.metadata.scaledWidth < 24.0 || item.metadata.scaledHeight < 24.0);
       if (clickable) {
         const scaleFactor = item.metadata.dpScaleFactor;
         centers.push({
@@ -136,6 +138,7 @@ function MainView(): React.JSX.Element {
       });
     });
     console.log('possible overlaps', overlaps);
+    setOverlappingViews(overlaps);
   };
 
   const messageReceived = useCallback((data: any) => {
@@ -313,6 +316,7 @@ function MainView(): React.JSX.Element {
             hoverCoord={hoveredCoord}
             dataTree={viewHierarchy}
             onViewSelected={onHoveredViewSelected}
+            overlappingViews={overlappingViews}
           />
         </div>
         <Splitter
