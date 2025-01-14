@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+.Toastify__toast {
+  background-color: oklch(var(--b2)) !important;
+  color: oklch(var(--bc)) !important;
+}
+
+.Toastify__toast-icon {
+  fill: oklch(var(--in)) !important;
+}
+
 .tree-view [role="treeitem"] {
   cursor: pointer;
 }

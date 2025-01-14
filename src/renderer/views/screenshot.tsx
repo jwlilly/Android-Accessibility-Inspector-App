@@ -14,6 +14,8 @@ const Screenshot = function Screenshot({
   selectCoord,
   dataTree,
   onViewSelected,
+  overlappingViews,
+  showTargetSize,
 }: any) {
   const [screencapHeight, setScreencapHeight] = useState(0);
   const [screencapWidth, setScreencapWidth] = useState(0);
@@ -132,18 +134,17 @@ const Screenshot = function Screenshot({
   const svgClick = useCallback(() => {
     onViewSelected(hoveredView);
   }, [hoveredView, onViewSelected]);
-
-  if (screencap) {
-    return (
-      <div className="m-auto mx-4">
-        <div className="relative mx-auto border-base-content bg-base-content border-[14px] rounded-xl max-h-[calc(100vh-150px)] h-full w-full shadow-xl">
-          <div className="h-[10%] w-[1%] bg-base-content absolute -end-[17px] top-[20%] rounded-s-lg" />
-          <div className="h-[7%] w-[1%] bg-base-content  absolute -end-[17px] top-[35%] rounded-s-lg" />
-          <div className="h-[7%] w-[1%] bg-base-content absolute -end-[17px] top-[44%] rounded-s-lg" />
-          <div
-            className="overflow-hidden rounded-xl contents bg-base-100"
-            ref={observedDiv}
-          >
+  return (
+    <div className="m-auto mx-4">
+      <div className="relative mx-auto border-base-content bg-base-content border-[14px] rounded-xl max-h-[calc(100vh-150px)] h-full w-full shadow-xl">
+        <div className="h-[10%] w-[1%] bg-base-content absolute -end-[17px] top-[20%] rounded-s-lg" />
+        <div className="h-[7%] w-[1%] bg-base-content  absolute -end-[17px] top-[35%] rounded-s-lg" />
+        <div className="h-[7%] w-[1%] bg-base-content absolute -end-[17px] top-[44%] rounded-s-lg" />
+        <div
+          className="overflow-hidden rounded-xl contents bg-base-100"
+          ref={observedDiv}
+        >
+          {screencap ? (
             <svg
               aria-hidden="true"
               viewBox={`0 0 ${screencapWidth - 2} ${screencapHeight - 2}`}
@@ -154,6 +155,25 @@ const Screenshot = function Screenshot({
               onClick={svgClick}
             >
               <image href={`data:image/png;base64,${screencap}`} />
+              {showTargetSize
+                ? overlappingViews.map((overlappingView: any) => (
+                    <circle
+                      r={((screencapWidth / width) * 10).toFixed(0)}
+                      cx={
+                        (overlappingView.metadata.x2 +
+                          overlappingView.metadata.x1) /
+                        2
+                      }
+                      cy={
+                        (overlappingView.metadata.y2 +
+                          overlappingView.metadata.y1) /
+                        2
+                      }
+                      fill="rgba(255, 0, 0, 0.3)"
+                    />
+                  ))
+                : null}
+
               {hoverCoord.x !== 0 ||
               hoverCoord.y !== 0 ||
               hoverCoord.width !== 0 ||
@@ -243,19 +263,17 @@ const Screenshot = function Screenshot({
                 </>
               ) : null}
             </svg>
-          </div>
-        </div>
-      </div>
-    );
-  }
-  return (
-    <div className="m-auto">
-      <div className="relative mx-auto border-base-content bg-base-content border-[14px] rounded-xl h-[400px] w-[200px] shadow-xl">
-        <div className="h-[10%] w-[1%] bg-base-content absolute -end-[17px] top-[20%] rounded-s-lg" />
-        <div className="h-[7%] w-[1%] bg-base-content  absolute -end-[17px] top-[35%] rounded-s-lg" />
-        <div className="h-[7%] w-[1%] bg-base-content absolute -end-[17px] top-[44%] rounded-s-lg" />
-        <div className="w-full h-full overflow-hidden rounded-xl contents bg-base-100">
-          <img className="max-h-[calc(100vh-178px)]" src={placeholder} alt="" />
+          ) : (
+            <div className="m-auto">
+              <div className="relative m-auto bg-white h-[400px] w-[200px]">
+                <img
+                  className="max-h-[calc(100vh-178px)]"
+                  src={placeholder}
+                  alt=""
+                />
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

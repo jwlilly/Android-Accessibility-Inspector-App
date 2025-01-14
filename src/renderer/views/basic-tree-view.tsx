@@ -8,7 +8,11 @@ import TreeView, {
 } from 'react-accessible-treeview';
 import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/16/solid';
 import { useCallback, useEffect, useState } from 'react';
-import { GlobeAltIcon } from '@heroicons/react/24/outline';
+import {
+  GlobeAltIcon,
+  MagnifyingGlassIcon,
+  ViewfinderCircleIcon,
+} from '@heroicons/react/24/outline';
 import { IFlatMetadata } from 'react-accessible-treeview/dist/TreeView/utils';
 
 function ArrowIcon({ isOpen, ...props }: any) {
@@ -25,6 +29,8 @@ const BasicTreeView = function BasicTreeView({
   onViewHovered,
   selectedView,
   searchTerm,
+  showTargetSize,
+  overlappingViews,
 }: any) {
   const [key, setKey] = useState(0);
   const [expandedIds, setExpandedIds] = useState(
@@ -171,13 +177,19 @@ const BasicTreeView = function BasicTreeView({
               })
                 ? 'search-term'
                 : ''
-            }`}
+            } ${element.name.includes('WebView') && 'webview'}`}
           >
-            <span className="indicator-item badge badge-warning badge-sm top-[5px]" />
+            <span
+              aria-hidden="true"
+              title="search term found"
+              className="indicator-item badge badge-warning badge-sm top-[5px]"
+            >
+              <MagnifyingGlassIcon className="h-4 text-warning-content stroke-2" />
+            </span>
             <div
               // eslint-disable-next-line react/jsx-props-no-spreading
               {...getNodeProps({})}
-              className={`${!isBranch ? 'ml-1' : ''} pl-[10px] my-1 ${element.name.includes('WebView') && 'webview'}`}
+              className={`${!isBranch ? 'ml-1' : ''} pl-[10px] my-1`}
               onMouseOver={() => {
                 viewHovered(element);
               }}
@@ -193,6 +205,20 @@ const BasicTreeView = function BasicTreeView({
                 aria-label="search term found"
                 className="search-term-label"
               />
+
+              {showTargetSize &&
+              overlappingViews.find((item: any) => {
+                return item.id === element.id;
+              }) ? (
+                <span
+                  role="img"
+                  aria-label="possible target size overlap"
+                  title="possible target size overlap"
+                  className="indicator indicator-item badge badge-error badge-sm top-[5px] left-[4px] !flex"
+                >
+                  <ViewfinderCircleIcon className="h-4 text-error-content stroke-2" />
+                </span>
+              ) : null}
               {isBranch && (
                 <ArrowIcon
                   isOpen={isExpanded}
