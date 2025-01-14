@@ -1,6 +1,6 @@
 {
   "name": "android-accessibility-inspector",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "View and analyze the accessibility tree for Android apps",
   "license": "GPL-3.0-only",
   "author": {
