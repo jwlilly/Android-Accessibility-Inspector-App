@@ -6,10 +6,11 @@ import {
   INode,
   ITreeViewOnSelectProps,
 } from 'react-accessible-treeview';
-import { Navbar } from 'react-daisyui';
+import { Button, Navbar } from 'react-daisyui';
 import {
   DevicePhoneMobileIcon,
   MagnifyingGlassIcon,
+  ViewfinderCircleIcon,
 } from '@heroicons/react/24/outline';
 import { IDevice } from 'adb-ts/lib/util';
 import { ToastContainer, toast } from 'react-toastify';
@@ -33,6 +34,7 @@ function MainView(): React.JSX.Element {
   const [screencap, setScreencap] = useState<string | null>(null);
   const [deviceExpanded, setDeviceExpanded] = useState(false);
   const [searchExpanded, setSearchExpanded] = useState(false);
+  const [showTargetSize, setShowTargetSize] = useState(true);
   const [logMessages, setLogMessages] = useState<
     { time: string; type: string; message: string; id: number }[]
   >([]);
@@ -130,8 +132,13 @@ function MainView(): React.JSX.Element {
       return clickable;
     });
     centers.forEach((item1, index) => {
-      centers.slice(index + 1).forEach(item2 => {
-        if (Math.sqrt(Math.pow(item2.center.left - item1.center.left, 2) + Math.pow(item2.center.top - item1.center.top, 2)) < 24) {
+      centers.slice(index + 1).forEach((item2) => {
+        if (
+          Math.sqrt(
+            (item2.center.left - item1.center.left) ** 2 +
+              (item2.center.top - item1.center.top) ** 2,
+          ) < 24
+        ) {
           overlaps.push(item1.element);
           overlaps.push(item2.element);
         }
@@ -216,6 +223,10 @@ function MainView(): React.JSX.Element {
     });
   };
 
+  const toggleTargetSize = () => {
+    setShowTargetSize(!showTargetSize);
+  };
+
   return (
     <div className="flex w-screen h-screen flex-column bg-base-200">
       <Navbar
@@ -229,6 +240,18 @@ function MainView(): React.JSX.Element {
             onScreencapReceived={screencapReceived}
             onDisconnected={onDisconnected}
           />
+          <Button
+            className={`ml-2 ${showTargetSize ? 'btn-primary' : 'btn-accent'} btn-outline`}
+            aria-pressed={showTargetSize}
+            active={showTargetSize}
+            onClick={toggleTargetSize}
+            aria-label="show target size issues"
+          >
+            <ViewfinderCircleIcon
+              className="h-[24px]"
+              title="show target size issues"
+            />
+          </Button>
         </Navbar.Start>
         <Navbar.Center>
           <h1 className="text-xl">
@@ -317,6 +340,7 @@ function MainView(): React.JSX.Element {
             dataTree={viewHierarchy}
             onViewSelected={onHoveredViewSelected}
             overlappingViews={overlappingViews}
+            showTargetSize={showTargetSize}
           />
         </div>
         <Splitter
@@ -336,6 +360,8 @@ function MainView(): React.JSX.Element {
               onViewHovered={viewHovered}
               selectedView={selectedView}
               searchTerm={searchTerm}
+              showTargetSize={showTargetSize}
+              overlappingViews={overlappingViews}
             />
           </div>
           <Splitter

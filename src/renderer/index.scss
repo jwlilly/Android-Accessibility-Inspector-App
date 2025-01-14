@@ -8405,6 +8405,42 @@ html:has(.drawer-open.drawer-open) {
   top: 5px;
 }
 
+.left-0 {
+  left: 0px;
+}
+
+.left-\[5px\] {
+  left: 5px;
+}
+
+.left-\[10px\] {
+  left: 10px;
+}
+
+.left-\[15px\] {
+  left: 15px;
+}
+
+.left-\[16px\] {
+  left: 16px;
+}
+
+.left-\[12px\] {
+  left: 12px;
+}
+
+.left-\[8px\] {
+  left: 8px;
+}
+
+.left-\[6px\] {
+  left: 6px;
+}
+
+.left-\[4px\] {
+  left: 4px;
+}
+
 .isolate {
   isolation: isolate;
 }
@@ -8505,6 +8541,10 @@ html:has(.drawer-open.drawer-open) {
 
 .flex {
   display: flex;
+}
+
+.\!flex {
+  display: flex !important;
 }
 
 .inline-flex {
@@ -8629,6 +8669,18 @@ html:has(.drawer-open.drawer-open) {
 
 .h-screen {
   height: 100vh;
+}
+
+.h-1 {
+  height: 0.25rem;
+}
+
+.h-2 {
+  height: 0.5rem;
+}
+
+.h-8 {
+  height: 2rem;
 }
 
 .max-h-\[calc\(100vh-150px\)\] {
@@ -9153,6 +9205,14 @@ html:has(.drawer-open.drawer-open) {
 
 .stroke-white {
   stroke: #fff;
+}
+
+.stroke-1 {
+  stroke-width: 1;
+}
+
+.stroke-2 {
+  stroke-width: 2;
 }
 
 .p-2 {

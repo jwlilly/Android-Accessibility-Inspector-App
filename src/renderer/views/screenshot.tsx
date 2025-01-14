@@ -15,6 +15,7 @@ const Screenshot = function Screenshot({
   dataTree,
   onViewSelected,
   overlappingViews,
+  showTargetSize,
 }: any) {
   const [screencapHeight, setScreencapHeight] = useState(0);
   const [screencapWidth, setScreencapWidth] = useState(0);
@@ -154,22 +155,25 @@ const Screenshot = function Screenshot({
               onClick={svgClick}
             >
               <image href={`data:image/png;base64,${screencap}`} />
-              {overlappingViews.map((overlappingView: any) => (
-                <circle
-                  r={((screencapWidth / width) * 10).toFixed(0)}
-                  cx={
-                    (overlappingView.metadata.x2 +
-                      overlappingView.metadata.x1) /
-                    2
-                  }
-                  cy={
-                    (overlappingView.metadata.y2 +
-                      overlappingView.metadata.y1) /
-                    2
-                  }
-                  fill="rgba(255, 0, 0, 0.3)"
-                />
-              ))}
+              {showTargetSize
+                ? overlappingViews.map((overlappingView: any) => (
+                    <circle
+                      r={((screencapWidth / width) * 10).toFixed(0)}
+                      cx={
+                        (overlappingView.metadata.x2 +
+                          overlappingView.metadata.x1) /
+                        2
+                      }
+                      cy={
+                        (overlappingView.metadata.y2 +
+                          overlappingView.metadata.y1) /
+                        2
+                      }
+                      fill="rgba(255, 0, 0, 0.3)"
+                    />
+                  ))
+                : null}
+
               {hoverCoord.x !== 0 ||
               hoverCoord.y !== 0 ||
               hoverCoord.width !== 0 ||
