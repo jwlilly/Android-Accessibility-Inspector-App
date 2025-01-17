@@ -125,6 +125,20 @@ const ViewDetails = function ViewDetails({ selectedView, viewHierarchy }: any) {
             </td>
           </tr>
           <tr>
+            <td>hint</td>
+            <td className="font-mono">{transformData(view.metadata.hint)}</td>
+          </tr>
+          <tr>
+            <td>pane title</td>
+            <td className="font-mono">
+              {transformData(view.metadata.paneTitle)}
+            </td>
+          </tr>
+          <tr>
+            <td>window title</td>
+            <td className="font-mono">{transformData(view.metadata.title)}</td>
+          </tr>
+          <tr>
             <td>heading</td>
             <td className="font-mono">
               {view.metadata.heading ? 'true' : 'false'}
