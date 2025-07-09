@@ -118,6 +118,7 @@ function MainView(): React.JSX.Element {
         item.metadata &&
         item.metadata.properties &&
         item.metadata.properties.includes('clickable') &&
+        item.metadata.visibility !== 'invisible' &&
         (item.metadata.scaledWidth < 24.0 || item.metadata.scaledHeight < 24.0);
       if (clickable) {
         const scaleFactor = item.metadata.dpScaleFactor;
@@ -148,36 +149,39 @@ function MainView(): React.JSX.Element {
     setOverlappingViews(overlaps);
   };
 
-  const messageReceived = useCallback((data: any) => {
-    if (!data.announcement) {
-      setSelectedView(0);
-      setViewHierarchy(data);
-      findOverlappingViews(data);
-      setSearchTerm('');
-    } else if (data.announcement) {
-      toast.info(
-        <div className="flex flex-col">
-          <h2 className="text-md">accessibility announcement </h2>
-          <div className="text-sm">{data.announcement}</div>
-        </div>,
-      );
-      const currentDate = new Date();
-      const day = currentDate.getDay();
-      const month = currentDate.getMonth();
-      const year = currentDate.getFullYear();
-      const hour = currentDate.getHours();
-      const minutes = currentDate.getMinutes();
-      const seconds = currentDate.getSeconds();
-      const message = {
-        time: `${month}/${day}/${year}-${hour}:${minutes}:${seconds}`,
-        message: data.announcement,
-        type: 'accessibility announcement',
-        id: Math.random() * (5000 - 0) + 0,
-      };
+  const messageReceived = useCallback(
+    (data: any) => {
+      if (!data.announcement) {
+        setSelectedView(0);
+        setViewHierarchy(data);
+        findOverlappingViews(data);
+        setSearchTerm('');
+      } else if (data.announcement) {
+        toast.info(
+          <div className="flex flex-col">
+            <h2 className="text-md">accessibility announcement </h2>
+            <div className="text-sm">{data.announcement}</div>
+          </div>,
+        );
+        const currentDate = new Date();
+        const day = currentDate.getDay();
+        const month = currentDate.getMonth();
+        const year = currentDate.getFullYear();
+        const hour = currentDate.getHours();
+        const minutes = currentDate.getMinutes();
+        const seconds = currentDate.getSeconds();
+        const message = {
+          time: `${month}/${day}/${year}-${hour}:${minutes}:${seconds}`,
+          message: data.announcement,
+          type: 'accessibility announcement',
+          id: Math.random() * (5000 - 0) + 0,
+        };
 
-      setLogMessages((logMessages) => [...logMessages, message]);
-    }
-  }, []);
+        setLogMessages((logMessages) => [...logMessages, message]);
+      }
+    },
+    [setLogMessages],
+  );
 
   const handleBlur = useCallback((e: { currentTarget: any }) => {
     const { currentTarget } = e;

@@ -65,6 +65,26 @@ const BasicTreeView = function BasicTreeView({
     }
   };
 
+  const renderSupplementalInfo = (element: INode<IFlatMetadata>) => {
+    if (element !== undefined && element.metadata !== undefined) {
+      if (element.metadata.content !== undefined) {
+        return (
+          <div className="overflow-hidden text-xs font-thin max-w-44 text-ellipsis whitespace-nowrap">
+            {element.metadata.content}
+          </div>
+        );
+      }
+      if (element.metadata.text !== undefined) {
+        return (
+          <div className="overflow-hidden text-xs font-thin max-w-44 text-ellipsis whitespace-nowrap">
+            {element.metadata.text}
+          </div>
+        );
+      }
+    }
+    return null;
+  };
+
   const viewExpanded = useCallback((expandedData: ITreeViewOnExpandProps) => {
     if (expandedData.isExpanded) {
       setExpandedIds((expandArray) => [
@@ -232,12 +252,7 @@ const BasicTreeView = function BasicTreeView({
                 <div className="flex flex-row overflow-hidden whitespace-nowrap">
                   <div className="flex-col">
                     {element.name}
-                    {element.metadata !== undefined &&
-                    element.metadata.text !== undefined ? (
-                      <div className="overflow-hidden text-xs font-thin max-w-44 text-ellipsis whitespace-nowrap">
-                        {element.metadata.text}
-                      </div>
-                    ) : null}
+                    {renderSupplementalInfo(element)}
                     <span className="sr-only">
                       {isSelected ? 'selected' : ''}
                     </span>

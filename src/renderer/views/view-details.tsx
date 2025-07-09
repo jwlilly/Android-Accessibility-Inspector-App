@@ -125,6 +125,10 @@ const ViewDetails = function ViewDetails({ selectedView, viewHierarchy }: any) {
             </td>
           </tr>
           <tr>
+            <td>hint</td>
+            <td className="font-mono">{transformData(view.metadata.hint)}</td>
+          </tr>
+          <tr>
             <td>heading</td>
             <td className="font-mono">
               {view.metadata.heading ? 'true' : 'false'}
@@ -147,6 +151,16 @@ const ViewDetails = function ViewDetails({ selectedView, viewHierarchy }: any) {
             </td>
           </tr>
           <tr>
+            <td>{view.metadata.role === 'Window' ? 'title' : 'pane title'}</td>
+            <td className="font-mono">
+              {transformData(
+                view.metadata.role === 'Window'
+                  ? view.metadata.title
+                  : view.metadata.paneTitle,
+              )}
+            </td>
+          </tr>
+          <tr>
             <td>checked</td>
             <td className="font-mono">
               {transformData(view.metadata.checkable)}
@@ -155,7 +169,7 @@ const ViewDetails = function ViewDetails({ selectedView, viewHierarchy }: any) {
           <tr>
             <td>content invalid</td>
             <td className="font-mono">
-              {transformData(view.metadata.contentInvalid)}
+              {view.metadata.contentInvalid ? 'true' : 'false'}
             </td>
           </tr>
           <tr>

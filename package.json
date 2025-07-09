@@ -12,7 +12,7 @@
     "hot",
     "reload"
   ],
-  "version": "2.0.4",
+  "version": "2.0.5",
   "homepage": "https://github.com/jwlilly/Android-Accessibility-Inspector-Ap/#readme",
   "bugs": {
     "url": "https://github.com/jwlilly/Android-Accessibility-Inspector-App/issues"
@@ -36,7 +36,7 @@
     "postinstall": "ts-node .erb/scripts/check-native-dep.js && electron-builder install-app-deps && npm run build:dll && npx patch-package",
     "lint": "cross-env NODE_ENV=development eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "cross-env NODE_ENV=development eslint . --ext .js,.jsx,.ts,.tsx --fix",
-    "package": "ts-node ./.erb/scripts/clean.js dist && npm run build && electron-builder build --publish never && npm run build:dll",
+    "package": "ts-node ./.erb/scripts/clean.js dist && npm run build && electron-builder build -w -m --x64 --arm64 --publish never && npm run build:dll",
     "publish": "ts-node ./.erb/scripts/clean.js dist && npm run build && electron-builder build --publish=onTagOrDraft && npm run build:dll",
     "rebuild": "electron-rebuild --parallel --types prod,dev,optional --module-dir release/app",
     "prestart": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true webpack --config ./.erb/configs/webpack.config.main.dev.ts",
