@@ -5,13 +5,14 @@ import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
 const validChannels = [
   'adb-list-devices',
   'adb-forward',
-  'ipc-example',
+  'speech-output',
   'adb-screencap',
   'adb-app-installed',
   'wifi-connect-start',
   'wifi-connect-stop',
   'adb-start-service',
   'adb-install-app',
+  'adb-logcat',
 ];
 
 const electronHandler = {

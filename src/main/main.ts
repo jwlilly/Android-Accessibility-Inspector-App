@@ -17,6 +17,8 @@ import log from 'electron-log';
 // @ts-ignore
 import * as mDnsSd from 'node-dns-sd';
 import { nanoid } from 'nanoid';
+import { Writable } from 'stream';
+import { LogcatEntry } from 'adb-ts/lib/logcat';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 
@@ -89,6 +91,84 @@ async function adbStartService(device: IDevice): Promise<boolean> {
     }
   }
   return false;
+}
+
+const announcement = {
+  message: '',
+  hint: '',
+};
+
+const logAnnouncement = () => {
+  if (announcement.message !== 'ttsAddToHistory') {
+    console.log(announcement);
+    mainWindow?.webContents.send('speech-output', announcement);
+  }
+  announcement.message = '';
+  announcement.hint = '';
+};
+
+function debounce<T extends (...args: any[]) => void>(func: T, delay: number): (...args: Parameters<T>) => void {
+  let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
+  return function(this: ThisParameterType<T>, ...args: Parameters<T>) {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+    timeoutId = setTimeout(() => {
+      func.apply(this, args);
+      timeoutId = null; // Clear timeoutId after execution
+    }, delay);
+  };
+}
+const debounceLogMessage = debounce(logAnnouncement, 100);
+
+async function adbLogcat(device: IDevice): Promise<void> {
+  if (adb) {
+    const reader = await adb.openLogcat(device.id, {
+      clear: true,
+      filter: (entry) => entry.message.includes('ttsOutput'),
+    });
+    const stream = new Writable();
+    reader.connect(stream);
+    reader.on('entry', (entry: LogcatEntry) => {
+      //console.log('entry', entry);
+      const match = entry.message.match(/\bttsOutput=\s*(.+?)(?=\s{2,}|\s\w+=|$)/);
+      if (
+        match &&
+        entry.tag === 'talkback: TalkBackFeedbackProvider' &&
+        !entry.message.includes('EVENT_SPEAK_HINT') &&
+        match[1].trim() !== '' &&
+        !match[1].includes('queueMode=')
+      ) {
+        announcement.message = match[1];
+        // console.log('announcement:', match[1], entry.date);
+        debounceLogMessage();
+      }
+      const hintMatch = entry.message.match(
+        /EVENT_SPEAK_HINT:.*?\bttsOutput=\s*([^\s].*?)(?=\s{2,}|\s\w+=|$)/,
+      );
+      if (
+        hintMatch &&
+        entry.tag === 'talkback: TalkBackFeedbackProvider' &&
+        !hintMatch[1].includes('queueMode=')
+      ) {
+        announcement.hint = hintMatch[1];
+        debounceLogMessage();
+        // console.log('hint:', hintMatch[1], entry.date);
+      }
+    });
+    reader.on('error', (error) => {
+      console.log('logcat error:', error);
+    });
+    reader.on('end', () => {
+      if (announcement.message !== '' || announcement.hint !== '') {
+        // console.log(announcement);
+        announcement.message = '';
+        announcement.hint = '';
+      }
+      adbLogcat(device);
+    });
+  }
 }
 
 async function adbStartAccService(device: IDevice): Promise<boolean> {
@@ -220,6 +300,10 @@ ipcMain.handle('adb-list-devices', async () => {
 
 ipcMain.handle('adb-install-app', async (_event, args) => {
   return adbInstallApp(args[0]);
+});
+
+ipcMain.handle('adb-logcat', async (_event, args) => {
+  return adbLogcat(args[0]);
 });
 
 ipcMain.handle('adb-screencap', async (_event, args) => {

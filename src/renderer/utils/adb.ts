@@ -25,6 +25,9 @@ const adb = {
   installApp: (device: IDevice): Promise<void> => {
     return window.electron.ipcRenderer.invoke('adb-install-app', [device]);
   },
+  logcat: (device: IDevice): Promise<void> => {
+    return window.electron.ipcRenderer.invoke('adb-logcat', [device]);
+  },
 };
 
 export default adb;

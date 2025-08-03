@@ -58,6 +58,7 @@ module.exports = {
           '--btn-text-case': 'uppercase',
           '--navbar-padding': '.5rem',
           '--border-btn': '1px',
+          '--tab-border-color': '#161827',
         },
       },
       {
@@ -98,6 +99,7 @@ module.exports = {
           '--btn-text-case': 'uppercase',
           '--navbar-padding': '.5rem',
           '--border-btn': '1px',
+          '--tab-border-color': '#ebecf0',
         },
       },
     ],

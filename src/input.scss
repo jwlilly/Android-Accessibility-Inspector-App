@@ -15,6 +15,11 @@
   cursor: pointer;
 }
 
+.tab {
+  --tab-border-color: unset;
+  white-space: nowrap;
+}
+
 .tree-node-group {
   margin-left: 20px;
   box-shadow: inset 1px 0px 0px 0px oklch(var(--b3));

@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useResizable } from 'react-resizable-layout';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   flattenTree,
   INode,
@@ -37,6 +37,9 @@ function MainView(): React.JSX.Element {
   const [showTargetSize, setShowTargetSize] = useState(true);
   const [logMessages, setLogMessages] = useState<
     { time: string; type: string; message: string; id: number }[]
+  >([]);
+  const [speechMessages, setSpeechMessages] = useState<
+    { message: string; hint: string }[]
   >([]);
   const [selectedCoord, setSelectedCoord] = useState({
     x: 0,
@@ -132,8 +135,8 @@ function MainView(): React.JSX.Element {
       }
       return clickable;
     });
-    centers.forEach((item1, index) => {
-      centers.slice(index + 1).forEach((item2) => {
+    centers.forEach((item1: { center: { left: number; top: number; }; element: any; }, index: number) => {
+      centers.slice(index + 1).forEach((item2: { center: { left: number; top: number; }; element: any; }) => {
         if (
           Math.sqrt(
             (item2.center.left - item1.center.left) ** 2 +
@@ -148,6 +151,14 @@ function MainView(): React.JSX.Element {
     console.log('possible overlaps', overlaps);
     setOverlappingViews(overlaps);
   };
+
+  useEffect(() => {
+    window.electron.ipcRenderer.on('speech-output', (arg) => {
+      console.log(arg);
+      // eslint-disable-next-line @typescript-eslint/no-shadow
+      setSpeechMessages((speechMessages) => [...speechMessages, arg]);
+    });
+  }, [setSpeechMessages]);
 
   const messageReceived = useCallback(
     (data: any) => {
@@ -324,7 +335,7 @@ function MainView(): React.JSX.Element {
             </ul>
           </details>
 
-          <Logs messages={logMessages} />
+          <Logs messages={logMessages} speechOutput={speechMessages} />
         </Navbar.End>
       </Navbar>
 

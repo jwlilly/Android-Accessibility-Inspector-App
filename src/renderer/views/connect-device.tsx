@@ -109,6 +109,15 @@ const ConnectDevice = function ConnectDevice({ onDeviceConnected }: any) {
       const device = devices![index];
       setSelectedDevice(device);
       adb
+        .logcat(device)
+        .then(() => {
+          console.log('logcat');
+          return true;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      adb
         .isAppInstalled(device)
         // do something if the app is not installed
         .then((response) => {
