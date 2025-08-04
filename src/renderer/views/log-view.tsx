@@ -33,7 +33,7 @@ const Logs = function Logs({ messages, speechOutput }: any) {
         ref={ref}
         ariaHidden={!modalOpen}
         onClose={handleClose}
-        className="w-11/12 max-w-5xl"
+        className="w-11/12 max-w-5xl h-[calc(100vh-8em)] max-h-5xl overflow-hidden"
         aria-labelledby="dialog-title"
       >
         <Modal.Header id="dialog-title" tabIndex={-1} className="font-bold">
@@ -44,7 +44,7 @@ const Logs = function Logs({ messages, speechOutput }: any) {
             <Tabs.RadioTab
               name="my_tabs_2"
               label="Announcements"
-              contentClassName="bg-base-100 border-base-content rounded-box p-6"
+              contentClassName="bg-base-100 border-base-content rounded-box p-6 h-[calc(100vh-22em)] max-h-[calc(100vh-22em)] overflow-auto"
               defaultChecked
             >
               <div
@@ -92,7 +92,7 @@ const Logs = function Logs({ messages, speechOutput }: any) {
             <Tabs.RadioTab
               name="my_tabs_2"
               label="Speech Output"
-              contentClassName="bg-base-100 border-base-content rounded-box p-6"
+              contentClassName="bg-base-100 border-base-content rounded-box p-6 h-[calc(100vh-22em)] overflow-auto"
             >
               <div
                 role="tabpanel"
