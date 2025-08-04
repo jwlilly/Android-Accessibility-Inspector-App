@@ -1,19 +1,47 @@
-import { InformationCircleIcon } from '@heroicons/react/24/outline';
+import { InformationCircleIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Button, Modal, Tabs } from 'react-daisyui';
 
-const Logs = function Logs({ messages, speechOutput }: any) {
+const Logs = function Logs({ messages }: any) {
   const [modalOpen, setModalOpen] = useState(false);
   const [logMessages, setLogMessages] = useState(messages);
-  const [speechOutputMessages, setSpeechOutputMessages] =
-    useState(speechOutput);
-  // This will launch only if propName value has chaged.
+  const [speechOutputMessages, setSpeechOutputMessages] = useState([]);
+
   useEffect(() => {
     setLogMessages(messages);
   }, [messages]);
+
+  const speechContainer = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    setSpeechOutputMessages(speechOutput);
-  }, [speechOutput]);
+    window.electron.ipcRenderer.on('speech-output', (arg) => {
+      // console.log(arg);
+      if (modalOpen) {
+        setSpeechOutputMessages([...speechOutputMessages, arg]);
+      }
+    });
+    if (modalOpen) {
+      const containerParent = speechContainer.current?.parentElement;
+      if (containerParent) {
+        // containerParent.scrollTop = containerParent.scrollHeight;
+        containerParent.scrollTo({
+          top: containerParent.scrollHeight,
+          left: 0,
+          behavior: 'smooth',
+        });
+      }
+    }
+  }, [
+    setSpeechOutputMessages,
+    speechOutputMessages,
+    speechContainer,
+    modalOpen,
+  ]);
+
+  const clearSpeechOutput = () => {
+    setSpeechOutputMessages([]);
+  };
+
   const ref = useRef<HTMLDialogElement>(null);
   const handleShow = useCallback(() => {
     ref.current?.showModal();
@@ -98,28 +126,43 @@ const Logs = function Logs({ messages, speechOutput }: any) {
                 role="tabpanel"
                 className="p-3 focus:outline-base-content"
                 tabIndex={0}
+                ref={speechContainer}
               >
-                <p className="pb-4">
-                  The logging for TalkBack needs to be set to VERBOSE in order
-                  to capture the speech output. Go to{' '}
-                  <span className="font-extrabold">Settings</span> &gt;{' '}
-                  <span className="font-extrabold">Accessibility</span> &gt;{' '}
-                  <span className="font-extrabold">TalkBack</span> &gt;{' '}
-                  <span className="font-extrabold">Settings</span> &gt;{' '}
-                  <span className="font-extrabold">Advanced settings</span> &gt;{' '}
-                  <span className="font-extrabold">Developer settings</span>.
-                  Select Log output level and set it to VERBOSE.
-                </p>
-
+                <div className="flex w-full flex-row">
+                  <p className="p-4 card block shadow-md bg-base-100 rounded-box">
+                    The logging for TalkBack needs to be set to VERBOSE in order
+                    to capture the speech output. Go to{' '}
+                    <span className="font-extrabold">Settings</span> &gt;{' '}
+                    <span className="font-extrabold">Accessibility</span> &gt;{' '}
+                    <span className="font-extrabold">TalkBack</span> &gt;{' '}
+                    <span className="font-extrabold">Settings</span> &gt;{' '}
+                    <span className="font-extrabold">Advanced settings</span>{' '}
+                    &gt;{' '}
+                    <span className="font-extrabold">Developer settings</span>.
+                    Select Log output level and set it to VERBOSE.
+                  </p>
+                  <div className="divider divider-horizontal"></div>
+                  <Button
+                    variant="outline"
+                    color="error"
+                    className="h-auto w-[12%] stroke-error hover:stroke-error-content hover:!text-error-content"
+                    title="Clear speech output"
+                    aria-label="Clear speech output"
+                    onClick={clearSpeechOutput}
+                  >
+                    <TrashIcon className="h-[36px]" />
+                  </Button>
+                </div>
                 <div role="status">
-                  {speechOutput !== null && speechOutput.length > 0
-                    ? speechOutput.map(
+                  {speechOutputMessages !== null &&
+                  speechOutputMessages.length > 0
+                    ? speechOutputMessages.map(
                         (speechOutputMessage: {
                           message: string;
                           hint: string;
                         }) => {
                           return (
-                            <ul className="border-t py-4">
+                            <ul className="border-b p-4">
                               <li className="text-primary">
                                 <span className="sr-only select-none">
                                   announcement:
@@ -140,7 +183,6 @@ const Logs = function Logs({ messages, speechOutput }: any) {
                         },
                       )
                     : null}
-                  <div />
                 </div>
               </div>
             </Tabs.RadioTab>
