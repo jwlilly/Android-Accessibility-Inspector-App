@@ -8623,12 +8623,28 @@ html:has(.drawer-open.drawer-open) {
   height: 24px;
 }
 
+.h-\[36px\] {
+  height: 36px;
+}
+
 .h-\[400px\] {
   height: 400px;
 }
 
 .h-\[7\%\] {
   height: 7%;
+}
+
+.h-\[calc\(100vh-22em\)\] {
+  height: calc(100vh - 22em);
+}
+
+.h-\[calc\(100vh-8em\)\] {
+  height: calc(100vh - 8em);
+}
+
+.h-auto {
+  height: auto;
 }
 
 .h-full {
@@ -8681,6 +8697,10 @@ html:has(.drawer-open.drawer-open) {
 
 .w-\[1\%\] {
   width: 1%;
+}
+
+.w-\[12\%\] {
+  width: 12%;
 }
 
 .w-\[20\%\] {
@@ -8871,6 +8891,10 @@ html:has(.drawer-open.drawer-open) {
 
 .whitespace-nowrap {
   white-space: nowrap;
+}
+
+.break-words {
+  overflow-wrap: break-word;
 }
 
 .rounded {
@@ -9188,6 +9212,10 @@ html:has(.drawer-open.drawer-open) {
 .py-2 {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+}
+
+.pl-4 {
+  padding-left: 1rem;
 }
 
 .pl-\[10px\] {
@@ -9639,6 +9667,11 @@ div[role="treeitem"] {
 
 body {
   overflow: hidden;
+}
+
+.break-words {
+  word-break: break-word;
+  word-wrap: break-word;
 }
 
 .tree-view .indicator:not(.search-term) .badge {
@@ -10186,6 +10219,15 @@ body {
     padding-left: 0.688rem;
     padding-right: 0.688rem;
   }
+}
+
+.hover\:stroke-error-content:hover {
+  stroke: var(--fallback-erc,oklch(var(--erc)/1));
+}
+
+.hover\:\!text-error-content:hover {
+  --tw-text-opacity: 1 !important;
+  color: var(--fallback-erc,oklch(var(--erc)/var(--tw-text-opacity))) !important;
 }
 
 .focus\:outline-offset-0:focus {

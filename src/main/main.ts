@@ -131,6 +131,7 @@ async function adbStartAccService(device: IDevice): Promise<boolean> {
 async function adbIsAppInstalled(device: IDevice): Promise<boolean> {
   if (adb) {
     const packages = await adb.listPackages(device.id);
+    // TODO: check for the app version
     return packages.includes('com.jwlilly.accessibilityinspector');
   }
   return true;

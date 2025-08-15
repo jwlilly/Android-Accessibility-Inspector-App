@@ -105,6 +105,12 @@ const ViewDetails = function ViewDetails({ selectedView, viewHierarchy }: any) {
         </thead>
         <tbody>
           <tr>
+            <td>resource id</td>
+            <td className="font-mono break-words">
+              {transformData(view.metadata.resourceId)}
+            </td>
+          </tr>
+          <tr>
             <td>role</td>
             <td className="font-mono">{transformData(view.metadata.role)}</td>
           </tr>

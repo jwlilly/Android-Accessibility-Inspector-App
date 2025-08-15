@@ -47,6 +47,11 @@ body {
   overflow: hidden;
 }
 
+.break-words {
+  word-break: break-word;
+  word-wrap: break-word;
+}
+
 .tree-view .indicator:not(.search-term) .badge {
   display: none;
 }
