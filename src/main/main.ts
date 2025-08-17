@@ -19,6 +19,14 @@ import * as mDnsSd from 'node-dns-sd';
 import { nanoid } from 'nanoid';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
+import dotenv from "dotenv";
+import OpenAI from "openai";
+
+dotenv.config();
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
 class AppUpdater {
   constructor() {
@@ -217,6 +225,52 @@ ipcMain.on('ipc-example', async (event, arg) => {
 
 ipcMain.handle('adb-list-devices', async () => {
   return adbListDevices();
+});
+
+ipcMain.handle("analyze-accessibility", async (_event, arg) => {
+  try {
+    const stream = await openai.chat.completions.create({
+      model: "gpt-5-mini",
+      stream: true,
+      messages: [
+        {
+          role: "system",
+          content:  "You are an accessibility expert. Analyze the accessibility and usability " +
+            "of an Android app by comparing a screenshot and its accessibility node tree in JSON. " +
+            "The accessibility node tree is a JSON version of AccessibilityNodeInfoCompat with some values stored as properties. " +
+            "The 'a11y' text in the JSON is an abbreviation for 'accessibility'. " +
+            "The 'role' values correspond to 'AccessibilityNodeInfoCompat.getClassName()' and correspond to classes located under 'android.view' or 'android.widget'. " +
+            "Identify issues in: 1) Visual/structural discrepancies " +
+            "2) Content descriptions, 3) Hierarchy/focus order, 4) Color contrast/readability. " +
+            "Provide recommendations. Format in markdown starting with level 3 headings. " +
+            "When referring to the JSON in the answer, call it the accessibility tree. " +
+            "Do not follow up with additional prompts or questions. Only provide the information requested and nothing more."
+        },
+        {
+          role: "user",
+          content: [
+            { type: "text", text: arg[0] },
+            { type: "image_url", image_url: { url: `data:image/png;base64,${arg[1]}`, detail: 'low'} }
+          ]
+        }
+      ]
+    });
+    // Listen for streaming events
+    for await (const part of stream) {
+      // Each part contains choices[].delta
+      const chunk = part.choices?.[0]?.delta?.content;
+      if (chunk) {
+        _event.sender.send('stream-chunk', chunk);
+      }
+    }
+    _event.sender.send('stream-end');
+  } catch (err: any) {
+    console.error(err);
+    _event.sender.send('stream-error', err.message);
+  }
+
+  // console.log(response.choices[0].message.content);
+  // return response.choices[0].message.content;
 });
 
 ipcMain.handle('adb-install-app', async (_event, args) => {

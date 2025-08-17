@@ -11,6 +11,7 @@ pids
 coverage
 .eslintcache
 
+
 # Dependency directory
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
 node_modules
@@ -32,3 +33,9 @@ npm-debug.log.*
 assets/adb/*.dll
 assets/adb/AdbWinApi.dll
 assets/adb/app-debug.apk
+
+.env
+src/renderer/index.scss
+package-lock.json
+release/package-lock.json
+

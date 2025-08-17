@@ -12,6 +12,10 @@ const validChannels = [
   'wifi-connect-stop',
   'adb-start-service',
   'adb-install-app',
+  'analyze-accessibility',
+  'stream-chunk',
+  'stream-end',
+  'stream-error'
 ];
 
 const electronHandler = {

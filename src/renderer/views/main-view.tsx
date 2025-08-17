@@ -24,6 +24,9 @@ import MainIcon from '../images/icon';
 import RefreshTree from './refresh-tree';
 import 'react-toastify/dist/ReactToastify.css';
 import SearchView from './search-view';
+import adb from '../utils/adb';
+import OpenAiIcon from '../images/openai';
+import AiView from './ai-view';
 
 function MainView(): React.JSX.Element {
   const [selectedView, setSelectedView] = useState<number>(0);
@@ -256,6 +259,7 @@ function MainView(): React.JSX.Element {
               title="show target size issues"
             />
           </Button>
+          <AiView viewHierarchy={viewHierarchy} screencap={screencap} />
         </Navbar.Start>
         <Navbar.Center>
           <h1 className="text-xl">
