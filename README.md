@@ -1,6 +1,6 @@
 # Android Accessibility Inspector App
 
-[![Donate with PayPal](https://img.shields.io/badge/Donate-PayPal-00457C?logo=paypal&logoColor=white)](https://www.paypal.com/donate/?business=E8XEQ2BQ5T4QU&no_recurring=0&currency_code=USD)
+[![Donate with PayPal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/donate/?business=E8XEQ2BQ5T4QU&no_recurring=0&currency_code=USD)
 
 
 This is a front end for connecting to and displaying the accessibility node tree provided by the [Accessibility Inspector Service](https://github.com/jwlilly/Accessibility-Inspector-Service) installed on a physical device or Android virtual machine. 
