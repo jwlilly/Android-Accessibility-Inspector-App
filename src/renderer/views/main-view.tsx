@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useResizable } from 'react-resizable-layout';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   flattenTree,
   INode,
@@ -24,12 +24,23 @@ import MainIcon from '../images/icon';
 import RefreshTree from './refresh-tree';
 import 'react-toastify/dist/ReactToastify.css';
 import SearchView from './search-view';
+import adb from '../utils/adb';
+import type { CompanionStatus, CompanionVersion } from '../../main/main';
+
+const COMPANION_TOAST_ID = 'companion-version';
 
 function MainView(): React.JSX.Element {
   const [selectedView, setSelectedView] = useState<number>(0);
   const [overlappingViews, setOverlappingViews] = useState<any[]>([]);
   const [viewHierarchy, setViewHierarchy] = useState({ name: '' });
+  // Bumped for every new tree so the tree view remounts instead of carrying
+  // selection/expansion state for ids that no longer exist
+  const [treeVersion, setTreeVersion] = useState(0);
+  const [expectedCompanionVersion, setExpectedCompanionVersion] =
+    useState<CompanionVersion | null>(null);
   const [selectedDevice, setSelectedDevice] = useState<IDevice | null>(null);
+  // Bumped on every Connect so the websocket reconnects even for the same device
+  const [connectRequest, setConnectRequest] = useState(0);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [screencap, setScreencap] = useState<string | null>(null);
   const [deviceExpanded, setDeviceExpanded] = useState(false);
@@ -72,6 +83,58 @@ function MainView(): React.JSX.Element {
     max: 700,
   });
 
+  const viewIds = useMemo(
+    () => new Set(flattenTree(viewHierarchy).map((node) => node.id)),
+    [viewHierarchy],
+  );
+
+  useEffect(() => {
+    adb
+      .expectedCompanionVersion()
+      .then(setExpectedCompanionVersion)
+      .catch((error) => console.log(error));
+  }, []);
+
+  const warnCompanionOutdated = useCallback(
+    (installed: CompanionVersion | null) => {
+      const describe = (version: CompanionVersion | null) =>
+        version ? `${version.versionName} (${version.versionCode})` : 'unknown';
+      toast.warning(
+        <div className="flex flex-col">
+          <h2 className="text-md">companion app needs to be updated</h2>
+          <div className="text-sm">
+            Installed: {describe(installed)}, required:{' '}
+            {describe(expectedCompanionVersion)}. Open the device menu and
+            select Connect to update it.
+          </div>
+        </div>,
+        { toastId: COMPANION_TOAST_ID, autoClose: false, closeButton: true },
+      );
+    },
+    [expectedCompanionVersion],
+  );
+
+  const companionVersionReceived = useCallback(
+    (installed: CompanionVersion | null) => {
+      if (
+        installed === null ||
+        (expectedCompanionVersion &&
+          installed.versionCode !== expectedCompanionVersion.versionCode)
+      ) {
+        warnCompanionOutdated(installed);
+      } else {
+        toast.dismiss(COMPANION_TOAST_ID);
+      }
+    },
+    [expectedCompanionVersion, warnCompanionOutdated],
+  );
+
+  const companionStatusReceived = (status: CompanionStatus) => {
+    if (status.installed) {
+      companionVersionReceived(status.installedVersion);
+    }
+  };
+
   const viewSelected = (data: ITreeViewOnSelectProps) => {
     setSelectedView(parseInt(data.element.id.toString(), 10));
     if (data.element.metadata !== null && data.element.metadata !== undefined) {
@@ -89,6 +152,9 @@ function MainView(): React.JSX.Element {
   };
 
   const viewHovered = useCallback((element: INode) => {
+    if (!element.metadata) {
+      return;
+    }
     setHoveredCoord({
       x: element.metadata!.x1! as number,
       y: element.metadata!.y1! as number,
@@ -99,8 +165,9 @@ function MainView(): React.JSX.Element {
     });
   }, []);
 
-  const onHoveredViewSelected = (view: INode) => {
-    if (view) {
+  const onHoveredViewSelected = (view: INode | null) => {
+    // The screenshot can still hold a view from the previous tree
+    if (view && viewIds.has(view.id)) {
       setSelectedView(Number(view.id));
     }
   };
@@ -151,12 +218,29 @@ function MainView(): React.JSX.Element {
 
   const messageReceived = useCallback(
     (data: any) => {
-      if (!data.announcement) {
+      // Older companion apps don't send a type, only trees and announcements
+      const type = data.type ?? (data.announcement ? 'announcement' : 'tree');
+      if (type === 'version') {
+        companionVersionReceived({
+          versionCode: data.versionCode,
+          versionName: data.versionName,
+        });
+      } else if (type === 'error') {
+        toast.error(
+          <div className="flex flex-col">
+            <h2 className="text-md">companion app error</h2>
+            <div className="text-sm">{data.error}</div>
+          </div>,
+        );
+      } else if (type === 'tree') {
         setSelectedView(0);
+        setSelectedCoord({ x: 0, y: 0, width: 0, height: 0 });
+        setHoveredCoord({ x: 0, y: 0, width: 0, height: 0 });
         setViewHierarchy(data);
+        setTreeVersion((version) => version + 1);
         findOverlappingViews(data);
         setSearchTerm('');
-      } else if (data.announcement) {
+      } else if (type === 'announcement') {
         toast.info(
           <div className="flex flex-col">
             <h2 className="text-md">accessibility announcement </h2>
@@ -180,7 +264,7 @@ function MainView(): React.JSX.Element {
         setLogMessages((logMessages) => [...logMessages, message]);
       }
     },
-    [setLogMessages],
+    [setLogMessages, companionVersionReceived],
   );
 
   const handleBlur = useCallback((e: { currentTarget: any }) => {
@@ -197,6 +281,7 @@ function MainView(): React.JSX.Element {
 
   const deviceSelected = (device: IDevice) => {
     setSelectedDevice(device);
+    setConnectRequest((request) => request + 1);
     toast.info(
       <div className="flex flex-col">
         <h2 className="text-md">device connected</h2>
@@ -241,8 +326,10 @@ function MainView(): React.JSX.Element {
           <RefreshTree
             onMessageReceived={messageReceived}
             device={selectedDevice}
+            connectRequest={connectRequest}
             onScreencapReceived={screencapReceived}
             onDisconnected={onDisconnected}
+            onCompanionVersionMissing={() => companionVersionReceived(null)}
           />
           <Button
             className={`ml-2 ${showTargetSize ? 'btn-primary' : 'btn-accent'} btn-outline`}
@@ -320,7 +407,10 @@ function MainView(): React.JSX.Element {
               role="presentation"
               tabIndex={-1}
             >
-              <ConnectDevice onDeviceConnected={deviceSelected} />
+              <ConnectDevice
+                onDeviceConnected={deviceSelected}
+                onCompanionStatus={companionStatusReceived}
+              />
             </ul>
           </details>
 
@@ -359,6 +449,7 @@ function MainView(): React.JSX.Element {
             aria-label="View Heirarchy"
           >
             <BasicTreeView
+              key={treeVersion}
               tree={viewHierarchy}
               onViewSelected={viewSelected}
               onViewHovered={viewHovered}
@@ -387,11 +478,13 @@ function MainView(): React.JSX.Element {
         </div>
       </div>
       <div role="status">
+        {/* newestOnTop is left off on purpose: react-toastify 10 reverses its toast
+            list in place on every render, so with it on, any re-render (like hovering
+            the tree) reorders the toasts and restarts their dismiss timers */}
         <ToastContainer
           position="bottom-right"
           autoClose={5000}
           hideProgressBar
-          newestOnTop
           closeOnClick={false}
           closeButton={false}
           rtl={false}

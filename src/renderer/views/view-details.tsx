@@ -40,6 +40,25 @@ function transformData(data: any) {
   return data;
 }
 
+// Undefined means the device's API level doesn't report the property
+function transformBoolean(data: boolean | undefined) {
+  if (data === undefined) {
+    return '-';
+  }
+  return data ? 'true' : 'false';
+}
+
+function collectionItemCount(view: AndroidView) {
+  const {
+    collectionItemCount: count,
+    collectionImportantItemCount: important,
+  } = view.metadata;
+  if (count === undefined && important === undefined) {
+    return '-';
+  }
+  return `${count ?? '-'} items, ${important ?? '-'} important for accessibility`;
+}
+
 const ViewDetails = function ViewDetails({ selectedView, viewHierarchy }: any) {
   const view = findViewWithId(viewHierarchy, selectedView) as AndroidView;
   const [isWebView, setIsWebView] = useState(false);
@@ -131,8 +150,22 @@ const ViewDetails = function ViewDetails({ selectedView, viewHierarchy }: any) {
             </td>
           </tr>
           <tr>
+            <td>supplemental description</td>
+            <td className="font-mono">
+              {transformData(view.metadata.supplementalDescription)}
+            </td>
+          </tr>
+          <tr>
             <td>hint</td>
             <td className="font-mono">{transformData(view.metadata.hint)}</td>
+          </tr>
+          <tr>
+            <td>labeled by</td>
+            <td className="font-mono">
+              {transformData(
+                view.metadata.labeledByList ?? view.metadata.labeledBy,
+              )}
+            </td>
           </tr>
           <tr>
             <td>heading</td>
@@ -167,9 +200,29 @@ const ViewDetails = function ViewDetails({ selectedView, viewHierarchy }: any) {
             </td>
           </tr>
           <tr>
+            <td>container title</td>
+            <td className="font-mono">
+              {transformData(view.metadata.containerTitle)}
+            </td>
+          </tr>
+          <tr>
             <td>checked</td>
             <td className="font-mono">
-              {transformData(view.metadata.checkable)}
+              {transformData(
+                view.metadata.checkedState ?? view.metadata.checkable,
+              )}
+            </td>
+          </tr>
+          <tr>
+            <td>expanded state</td>
+            <td className="font-mono">
+              {transformData(view.metadata.expandedState)}
+            </td>
+          </tr>
+          <tr>
+            <td>required</td>
+            <td className="font-mono">
+              {transformBoolean(view.metadata.fieldRequired)}
             </td>
           </tr>
           <tr>
@@ -213,6 +266,10 @@ const ViewDetails = function ViewDetails({ selectedView, viewHierarchy }: any) {
             </td>
           </tr>
           <tr>
+            <td>collection item count</td>
+            <td className="font-mono">{collectionItemCount(view)}</td>
+          </tr>
+          <tr>
             <td>collection item info</td>
             <td className="font-mono">
               {transformData(view.metadata.collectionItemInfo)}
@@ -228,6 +285,44 @@ const ViewDetails = function ViewDetails({ selectedView, viewHierarchy }: any) {
             <td>important for accessibility</td>
             <td className="font-mono">
               {!view.metadata.importantForAccessibility ? 'false' : 'true'}
+            </td>
+          </tr>
+          <tr>
+            <td>text selectable</td>
+            <td className="font-mono">
+              {transformBoolean(view.metadata.textSelectable)}
+            </td>
+          </tr>
+          <tr>
+            <td>accessibility data sensitive</td>
+            <td className="font-mono">
+              {transformBoolean(view.metadata.accessibilityDataSensitive)}
+            </td>
+          </tr>
+          <tr>
+            <td>requests initial accessibility focus</td>
+            <td className="font-mono">
+              {transformBoolean(view.metadata.requestInitialAccessibilityFocus)}
+            </td>
+          </tr>
+          <tr>
+            <td>granular scrolling supported</td>
+            <td className="font-mono">
+              {transformBoolean(view.metadata.granularScrollingSupported)}
+            </td>
+          </tr>
+          <tr>
+            <td>min duration between content changes</td>
+            <td className="font-mono">
+              {view.metadata.minDurationBetweenContentChanges !== undefined
+                ? `${view.metadata.minDurationBetweenContentChanges} ms`
+                : '-'}
+            </td>
+          </tr>
+          <tr>
+            <td>unique id</td>
+            <td className="font-mono break-words">
+              {transformData(view.metadata.uniqueId)}
             </td>
           </tr>
           <tr>

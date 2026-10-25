@@ -12,3 +12,5 @@
 *.woff2 binary
 *.dll   binary
 *.apk   binary
+# adb binaries have no extension, keep git from treating them as text
+assets/adb/** binary

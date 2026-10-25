@@ -35,3 +35,10 @@ A full log of announcements can be found by selecting the "Logs" button. This wi
 * When searching for a piece of text, screen reader users can navigate by graphic or image to quickly move through the list of nodes that contain the search result. This is because a small badge is added to the nodes in the tree view to indicate that a node contains text in the search.
 * The app is divided into 4 sections: primary navigation, screenshot region, node tree region, and view details region. After selecting a node, navigating by landmark or region for screen reader users will quickly move you over to the view details pane
 * Animations have been added to a little bit of visual flair. For those that are sensitive to animations, they can be disabled by setting your operating system to reduce motion. More information can be found here: [prefers-reduced-motion - CSS: Cascading Style Sheets | MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion)
+
+## Building
+
+* `npm run bundle:service` builds the [Accessibility Inspector Service](https://github.com/jwlilly/Accessibility-Inspector-Service) (expected next to this repo, or set `SERVICE_REPO`) and copies the APK and its version into `assets/adb`. The inspector compares that version with the one installed on the device and prompts users to update the companion app when they differ.
+* `npm run package` builds the macOS and Windows installers. `npm run package:linux` builds a Linux x64 AppImage (Google only publishes adb for x86-64 Linux).
+* The adb binaries live in `assets/adb/darwin`, `assets/adb/linux` and `assets/adb/win32`. Each installer only includes its own platform's folder.
+* On Linux, USB devices need udev rules for adb to see them. See [Run apps on a hardware device](https://developer.android.com/studio/run/device#setting-up).

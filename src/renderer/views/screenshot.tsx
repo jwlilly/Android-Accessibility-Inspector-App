@@ -20,50 +20,50 @@ const Screenshot = function Screenshot({
   const [screencapHeight, setScreencapHeight] = useState(0);
   const [screencapWidth, setScreencapWidth] = useState(0);
   const [width, setWidth] = useState(0);
-  const [height, setHeight] = useState(0);
   const [flatTree, setFlatTree] = useState<INode<IFlatMetadata>[] | null>(null);
   const [hoveredView, setHoveredView] = useState<INode | null>(null);
 
-  // useRef allows us to "store" the div in a constant,
-  // and to access it via observedDiv.current
-  const observedDiv = useRef<HTMLDivElement>(null);
+  const svgRef = useRef<SVGSVGElement>(null);
+
+  // A view hovered in the previous tree must not be selectable in the new one
   useEffect(() => {
+    setHoveredView(null);
     setFlatTree(flattenTree(dataTree));
-    const img = document.createElement('img');
-    img.setAttribute('src', `data:image/png;base64,${screencap}`);
-    setTimeout(() => {
-      setScreencapHeight(img.height);
-      setScreencapWidth(img.width);
-    }, 0);
+  }, [dataTree]);
 
-    if (!observedDiv.current) {
-      // we do not initialize the observer unless the ref has
-      // been assigned
-      return;
+  // Wait for the image to decode before reading its size. Reading it right
+  // after setting src gives 0 for a new screenshot, which threw off hovering
+  // until a resize re-ran this.
+  useEffect(() => {
+    if (!screencap) {
+      return undefined;
     }
-
-    // we also instantiate the resizeObserver and we pass
-    // the event handler to the constructor
-    const resizeObserver = new ResizeObserver(() => {
-      if (observedDiv.current && observedDiv.current.offsetWidth !== width) {
-        setWidth(observedDiv.current.offsetWidth);
-        setHeight(observedDiv.current.offsetHeight);
+    let cancelled = false;
+    const img = new Image();
+    img.onload = () => {
+      if (!cancelled) {
+        setScreencapWidth(img.naturalWidth);
+        setScreencapHeight(img.naturalHeight);
       }
-    });
-
-    // the code in useEffect will be executed when the component
-    // has mounted, so we are certain observedDiv.current will contain
-    // the div we want to observe
-    resizeObserver.observe(observedDiv.current);
-
-    // if useEffect returns a function, it is called right before the
-    // component unmounts, so it is the right place to stop observing
-    // the div
-    // eslint-disable-next-line consistent-return
-    return function cleanup() {
-      resizeObserver.disconnect();
     };
-  }, [screencap, selectCoord, width, dataTree]);
+    img.src = `data:image/png;base64,${screencap}`;
+    return () => {
+      cancelled = true;
+    };
+  }, [screencap]);
+
+  // Track the rendered size of the screenshot for stroke widths and markers
+  useEffect(() => {
+    const svg = svgRef.current;
+    if (!svg) {
+      return undefined;
+    }
+    const resizeObserver = new ResizeObserver(() => {
+      setWidth(svg.getBoundingClientRect().width);
+    });
+    resizeObserver.observe(svg);
+    return () => resizeObserver.disconnect();
+  }, [screencap]);
 
   const getArea = (view: AndroidView) => {
     const viewHeight = view.metadata.y2! - view.metadata.y1!;
@@ -74,24 +74,25 @@ const Screenshot = function Screenshot({
   const hoverCallback = useCallback(
     (event: MouseEvent) => {
       if (event) {
-        const offset = event.currentTarget.getBoundingClientRect();
-        const mouseX = event.clientX - offset.left;
-        const mouseY = event.clientY - offset.top;
+        // Map the mouse into screenshot pixels with the svg's own transform,
+        // which accounts for scaling and letterboxing
+        const ctm = (event.currentTarget as SVGSVGElement).getScreenCTM();
+        if (!ctm) {
+          return;
+        }
+        const { x: mouseX, y: mouseY } = new DOMPoint(
+          event.clientX,
+          event.clientY,
+        ).matrixTransform(ctm.inverse());
         let foundView: any = null;
         const filteredArray = flatTree?.filter((item) => {
           const { metadata } = item as unknown as AndroidView;
           if (metadata) {
-            const scaleX = width / screencapWidth;
-            const scaleY = height / screencapHeight;
-            const scaledX1 = metadata.x1! * scaleX;
-            const scaledX2 = metadata.x2! * scaleX;
-            const scaledY1 = metadata.y1! * scaleY;
-            const scaledY2 = metadata.y2! * scaleY;
             return (
-              scaledX1 <= mouseX &&
-              mouseX <= scaledX2 &&
-              scaledY1 <= mouseY &&
-              mouseY <= scaledY2
+              metadata.x1! <= mouseX &&
+              mouseX <= metadata.x2! &&
+              metadata.y1! <= mouseY &&
+              mouseY <= metadata.y2!
             );
           }
           return false;
@@ -128,11 +129,13 @@ const Screenshot = function Screenshot({
         }
       }
     },
-    [flatTree, hoverCoord, screencapWidth, screencapHeight, width, height],
+    [flatTree, hoverCoord],
   );
 
   const svgClick = useCallback(() => {
-    onViewSelected(hoveredView);
+    if (hoveredView) {
+      onViewSelected(hoveredView);
+    }
   }, [hoveredView, onViewSelected]);
   return (
     <div className="m-auto mx-4">
@@ -140,12 +143,10 @@ const Screenshot = function Screenshot({
         <div className="h-[10%] w-[1%] bg-base-content absolute -end-[17px] top-[20%] rounded-s-lg" />
         <div className="h-[7%] w-[1%] bg-base-content  absolute -end-[17px] top-[35%] rounded-s-lg" />
         <div className="h-[7%] w-[1%] bg-base-content absolute -end-[17px] top-[44%] rounded-s-lg" />
-        <div
-          className="overflow-hidden rounded-xl contents bg-base-100"
-          ref={observedDiv}
-        >
+        <div className="overflow-hidden rounded-xl contents bg-base-100">
           {screencap ? (
             <svg
+              ref={svgRef}
               aria-hidden="true"
               viewBox={`0 0 ${screencapWidth - 2} ${screencapHeight - 2}`}
               width="100%"

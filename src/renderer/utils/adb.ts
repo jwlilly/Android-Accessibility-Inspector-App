@@ -1,4 +1,5 @@
 import { IDevice } from 'adb-ts/lib/util';
+import type { CompanionStatus, CompanionVersion } from '../../main/main';
 
 const adb = {
   listDevices: (): Promise<IDevice[] | null> => {
@@ -10,8 +11,11 @@ const adb = {
   screencap: (device: IDevice): Promise<string> => {
     return window.electron.ipcRenderer.invoke('adb-screencap', [device]);
   },
-  isAppInstalled: (device: IDevice): Promise<string> => {
-    return window.electron.ipcRenderer.invoke('adb-app-installed', [device]);
+  companionStatus: (device: IDevice): Promise<CompanionStatus> => {
+    return window.electron.ipcRenderer.invoke('adb-companion-status', [device]);
+  },
+  expectedCompanionVersion: (): Promise<CompanionVersion | null> => {
+    return window.electron.ipcRenderer.invoke('companion-expected-version');
   },
   wifiConnectStart: (): Promise<string> => {
     return window.electron.ipcRenderer.invoke('wifi-connect-start', []);

@@ -34,6 +34,21 @@ interface ViewMetadata {
   tooltip?: string;
   contentInvalid?: boolean;
   errorMessage?: string;
+  // Added in API 33+. Missing when the device's API level doesn't support them.
+  uniqueId?: string;
+  textSelectable?: boolean;
+  accessibilityDataSensitive?: boolean;
+  requestInitialAccessibilityFocus?: boolean;
+  containerTitle?: string;
+  minDurationBetweenContentChanges?: number;
+  granularScrollingSupported?: boolean;
+  collectionItemCount?: number;
+  collectionImportantItemCount?: number;
+  fieldRequired?: boolean;
+  checkedState?: 'checked' | 'not checked' | 'partial';
+  expandedState?: 'collapsed' | 'partial' | 'full' | 'undefined';
+  supplementalDescription?: string;
+  labeledByList?: string[];
 }
 export interface AndroidView {
   name: string;

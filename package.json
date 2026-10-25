@@ -12,7 +12,7 @@
     "hot",
     "reload"
   ],
-  "version": "2.0.6",
+  "version": "2.1.0",
   "homepage": "https://github.com/jwlilly/Android-Accessibility-Inspector-Ap/#readme",
   "bugs": {
     "url": "https://github.com/jwlilly/Android-Accessibility-Inspector-App/issues"
@@ -37,6 +37,8 @@
     "lint": "cross-env NODE_ENV=development eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "cross-env NODE_ENV=development eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "package": "ts-node ./.erb/scripts/clean.js dist && npm run build && electron-builder build -w -m --x64 --arm64 --publish never && npm run build:dll",
+    "package:linux": "ts-node ./.erb/scripts/clean.js dist && npm run build && electron-builder build --linux --x64 --publish never && npm run build:dll",
+    "bundle:service": "node ./.erb/scripts/bundle-service.js",
     "publish": "ts-node ./.erb/scripts/clean.js dist && npm run build && electron-builder build --publish=onTagOrDraft && npm run build:dll",
     "rebuild": "electron-rebuild --parallel --types prod,dev,optional --module-dir release/app",
     "prestart": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true webpack --config ./.erb/configs/webpack.config.main.dev.ts",
@@ -215,7 +217,13 @@
       "hardenedRuntime": true,
       "entitlements": "assets/entitlements.mac.plist",
       "entitlementsInherit": "assets/entitlements.mac.plist",
-      "gatekeeperAssess": false
+      "gatekeeperAssess": false,
+      "extraResources": [
+        {
+          "from": "assets/adb/darwin",
+          "to": "assets/adb/darwin"
+        }
+      ]
     },
     "dmg": {
       "contents": [
@@ -234,13 +242,26 @@
     "win": {
       "target": [
         "nsis"
+      ],
+      "extraResources": [
+        {
+          "from": "assets/adb/win32",
+          "to": "assets/adb/win32"
+        }
       ]
     },
     "linux": {
       "target": [
         "AppImage"
       ],
-      "category": "Development"
+      "category": "Development",
+      "icon": "assets/icons/png",
+      "extraResources": [
+        {
+          "from": "assets/adb/linux",
+          "to": "assets/adb/linux"
+        }
+      ]
     },
     "directories": {
       "app": "release/app",
@@ -248,7 +269,16 @@
       "output": "release/build"
     },
     "extraResources": [
-      "./assets/**"
+      {
+        "from": "assets",
+        "to": "assets",
+        "filter": [
+          "**/*",
+          "!adb/darwin/**",
+          "!adb/linux/**",
+          "!adb/win32/**"
+        ]
+      }
     ],
     "publish": {
       "provider": "github",
@@ -257,8 +287,16 @@
     }
   },
   "devEngines": {
-    "node": ">=20.x",
-    "npm": ">=10.x"
+    "runtime": {
+      "name": "node",
+      "version": ">=20.x",
+      "onFail": "warn"
+    },
+    "packageManager": {
+      "name": "npm",
+      "version": ">=10.x",
+      "onFail": "warn"
+    }
   },
   "electronmon": {
     "patterns": [

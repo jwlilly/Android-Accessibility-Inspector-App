@@ -8,6 +8,7 @@
  * When running `npm run build` or `npm run build:main`, this file is compiled to
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
+import fs from 'fs';
 import path from 'path';
 import { app, BrowserWindow, shell, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
@@ -37,7 +38,38 @@ const deviceNetworkForward = {
   remote: 'tcp:38301',
 };
 
-const ADB_BIN = process.platform === 'darwin' ? 'adb' : 'adb.exe';
+// adb binaries live in assets/adb/<platform>/ and only the current platform's folder is packaged
+const ADB_BIN = path.join(
+  process.platform,
+  process.platform === 'win32' ? 'adb.exe' : 'adb',
+);
+const COMPANION_PACKAGE = 'com.jwlilly.accessibilityinspector';
+const COMPANION_APK = 'app-debug.apk';
+// Written next to the APK by `npm run bundle:service`
+const COMPANION_VERSION_FILE = 'companion-version.json';
+
+export interface CompanionVersion {
+  versionCode: number;
+  versionName: string;
+}
+
+export interface CompanionStatus {
+  installed: boolean;
+  upToDate: boolean;
+  installedVersion: CompanionVersion | null;
+  expectedVersion: CompanionVersion | null;
+}
+
+function readExpectedCompanionVersion(): CompanionVersion | null {
+  try {
+    return JSON.parse(
+      fs.readFileSync(path.join(ADB_PATH, COMPANION_VERSION_FILE), 'utf8'),
+    );
+  } catch (error: any) {
+    log.error('could not read companion version', error);
+    return null;
+  }
+}
 
 async function adbListDevices(): Promise<IDevice[] | null> {
   if (adb) {
@@ -128,13 +160,41 @@ async function adbStartAccService(device: IDevice): Promise<boolean> {
   return false;
 }
 
-async function adbIsAppInstalled(device: IDevice): Promise<boolean> {
-  if (adb) {
-    const packages = await adb.listPackages(device.id);
-    // TODO: check for the app version
-    return packages.includes('com.jwlilly.accessibilityinspector');
+async function adbInstalledCompanionVersion(
+  device: IDevice,
+): Promise<CompanionVersion | null> {
+  if (!adb) {
+    return null;
   }
-  return true;
+  const output = await adb.execDevice(device.id, [
+    'shell',
+    'dumpsys',
+    'package',
+    COMPANION_PACKAGE,
+  ]);
+  const versionCode = output.match(/versionCode=(\d+)/);
+  if (!versionCode) {
+    return null;
+  }
+  const versionName = output.match(/versionName=(\S+)/);
+  return {
+    versionCode: parseInt(versionCode[1], 10),
+    versionName: versionName ? versionName[1] : '',
+  };
+}
+
+async function adbCompanionStatus(device: IDevice): Promise<CompanionStatus> {
+  const expectedVersion = readExpectedCompanionVersion();
+  const installedVersion = await adbInstalledCompanionVersion(device);
+  return {
+    installed: installedVersion !== null,
+    upToDate:
+      installedVersion !== null &&
+      (expectedVersion === null ||
+        installedVersion.versionCode === expectedVersion.versionCode),
+    installedVersion,
+    expectedVersion,
+  };
 }
 
 async function adbForward(device: IDevice): Promise<boolean> {
@@ -204,8 +264,18 @@ async function startDiscover() {
 
 async function adbInstallApp(device: IDevice) {
   if (adb) {
-    const apk = path.join(ADB_PATH, 'app-debug.apk');
-    await adb.install(device.id, apk);
+    const apk = path.join(ADB_PATH, COMPANION_APK);
+    try {
+      await adb.install(device.id, apk, {
+        reinstall: true,
+        allowDowngrade: true,
+      });
+    } catch (error: any) {
+      // An APK signed with a different key can't be installed over the old one
+      log.warn('companion install failed, reinstalling', error);
+      await adb.uninstall(device.id, COMPANION_PACKAGE);
+      await adb.install(device.id, apk);
+    }
   }
 }
 
@@ -231,8 +301,12 @@ ipcMain.handle('adb-forward', async (_event, args) => {
   return adbForward(args[0]);
 });
 
-ipcMain.handle('adb-app-installed', async (_event, args) => {
-  return adbIsAppInstalled(args[0]);
+ipcMain.handle('adb-companion-status', async (_event, args) => {
+  return adbCompanionStatus(args[0]);
+});
+
+ipcMain.handle('companion-expected-version', async () => {
+  return readExpectedCompanionVersion();
 });
 
 ipcMain.handle('adb-start-service', async (_event, args) => {
@@ -305,7 +379,7 @@ const createWindow = async () => {
     show: false,
     width: 1024,
     height: 728,
-    icon: getAssetPath(path.join('png', '128x128.png')),
+    icon: getAssetPath('icons', 'png', '128x128.png'),
     webPreferences: {
       preload: app.isPackaged
         ? path.join(__dirname, 'preload.js')

@@ -7,7 +7,7 @@ import TreeView, {
   NodeId,
 } from 'react-accessible-treeview';
 import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/16/solid';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   GlobeAltIcon,
   MagnifyingGlassIcon,
@@ -22,6 +22,8 @@ function ArrowIcon({ isOpen, ...props }: any) {
   return <ChevronRightIcon className={props.className} />;
 }
 
+// The parent gives this a new key for every tree, so state below always
+// belongs to the current tree.
 // eslint-disable-next-line react/prop-types
 const BasicTreeView = function BasicTreeView({
   tree,
@@ -32,9 +34,9 @@ const BasicTreeView = function BasicTreeView({
   showTargetSize,
   overlappingViews,
 }: any) {
-  const [key, setKey] = useState(0);
+  const flatTree = useMemo(() => flattenTree(tree), [tree]);
   const [expandedIds, setExpandedIds] = useState(
-    tree && tree.children ? [tree.children[0].id] : [],
+    tree?.children?.length ? [tree.children[0].id] : [],
   );
   const [searchResults, setSearchResults] = useState<INode<IFlatMetadata>[]>(
     [],
@@ -45,7 +47,7 @@ const BasicTreeView = function BasicTreeView({
       onViewSelected(selectedData);
       const expandIds: NodeId[] = [];
       let nodeParent = selectedData.element.parent;
-      const info = flattenTree(tree);
+      const info = flatTree;
       while (nodeParent !== 0) {
         expandIds.push(nodeParent!);
         // eslint-disable-next-line no-loop-func
@@ -109,7 +111,7 @@ const BasicTreeView = function BasicTreeView({
       ?.querySelector('[data-id]')
       ?.getAttribute('data-id');
     if (nodeId) {
-      const node = flattenTree(tree).find(
+      const node = flatTree.find(
         (element) => element.id === parseInt(nodeId, 10),
       );
       if (node) {
@@ -123,7 +125,6 @@ const BasicTreeView = function BasicTreeView({
       if (!term || (term && term.trim() === '')) {
         setSearchResults([]);
       } else {
-        const flatTree = flattenTree(tree);
         const results = flatTree.filter((item) => {
           if (item.metadata) {
             // eslint-disable-next-line no-unreachable-loop, no-restricted-syntax
@@ -140,7 +141,7 @@ const BasicTreeView = function BasicTreeView({
         const expandIds: NodeId[] = [];
         results.forEach((node) => {
           let nodeParent = node.parent;
-          const info = flattenTree(tree);
+          const info = flatTree;
           while (nodeParent !== 0) {
             expandIds.push(nodeParent!);
             // eslint-disable-next-line no-loop-func
@@ -154,34 +155,32 @@ const BasicTreeView = function BasicTreeView({
         setSearchResults(results);
       }
     },
-    [tree, setExpandedIds, expandedIds],
+    [flatTree, setExpandedIds, expandedIds],
   );
-
-  useEffect(() => {
-    setExpandedIds(tree && tree.children ? [tree.children[0].id] : []);
-    // eslint-disable-next-line react-hooks/exhaustive-deps, no-param-reassign
-    selectedView = null;
-    setKey(Math.random());
-  }, [tree]);
 
   useEffect(() => {
     searchTree(searchTerm);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchTerm]);
 
+  const selectedIds =
+    selectedView && flatTree.some((node) => node.id === selectedView)
+      ? [selectedView]
+      : [];
+
   return (
-    <div key={key}>
+    <div>
       <TreeView
-        data={flattenTree(tree)}
+        data={flatTree}
         className="mt-4 tree-view"
         aria-label="View hierarchy"
         clickAction="EXCLUSIVE_SELECT"
         onSelect={viewSelected}
         onExpand={viewExpanded}
         expandedIds={expandedIds}
-        defaultExpandedIds={tree && tree.children ? [tree.children[0].id] : []}
+        defaultExpandedIds={tree?.children?.length ? [tree.children[0].id] : []}
         onFocus={branchFocusCallback}
-        selectedIds={selectedView ? [selectedView] : []}
+        selectedIds={selectedIds}
         // eslint-disable-next-line react/no-unstable-nested-components
         nodeRenderer={({
           element,

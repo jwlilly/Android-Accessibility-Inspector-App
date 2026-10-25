@@ -5,18 +5,19 @@ import { IDevice } from 'adb-ts/lib/util';
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 import adb from '../utils/adb';
 import QrCodeView from './qr-code-view';
+import type { CompanionStatus } from '../../main/main';
 
-const ConnectDevice = function ConnectDevice({ onDeviceConnected }: any) {
+const ConnectDevice = function ConnectDevice({
+  onDeviceConnected,
+  onCompanionStatus,
+}: any) {
   const [devices, setDevices] = useState<IDevice[] | null>(null);
   const [deviceValue, setDeviceValue] = useState<number>(0);
-  const [appInstalled, setAppInstalled] = useState<number>(0);
+  const [companionStatus, setCompanionStatus] =
+    useState<CompanionStatus | null>(null);
+  const [installing, setInstalling] = useState(false);
   const [selectedDevice, setSelectedDevice] = useState<IDevice | null>(null);
   let runOnce = true;
-  const AppStatus = {
-    UNKNOWN: 0,
-    INSTALLED: 1,
-    NOT_INSTALLED: 2,
-  };
   if (!devices && runOnce) {
     adb
       .listDevices()
@@ -109,20 +110,20 @@ const ConnectDevice = function ConnectDevice({ onDeviceConnected }: any) {
       const device = devices![index];
       setSelectedDevice(device);
       adb
-        .isAppInstalled(device)
-        // do something if the app is not installed
-        .then((response) => {
-          setAppInstalled(
-            response ? AppStatus.INSTALLED : AppStatus.NOT_INSTALLED,
-          );
-          setTimeout(() => {
-            startService(device);
-          }, 1000);
+        .companionStatus(device)
+        .then((status) => {
+          setCompanionStatus(status);
+          onCompanionStatus(status);
+          if (status.installed) {
+            setTimeout(() => {
+              startService(device);
+            }, 1000);
+          }
           return true;
         })
         .catch((error) => {
           console.log(error);
-          setAppInstalled(AppStatus.UNKNOWN);
+          setCompanionStatus(null);
         });
       forwardPort(device);
     }
@@ -130,15 +131,20 @@ const ConnectDevice = function ConnectDevice({ onDeviceConnected }: any) {
 
   const installApp = () => {
     if (selectedDevice) {
+      setInstalling(true);
       adb
         .installApp(selectedDevice)
         .then(() => {
           selectDevice(deviceValue);
           return null;
         })
-        .catch(null);
+        .finally(() => setInstalling(false))
+        .catch((error) => console.log(error));
     }
   };
+
+  const versionLabel = (version: CompanionStatus['expectedVersion']) =>
+    version ? `${version.versionName} (${version.versionCode})` : 'unknown';
 
   const deviceOnChange = (
     event: React.ChangeEvent<HTMLSelectElement>,
@@ -213,20 +219,42 @@ const ConnectDevice = function ConnectDevice({ onDeviceConnected }: any) {
           </Button>
         </div>
       </div>
-      <div role="status" className="flex flex-row justify-center">
-        {appInstalled === AppStatus.NOT_INSTALLED ? (
+      <div role="status" className="flex flex-col items-center gap-2">
+        {companionStatus && !companionStatus.installed ? (
           <>
             <h2 className="sr-only">Companion app not installed</h2>
             <Button
               color="error"
               className="font-extrabold motion-safe:animate-pulse"
               onClick={installApp}
+              loading={installing}
+              disabled={installing}
             >
               Install companion app
             </Button>
           </>
         ) : null}
-        {appInstalled === AppStatus.INSTALLED ? (
+        {companionStatus &&
+        companionStatus.installed &&
+        !companionStatus.upToDate ? (
+          <>
+            <h2 className="text-sm text-center">
+              The companion app on this device needs to be updated. Installed:{' '}
+              {versionLabel(companionStatus.installedVersion)}, required:{' '}
+              {versionLabel(companionStatus.expectedVersion)}.
+            </h2>
+            <Button
+              color="error"
+              className="font-extrabold motion-safe:animate-pulse"
+              onClick={installApp}
+              loading={installing}
+              disabled={installing}
+            >
+              Update companion app
+            </Button>
+          </>
+        ) : null}
+        {companionStatus && companionStatus.upToDate ? (
           <div className="sr-only">
             Device selected and companion app is installed
           </div>
