@@ -5,6 +5,8 @@
 
 This is a front end for connecting to and displaying the accessibility node tree provided by the [Accessibility Inspector Service](https://github.com/jwlilly/Accessibility-Inspector-Service) installed on a physical device or Android virtual machine. 
 
+Have a question, an idea, or want to share how you use the inspector? Join the conversation in [Discussions](https://github.com/jwlilly/Android-Accessibility-Inspector-App/discussions). For bugs, please [open an issue](https://github.com/jwlilly/Android-Accessibility-Inspector-App/issues).
+
 ## Installing Companion App
 This project contains a signed app for the Accessibility Inspector Service that installs as an accessibility service. The app can be installed after connecting the device to the application, and a button will appear if it detects that the service app is not installed. After the service app is installed on the device, this app will attempt to start the accessibility service using ADB commands, forward the required 38301 port so that the service can be reached at ws://127.0.0.1:38301/, and trigger a capture of the accessibility node tree. After the first install, you may need to open the app manually on the device and allow notifications. The notifications are necessary due to the requirement of a background service running. 
 
